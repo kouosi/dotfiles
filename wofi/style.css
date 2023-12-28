@@ -1,0 +1,49 @@
+* {
+    border-radius: 0px;
+    margin: 0px;
+    outline: none;
+    padding: 0px;
+}
+
+#window {
+    background: #333333;
+    border: #33bbbb solid 2px;
+    font-family: Ubuntu Nerd Font;
+    font-size: 1rem;
+}
+
+#outer-box { 
+    padding: 8px;
+}
+
+#input {
+    background-color: #111111;
+    border: #33bbbb solid 2px;
+    color: white;
+    margin: 4px;
+    padding: 2px 8px;
+}
+
+#scroll {
+    margin: 4px;
+}
+
+#inner-box {
+    background: transparent;
+}
+
+#text {
+    padding: 4px;
+}
+
+#entry:selected {
+    background: #33aaaa;
+}
+
+#entry {
+    background-color: #4a4a4a;
+    border-radius: 2px;
+    margin: 2px 0px;
+    padding: 4px;
+}
+
