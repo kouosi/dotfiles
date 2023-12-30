@@ -9,6 +9,8 @@
 export PATH=$PATH:$HOME/.local/bin:$HOME/.local/bin/CC-i686/bin
 # Default Editor
 export EDITOR=nvim
+# Default Browser
+export BROWSER=firefox
 # XDG base dirs
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
