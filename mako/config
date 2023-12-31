@@ -1,0 +1,36 @@
+# General
+max-history=10
+
+# Bindings
+on-button-left=dismiss
+on-button-middle=dismiss
+on-button-right=dismiss
+on-touch=dismiss
+
+# Styles
+font="monospace 9"
+background-color=#222222ee
+text-color=#eeeeee
+width=350
+height=120
+padding=8
+progress-color=#00ffff
+max-icon-size=48
+history=1
+default-timeout=10000
+ignore-timeout=1
+max-visible=6
+
+# Borders
+border-size=2
+border-radius=0
+
+[urgency=low]
+border-color=#22ffff
+
+[urgency=normal]
+border-color=#0040c0
+
+[urgency=critical]
+border-color=#e02020
+
