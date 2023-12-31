@@ -1,0 +1,203 @@
+#!/bin/bash
+# #########################################################
+# MAPPINGS ################################################
+# #########################################################
+# MICE
+riverctl map normal Mod4 BRACKETLEFT spawn "river-shifttags --shifts -1"
+riverctl map normal Mod4 BRACKETRIGHT spawn "river-shifttags"
+riverctl map normal Super B spawn "firefox --private-window"
+riverctl map normal Super N spawn "riverctl focus-output next"
+riverctl map normal Super P spawn "wofi -Sdrun -L16"
+riverctl map normal Super S spawn "riverctl send-to-output next"
+riverctl map normal Super+Control W spawn "swaylock"
+riverctl map normal Super+Control+Shift Y spawn "loginctl hibernate"
+riverctl map normal Super+Shift B spawn "qutebrowser"
+riverctl map normal Super+Shift Y spawn "$XDG_CONFIG_HOME/river/random-wallpaper"
+riverctl map normal Super+Shift Return spawn "footclient"
+riverctl map normal Super+Shift Right spawn "river-shifttags"
+
+# FUNCTIONS
+riverctl map normal Super+Shift C close
+riverctl map normal Super+Shift Q exit
+# Focus next/previous view in the layout stack
+riverctl map normal Super J focus-view next
+riverctl map normal Super K focus-view previous
+# Swap the focused view with the next/previous view in the layout stack
+riverctl map normal Super+Shift J swap next
+riverctl map normal Super+Shift K swap previous
+# Focus the next/previous output
+riverctl map normal Super Period focus-output next
+riverctl map normal Super Comma focus-output previous
+# Send the focused view to the next/previous output
+riverctl map normal Super+Shift Period send-to-output next
+riverctl map normal Super+Shift Comma send-to-output previous
+# Bump the focused view to the top of the layout stack
+riverctl map normal Super Return zoom
+# Increase/Decrease the main ratio of rivertile
+riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+# Increment/Decrement the main count of rivertile
+riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
+# Move views
+riverctl map normal Super+Alt H move left 100
+riverctl map normal Super+Alt J move down 100
+riverctl map normal Super+Alt K move up 100
+riverctl map normal Super+Alt L move right 100
+# Snap views to screen edges
+riverctl map normal Super+Control+Alt H snap left
+riverctl map normal Super+Control+Alt J snap down
+riverctl map normal Super+Control+Alt K snap up
+riverctl map normal Super+Control+Alt L snap right
+# To resize views
+riverctl map normal Super+Alt+Shift H resize horizontal -100
+riverctl map normal Super+Alt+Shift J resize vertical 100
+riverctl map normal Super+Alt+Shift K resize vertical -100 
+riverctl map normal Super+Alt+Shift L resize horizontal 100
+# Toggle float
+riverctl map normal Super+Shift Space toggle-float
+# Toggle fullscreen
+riverctl map normal Super E toggle-fullscreen
+# Super+{Up,Right,Down,Left} to change layout orientation
+riverctl map normal Super Up send-layout-cmd rivertile "main-location top"
+riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
+riverctl map normal Super Down send-layout-cmd rivertile "main-location bottom"
+riverctl map normal Super Left send-layout-cmd rivertile "main-location left"
+
+# MOUSE
+# Super + Left Mouse Button to move views
+riverctl map-pointer normal Super BTN_LEFT move-view
+# Super + Right Mouse Button to resize views
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+# Super + Middle Mouse Button to toggle float
+riverctl map-pointer normal Super BTN_MIDDLE toggle-float
+
+# #########################################################
+# TAGS CONFIGURATION ######################################
+# #########################################################
+for i in $(seq 1 9)
+do
+    tags=$((1 << ($i - 1)));
+
+    # Super+[1-9] to focus tag [0-8]
+    riverctl map normal Super $i set-focused-tags $tags
+
+    # Super+Shift+[1-9] to tag focused view with tag [0-8]
+    riverctl map normal Super+Shift $i set-view-tags $tags
+
+    # Super+Control+[1-9] to toggle focus of tag [0-8]
+    riverctl map normal Super+Shift $i toggle-focused-tags $tags
+
+    # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
+    riverctl map normal Super+Control+Shift $i toggle-view-tags $tags
+done
+# for work ans scratchpad
+tags=$((1 << 9));
+riverctl map normal Super D set-focused-tags $tags
+riverctl map normal Super+Shift D set-view-tags $tags
+riverctl map normal Super+Shift D toggle-focused-tags $tags
+tags=$((1 << 10));
+riverctl map normal Super A set-focused-tags $tags
+riverctl map normal Super+Shift A set-view-tags $tags
+riverctl map normal Super+Shift A toggle-focused-tags $tags
+# Super+0 to focus all tags & Super+Shift+0 to tag focused view with all tags
+all_tags=$(((1 << 12) - 1))
+riverctl map normal Super 0 set-focused-tags $all_tags
+riverctl map normal Super+Shift 0 set-view-tags $all_tags
+
+# Media Keys
+for mode in normal locked
+do
+    # Eject the optical drive (well if you still have one that is)
+    riverctl map $mode None XF86Eject spawn "eject -T"
+
+    # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
+    riverctl map $mode None XF86AudioRaiseVolume spawn "pamixer -i 5"
+    riverctl map $mode None XF86AudioLowerVolume spawn "pamixer -d 5"
+    riverctl map $mode None XF86AudioMute spawn "pamixer --toggle-mute"
+
+    # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
+    riverctl map $mode None XF86AudioMedia spawn "playerctl play-pause"
+    riverctl map $mode None XF86AudioPlay spawn "playerctl play-pause"
+    riverctl map $mode None XF86AudioPrev spawn "playerctl previous"
+    riverctl map $mode None XF86AudioNext spawn "playerctl next"
+
+     # Control screen backlight brightness with light (https://github.com/haikarainen/light)
+    riverctl map $mode None XF86MonBrightnessUp spawn "brightnessctl set +5%"
+    riverctl map $mode None XF86MonBrightnessDown spawn "brightnessctl set 5%-"
+done
+
+# #########################################################
+# GENERAL CONFIGURATION ###################################
+# #########################################################
+
+# Where new windows starts
+riverctl attach-mode top
+
+# background color 
+# riverctl background-color 0x08a7bf
+
+# focused border color
+riverctl border-color-focused 0x33bbbb
+
+# unfocused border color
+riverctl border-color-unfocused 0xaaaaaa
+
+# urgent border color
+riverctl border-color-urgent 0xff5555
+
+# border width
+riverctl border-width 1
+
+# focus follow cursor
+riverctl focus-follows-cursor always
+
+# hide corsor when timeout
+riverctl hide-cursor timeout 30000 # in milisecond
+
+
+# #########################################################
+# INPUT CONFIGURATION #####################################
+# #########################################################
+
+# Set keyboard repeat rate
+riverctl set-repeat 50 300
+
+# Set keyboard layout to UK
+riverctl keyboard-layout gb
+
+# Enable natural scroll
+riverctl input pointer-1267-91-Elan_Touchpad natural-scroll enabled
+
+# Enable tap to click
+riverctl input pointer-1267-91-Elan_Touchpad tap enabled
+
+# Set the default layout generator to be rivertile and start it.
+# River will send the process group of the init executable SIGTERM on exit.
+riverctl default-layout rivertile
+rivertile -view-padding 0 -outer-padding 0 &
+riverctl spawn "yambar" &
+riverctl spawn "swaybg -m fill -i $XDG_CONFIG_HOME/ASSETS/wallpaper.jpg" &
+riverctl spawn "mako" &
+riverctl spawn "killall pipewire ; pipewire" &
+riverctl spawn "wlsunset -t 4500" &
+riverctl spawn "foot -s" &
+riverctl spawn "swayidle -w timeout 600 'notify-send \"Trying to lock\"' timout 660 'swaylock'" &
+# Battery (dirty way)
+while true
+do
+    batlevel=$(cat /sys/class/power_supply/BAT0/capacity)
+    batstatus=$(cat /sys/class/power_supply/BAT0/status)
+
+    if [[ $batstatus == "Discharging" ]]; then
+        if [[ $batlevel -lt 10 ]]; then
+            notify-send -u critical "Battry Low" "Battery Low Hibernating in 10 sec"
+            sleep 10
+            loginctl hibernate
+        elif [[ $batlevel -lt 25 ]]; then
+            notify-send -u critical "Battry Low" "Battery Low: $batlevel% Please Charge"
+        fi
+    fi
+    sleep 8
+done
+
