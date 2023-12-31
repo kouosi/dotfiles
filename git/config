@@ -1,0 +1,14 @@
+[user]
+	email = yamineko@tuta.io
+	name = kouosi
+[alias]
+    tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
+[core]
+	editor = nvim
+[init]
+    defaultBranch = main
+[merge]
+	conflictStyle = diff3
+[magit]
+	hideCampaign = true
+
