@@ -20,7 +20,7 @@ vim.keymap.set("n", "<leader>sh", ":split<CR>", options)
 vim.keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>", options)
 
 -- Esc key is pain in ash
-vim.keymap.set("i", "jk", "<Esc>")
+vim.keymap.set("i", "jj", "<Esc>")
 
 -- Disable Arrow keys
 vim.api.nvim_set_keymap('n', '<Up>', '<Nop>', options)
