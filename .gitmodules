@@ -1,0 +1,3 @@
+[submodule "ASSETS"]
+	path = ASSETS
+	url = git@github.com:kouosi/ASSETS.git
