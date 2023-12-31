@@ -13,6 +13,7 @@ riverctl map normal Super+Control W spawn "swaylock"
 riverctl map normal Super+Control+Shift Y spawn "loginctl hibernate"
 riverctl map normal Super+Shift B spawn "qutebrowser"
 riverctl map normal Super+Shift Y spawn "$XDG_CONFIG_HOME/river/random-wallpaper"
+riverctl map normal Super+Shift S spawn "$XDG_CONFIG_HOME/river/screenshoot"
 riverctl map normal Super+Shift Return spawn "footclient"
 riverctl map normal Super+Shift Right spawn "river-shifttags"
 
