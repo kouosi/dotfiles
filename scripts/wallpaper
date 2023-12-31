@@ -1,0 +1,35 @@
+#!/bin/sh
+
+DIR="$HOME/.config/wallpapers"              # Wallpaper Directory
+sFILE="$DIR/default.jpg"                    # Static wallpaper
+rFILE="$(find $DIR -type f | shuf -n1)"     # Random wallpaper
+
+# To set random wallpaper
+set_random () {
+    # If swaybg is running kill it
+    if [[ $(pidof swaybg)  ]]; then
+        killall swaybg                      # Killall process
+        notify-send "killed"
+    fi
+    # Setting wallpaper
+    swaybg -mfill -o* -i "$rFILE"
+}
+# To set static wallpaper
+set_initial () {
+    # Setting wallpaper
+    swaybg -mfill -o* -i "$sFILE"
+    notify-send "apply"
+}
+# filter arguments
+case $1 in
+    "-i")
+        set_initial
+        ;;
+    *)
+        set_random
+        ;;
+esac
+
+# Exit code
+exit 0
+

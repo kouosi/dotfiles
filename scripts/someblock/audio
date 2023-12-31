@@ -1,0 +1,10 @@
+#!/bin/sh
+volume=$(pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | cut -f 2 -d '/' | cut -d '%' -f 1 | xargs)
+if [[ $volume -gt 60 ]]; then
+    printf "%s %s%s"   $volume %
+elif [[ $volume -eq 0 ]]; then
+    printf 
+else
+    printf "%s %s%s"  $volume %
+fi
+

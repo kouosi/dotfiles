@@ -1,0 +1,3 @@
+#!/bin/sh
+printf "%s %s"  $(pacman -Q | wc -l)
+
