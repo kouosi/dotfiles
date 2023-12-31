@@ -1,0 +1,19 @@
+# Nvim
+nvim/plugin/
+nvim/lazy-lock.json
+# QuteBrowser
+qutebrowser/bookmarks/
+qutebrowser/quickmarks
+tmux/plugins
+# Others
+QtProject/
+autostart/
+cava/shaders/
+ncmpcpp/error.log
+dconf/
+gtk-3.0/bookmarks
+htop/
+mimeapps.list
+mpd/playlists
+pulse/
+
