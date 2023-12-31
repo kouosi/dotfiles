@@ -87,7 +87,7 @@ do
     riverctl map normal Super+Shift $i set-view-tags $tags
 
     # Super+Control+[1-9] to toggle focus of tag [0-8]
-    riverctl map normal Super+Shift $i toggle-focused-tags $tags
+    riverctl map normal Super+Control $i toggle-focused-tags $tags
 
     # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
     riverctl map normal Super+Control+Shift $i toggle-view-tags $tags
@@ -96,11 +96,11 @@ done
 tags=$((1 << 9));
 riverctl map normal Super D set-focused-tags $tags
 riverctl map normal Super+Shift D set-view-tags $tags
-riverctl map normal Super+Shift D toggle-focused-tags $tags
+riverctl map normal Super+Control D toggle-focused-tags $tags
 tags=$((1 << 10));
 riverctl map normal Super A set-focused-tags $tags
 riverctl map normal Super+Shift A set-view-tags $tags
-riverctl map normal Super+Shift A toggle-focused-tags $tags
+riverctl map normal Super+Control A toggle-focused-tags $tags
 # Super+0 to focus all tags & Super+Shift+0 to tag focused view with all tags
 all_tags=$(((1 << 12) - 1))
 riverctl map normal Super 0 set-focused-tags $all_tags
