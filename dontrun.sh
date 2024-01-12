@@ -19,12 +19,12 @@ touch $XDG_CONFIG_HOME/docker
 touch $XDG_DATA_HOME/wget-hsts
 mkdir -p $XDG_CONFIG_HOME/gdb
 touch $XDG_CONFIG_HOME/gdb/init
-mkdir ~/Pictures/Mpv/
+mkdir -p ~/Pictures/Mpv/
 touch $XDG_CONFIG_HOME/ncmpcpp/error.log
 touch $XDG_CONFIG_HOME/mpd/playlists
 
 # link bash files
 ln ~/.config/bash/bashrc ~/.bashrc
 ln ~/.config/bash/bashrc ~/.bash_profile
-ln ~/.config/vim ~/.vim
+ln -s ~/.config/vim ~/.vim
 
