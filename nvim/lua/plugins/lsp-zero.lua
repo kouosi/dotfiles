@@ -36,8 +36,27 @@ local config = function()
             {name = 'buffer'},
             {name = 'path'},
             {name = 'nvim_lua'},
+            {name = 'calc'},
         },
-        formatting = lsp_zero.cmp_format(),
+        formatting = {
+            fields = {'menu', 'abbr', 'kind'},
+
+            format = function(entry, item)
+                local menu_icon = {
+                    nvim_lsp = 'λ',
+                    luasnip = '⋗',
+                    buffer = 'Ω',
+                    path = '🖫',
+                    nvim_lua = 'Π',
+                }
+                item.menu = menu_icon[entry.source.name]
+                return item
+            end,
+        },
+        window = {
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered(),
+        },
         mapping = cmp.mapping.preset.insert({
             ['<C-m>'] = cmp.mapping.select_prev_item(cmp_select),
             ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
@@ -55,9 +74,13 @@ local M = {
         {'L3MON4D3/LuaSnip'},
         {'hrsh7th/cmp-nvim-lsp'},
         {'hrsh7th/nvim-cmp'},
+        {'hrsh7th/cmp-path'},
+        {'hrsh7th/cmp-buffer'},
+        {'hrsh7th/cmp-calc'},
         {'neovim/nvim-lspconfig'},
         {'williamboman/mason-lspconfig.nvim'},
-        {'williamboman/mason.nvim'}
+        {'williamboman/mason.nvim'},
+        {'rafamadriz/friendly-snippets'},
     },
     lazy = false
 }
