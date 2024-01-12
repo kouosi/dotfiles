@@ -6,7 +6,8 @@
 
 ###############################################################################
 # For local binary
-export PATH=$PATH:$HOME/.local/bin:$HOME/.local/bin/CC-i686/bin
+export PATH=$PATH:$HOME/.local/bin:$HOME/.local/bin/CC-i686/bin:$HOME/.local/bin/CC-x86_64/bin
+
 # Default Editor
 export EDITOR=nvim
 # Default Browser
