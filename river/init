@@ -10,7 +10,7 @@ riverctl map normal Super N spawn "riverctl focus-output next"
 riverctl map normal Super P spawn "wofi -Sdrun -L16"
 riverctl map normal Super S spawn "riverctl send-to-output next"
 riverctl map normal Super+Control W spawn "swaylock"
-riverctl map normal Super+Control+Shift Y spawn "loginctl hibernate"
+riverctl map normal Super+Control+Shift Y spawn "systemctl hibernate"
 riverctl map normal Super+Shift B spawn "qutebrowser"
 riverctl map normal Super+Shift Y spawn "$XDG_CONFIG_HOME/river/random-wallpaper"
 riverctl map normal Super+Shift S spawn "$XDG_CONFIG_HOME/river/screenshoot"
@@ -53,7 +53,7 @@ riverctl map normal Super+Control+Alt L snap right
 # To resize views
 riverctl map normal Super+Alt+Shift H resize horizontal -100
 riverctl map normal Super+Alt+Shift J resize vertical 100
-riverctl map normal Super+Alt+Shift K resize vertical -100 
+riverctl map normal Super+Alt+Shift K resize vertical -100
 riverctl map normal Super+Alt+Shift L resize horizontal 100
 # Toggle float
 riverctl map normal Super+Shift Space toggle-float
@@ -113,9 +113,9 @@ do
     riverctl map $mode None XF86Eject spawn "eject -T"
 
     # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-    riverctl map $mode None XF86AudioRaiseVolume spawn "pamixer -i 5"
-    riverctl map $mode None XF86AudioLowerVolume spawn "pamixer -d 5"
-    riverctl map $mode None XF86AudioMute spawn "pamixer --toggle-mute"
+    riverctl map $mode None XF86AudioRaiseVolume spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+    riverctl map $mode None XF86AudioLowerVolume spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+    riverctl map $mode None XF86AudioMute spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 
     # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
     riverctl map $mode None XF86AudioMedia spawn "playerctl play-pause"
@@ -135,7 +135,7 @@ done
 # Where new windows starts
 riverctl attach-mode top
 
-# background color 
+# background color
 # riverctl background-color 0x08a7bf
 
 # focused border color
@@ -184,6 +184,7 @@ riverctl spawn "mako" &
 riverctl spawn "wlsunset -t 4500" &
 riverctl spawn "foot -s" &
 riverctl spawn "swayidle -w timeout 600 'notify-send \"Trying to lock\"' timout 660 'swaylock'" &
+riverctl rule-add -app-id firefox ssd
 # Battery (dirty way)
 while true
 do
