@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         local file_type = vim.bo.filetype
 
         -- List of file types that should trigger LSP format
-        local lsp_format_types = {'c', 'cpp', 'python', 'zig'}
+        local lsp_format_types = {"html", 'c', 'cpp', 'python', 'zig'}
 
         if vim.fn.index(lsp_format_types, file_type) ~= -1 then
             vim.lsp.buf.format()
