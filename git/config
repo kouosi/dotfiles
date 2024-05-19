@@ -1,10 +1,12 @@
 [user]
-	email = yamineko@tuta.io
+	email = kouosi@tuta.io
 	name = kouosi
+	signingkey = 489020A2EE7D8B66
 [alias]
     tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
 [core]
 	editor = nvim
+	compression = 0
 [init]
     defaultBranch = main
 [merge]
@@ -14,3 +16,7 @@
 
 [http]
 	postBuffer = 157286400
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
