@@ -7,10 +7,11 @@ riverctl map normal Mod4 BRACKETLEFT spawn "river-shifttags --shifts -1"
 riverctl map normal Mod4 BRACKETRIGHT spawn "river-shifttags"
 riverctl map normal Super B spawn "firefox --private-window"
 riverctl map normal Super N spawn "riverctl focus-output next"
-riverctl map normal Super P spawn "wofi -Sdrun -L16"
+riverctl map normal Super O spawn "wofi -Sdrun -L16"
 riverctl map normal Super S spawn "riverctl send-to-output next"
 riverctl map normal Super+Control W spawn "swaylock"
-riverctl map normal Super+Control+Shift Y spawn "systemctl hibernate"
+# riverctl map normal Super+Control+Shift Y spawn "systemctl hibernate"
+riverctl map normal Super+Shift W spawn "systemctl suspend"
 riverctl map normal Super+Shift B spawn "qutebrowser"
 riverctl map normal Super+Shift Y spawn "$XDG_CONFIG_HOME/river/random-wallpaper"
 riverctl map normal Super+Shift S spawn "$XDG_CONFIG_HOME/river/screenshoot"
@@ -19,7 +20,7 @@ riverctl map normal Super+Shift Right spawn "river-shifttags"
 
 # FUNCTIONS
 riverctl map normal Super+Shift C close
-riverctl map normal Super+Shift Q exit
+riverctl map normal Super+Control+Alt Q exit
 # Focus next/previous view in the layout stack
 riverctl map normal Super J focus-view next
 riverctl map normal Super K focus-view previous
@@ -186,6 +187,7 @@ riverctl spawn "foot -s" &
 riverctl spawn "swayidle -w timeout 600 'notify-send \"Trying to lock\"' timout 660 'swaylock'" &
 riverctl rule-add -app-id firefox ssd
 # Battery (dirty way)
+notif_status=0
 while true
 do
     batlevel=$(cat /sys/class/power_supply/BAT0/capacity)
@@ -193,11 +195,13 @@ do
 
     if [[ $batstatus == "Discharging" ]]; then
         if [[ $batlevel -lt 10 ]]; then
-            notify-send -u critical "Battry Low" "Battery Low Hibernating in 10 sec"
+            notify-send -i 5000 -u critical "Battry Low" "Battery Low Hibernating in 10 sec"
             sleep 10
             loginctl hibernate
         elif [[ $batlevel -lt 25 ]]; then
-            notify-send -u critical "Battry Low" "Battery Low: $batlevel% Please Charge"
+            notif_status=$(notify-send -i 5000 -p -r $notif_status -u critical "Battry Low" "Battery Low: $batlevel% Please Charge")
+        else
+            notif_status=0
         fi
     fi
     sleep 8
