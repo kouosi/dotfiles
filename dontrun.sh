@@ -25,6 +25,6 @@ touch $XDG_CONFIG_HOME/mpd/playlists
 
 # link bash files
 ln ~/.config/bash/bashrc ~/.bashrc
-ln ~/.config/bash/bashrc ~/.bash_profile
+ln ~/.config/bash/bash_profile ~/.bash_profile
 ln -s ~/.config/vim ~/.vim
 

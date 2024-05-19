@@ -6,10 +6,11 @@
 
 ###############################################################################
 # For local binary
-export PATH=$PATH:$HOME/.local/bin:$HOME/.local/bin/CC-i686/bin:$HOME/.local/bin/CC-x86_64/bin
+export PATH=$PATH:$HOME/.local/bin:$HOME/.local/bin/bin
 
 # Default Editor
 export EDITOR=nvim
+export GPG_TTY=$(tty)
 # Default Browser
 export BROWSER=firefox
 # XDG base dirs
@@ -17,6 +18,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 # Bash History control
 export HISTCONTROL=ignorespace:ignoredups:erasedups
 export HISTFILE="$XDG_STATE_HOME"/bash/history
@@ -31,12 +33,16 @@ export LESSHISTFILE=-
 export MOZ_ENABLE_WAYLAND=1
 # Docker config file
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
 # Java wayland hack
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 # Remap keys
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps,ctrl:swapcaps
-
+# Use bash-completion, if available
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+    . /usr/share/bash-completion/bash_completion
 ###############################################################################
 # start alias for wm
 alias startdwl='dwl -s somebar'
@@ -46,6 +52,7 @@ alias startkde='XDG_SESSION_TYPE=wayland dbus-run-session startplasma-wayland'
 alias ..='cd ..;pwd'
 alias ...='cd ../..;pwd'
 alias ....='cd ../../..;pwd'
+alias cf='cd $(fzf --walker=dir --height=30% --layout=reverse --walker-root="$HOME" --border-label="Search dirs" --border=rounded)'
 # ls alias
 alias ls='ls --color=auto'
 alias l='ls -A'
@@ -63,10 +70,10 @@ alias _='sudo'
 alias v='nvim'
 alias ytmpv='mpv --ytdl-format="bestvideo[height<=1080][vcodec!=vp9]+bestaudio/best" --cache=yes'
 # hacks
-alias imv="imv-wayland"
+alias imv="imv-x11"
 alias servehugo='hugo server -D --disableFastRender --noHTTPCache'
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
-alias gdb='gdb -n -x "$XDG_CONFIG_HOME/gdb/init"'
+# alias gdb='gdb -n -x "$XDG_CONFIG_HOME/gdb/init"'
 alias man="LESS_TERMCAP_mb=$'\033[01;32m'     LESS_TERMCAP_md=$'\033[01;34m' \
            LESS_TERMCAP_me=$'\033[0m'         LESS_TERMCAP_se=$'\033[0m' \
            LESS_TERMCAP_so=$'\033[01;38m'     LESS_TERMCAP_ue=$'\033[0m' \
@@ -78,4 +85,3 @@ get_git_branch() {
 # TODO: may be add support for monocromatic terminal?
 PS1='\[\033[01;31m\][\[\033[01;34m\]\u\[\033[01;33m\]@\[\033[01;35m\]\h\[\033[01;31m\]]-[\[\033[01;32m\]\w\[\033[01;31m\]]$(get_git_branch) \$\[\033[00m\] '
 # PS1='\[\033[01;32m\]\w\[\033[01;31m\] \$ \[\033[00m\]'
-
