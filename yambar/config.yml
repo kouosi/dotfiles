@@ -108,26 +108,26 @@ bar:
                           - string: { text: " {percent}% ", font: *hack }
                           - string: { text: " {percent}% ", font: *hack }
     - network:
-        name: wlp2s0
         poll-interval: 1000
         content:
           map:
-            default:
-              { string: { text: , font: *awesome, foreground: ffffff66 } }
+            default: {empty: {}}
             conditions:
-              state == down:
-                { string: { text: , font: *awesome, foreground: ff0000ff } }
-              state == up:
+              name == wlp2s0:
                 map:
-                  default:
-                    - string: { text: , font: *awesome }
-                    - string: { text: " {ssid} " }
-
+                  default: {string: {text: , font: *awesome, foreground: ffffff66}}
                   conditions:
-                    ipv4 == "":
-                      - string:
-                          { text: , font: *awesome, foreground: ffffff66 }
-                      - string: { text: " {ssid} ", foreground: ffffff66 }
+                    state == down: {string: {text: , font: *awesome, foreground: ff0000ff}}
+                    state == up:
+                      map:
+                        default:
+                          - string: {text: , font: *awesome}
+                          - string: {text: "{ssid}"}
+
+                        conditions:
+                          ipv4 == "":
+                            - string: {text: , font: *awesome, foreground: ffffff66}
+                            - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s", foreground: ffffff66}
     - backlight:
         name: intel_backlight
         content:
