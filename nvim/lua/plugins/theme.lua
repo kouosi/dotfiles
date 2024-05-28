@@ -1,24 +1,27 @@
 -- local config = function()
---     local theme = require("onedark")
+--     local theme = require("kanagawa")
 --     theme.setup{
---         style = "darker"
+--         transparent = true,
+--         dimInactive = true,
+--         terminalColors = true,
 --     }
---     theme.load()
+--     theme.load("wave")
 -- end
 
 local config = function()
-    local theme = require("kanagawa")
-    theme.setup{
-        transparent = true,
-        dimInactive = true,
-        terminalColors = true,
+    local theme = require("gruvbox")
+    theme.setup {
+        terminal_colors = true,
+        contrast = "soft",
+        dim_inactive = true,
+        transparent_mode = true,
     }
-    theme.load("wave")
+    vim.cmd("colorscheme gruvbox")
 end
 
 local M = {
-    -- "navarasu/onedark.nvim",
-    "rebelot/kanagawa.nvim",
+    -- "rebelot/kanagawa.nvim",
+    "ellisonleao/gruvbox.nvim",
     config = config,
     lazy   = false
 }
