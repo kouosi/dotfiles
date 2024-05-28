@@ -182,7 +182,7 @@ riverctl spawn "yambar" &
 riverctl spawn "swaybg -m fill -i $XDG_CONFIG_HOME/ASSETS/wallpaper.jpg" &
 riverctl spawn "mako" &
 # riverctl spawn "killall pipewire ; pipewire" &
-riverctl spawn "wlsunset -t 4500" &
+riverctl spawn "wlsunset -t 4500 -T 5000" &
 riverctl spawn "foot -s" &
 riverctl spawn "swayidle -w timeout 600 'notify-send \"Trying to lock\"' timout 660 'swaylock'" &
 riverctl rule-add -app-id firefox ssd
