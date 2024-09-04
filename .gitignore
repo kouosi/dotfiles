@@ -1,19 +1,35 @@
-# Nvim
+# Neovim
 nvim/plugin/
 nvim/lazy-lock.json
-# QuteBrowser
+
+# Browsers
 qutebrowser/bookmarks/
 qutebrowser/quickmarks
-tmux/plugins
-# Others
+chromium/
+sqlitebrowser/
+netsurf/
+
+# GUIs
 QtProject/
+inkscape/
+libreoffice/
+keepassxc/
+GIMP/
+teams-for-linux/
+
+# TUIs
+irssi/
+neofetch/
+procps/
+htop/
+
+# Others
 autostart/
 cava/shaders/
+tmux/plugins
 ncmpcpp/error.log
 dconf/
 gtk-3.0/bookmarks
-htop/
+pulse/
 mimeapps.list
 mpd/playlists
-pulse/
-
