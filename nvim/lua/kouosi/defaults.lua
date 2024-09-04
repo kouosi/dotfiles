@@ -21,7 +21,7 @@ vim.opt.ruler       = false
 
 -- Looks & Behavior
 vim.opt.autochdir   = false
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "80,120"
 vim.opt.cursorline  = true
 vim.opt.encoding    = "utf-8"
 vim.opt.mouse       = ""
@@ -31,7 +31,7 @@ vim.opt.splitbelow  = true
 vim.opt.splitright  = true
 vim.opt.termguicolors = true
 vim.opt.timeoutlen  = 400
-vim.opt.wrap        = false
+-- vim.opt.wrap        = true
 vim.opt.isfname:append("@-@", "{", "}")
 vim.opt.iskeyword:append("-")
 
