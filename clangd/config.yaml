@@ -1,3 +1,14 @@
 CompileFlags:
-  Add: [-Wall, -Wextra, -Wpedantic, -Wformat=2, -Wnested-externs, -Wshadow, -Wno-unused-parameter, -Wwrite-strings, -Wstrict-prototypes, -Wold-style-definition, -Wredundant-decls,  -Wmissing-include-dirs]
-
+  Add:
+    - '-Wall'
+    - '-Wextra'
+    - '-Wpedantic'
+    - '-Wformat=2'
+    - '-Wnested-externs'
+    - '-Wshadow'
+    - '-Wno-unused-parameter'
+    - '-Wwrite-strings'
+    - '-Wstrict-prototypes'
+    - '-Wold-style-definition'
+    - '-Wredundant-decls'
+    - '-Wmissing-include-dirs'
