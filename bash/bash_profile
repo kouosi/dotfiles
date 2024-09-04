@@ -1,4 +1,4 @@
 . .bashrc
 if [ "$(tty)" == "/dev/tty1" ]; then
-    river
+    start-river
 fi
