@@ -5,4 +5,3 @@ local M = {
 }
 
 return { M }
-

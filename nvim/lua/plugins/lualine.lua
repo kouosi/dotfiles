@@ -1,4 +1,4 @@
-local config  = function() 
+local config  = function()
     local lualine = require("lualine")
     local theme   = require("lualine.themes.onedark")
 	-- set bg transparency in all modes
@@ -31,4 +31,3 @@ local M = {
 }
 
 return { M }
-

@@ -27,4 +27,3 @@ vim.api.nvim_set_keymap('n', '<Up>', '<Nop>', options)
 vim.api.nvim_set_keymap('n', '<Down>', '<Nop>', options)
 vim.api.nvim_set_keymap('n', '<Left>', '<Nop>', options)
 vim.api.nvim_set_keymap('n', '<Right>', '<Nop>', options)
-

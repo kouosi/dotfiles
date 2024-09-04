@@ -1,4 +1,4 @@
-local config = function() 
+local config = function()
     local mason = require("mason")
     mason.setup({
         ui = {
@@ -19,4 +19,3 @@ local M = {
 }
 
 return { M }
-

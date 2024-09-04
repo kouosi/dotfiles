@@ -8,9 +8,8 @@ end
 
 local M = {
     "nvim-treesitter/nvim-treesitter-context",
-    config = config, 
+    config = config,
     lazy   = false
 }
 
 return { M }
-

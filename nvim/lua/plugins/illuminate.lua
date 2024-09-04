@@ -1,4 +1,4 @@
-local config = function() 
+local config = function()
     local illuminate = require("illuminate")
     illuminate.configure({
         case_insensitive_regex = true,
@@ -15,4 +15,3 @@ local M = {
 }
 
 return { M }
-

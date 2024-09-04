@@ -7,7 +7,7 @@ local config = function()
         filters = { dotfiles = false }
     })
 end
-    
+
 local M = {
     "nvim-tree/nvim-tree.lua",
     config       = config,
@@ -16,4 +16,3 @@ local M = {
 }
 
 return { M }
-

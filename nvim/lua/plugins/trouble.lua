@@ -18,4 +18,3 @@ local M = {
 }
 
 return { M }
-

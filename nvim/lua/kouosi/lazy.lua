@@ -9,7 +9,7 @@ if not vim.loop.fs_stat(lazy_path) then
 end
 vim.opt.rtp:prepend(lazy_path)
 
--- Lazy.nvim config options 
+-- Lazy.nvim config options
 local lazy_options = {
     defaults = {
         lazy = false
@@ -32,4 +32,3 @@ local lazy_options = {
 }
 
 require("lazy").setup("plugins", options)
-
