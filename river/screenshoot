@@ -1,13 +1,13 @@
 #!/bin/sh
 
-DIR="$(xdg-user-dir PICTURES)/Screenshoot"
+DIR="$(xdg-user-dir PICTURES)/Screenshot"
 FILE=$(date +'%Y%e%d-%s.png')
 
 mkdir -p "$DIR"
 grim -g "$(slurp)" -l 3 - | tee "$DIR/$FILE" | wl-copy
 
 if [ -f "$DIR/$FILE" ]; then
-    notify-send -i "$DIR/$FILE" -u normal "Screenshoot Saved" "$FILE"
+    notify-send -i "$DIR/$FILE" -u normal "Screenshot Saved" "$FILE"
 else
-    notify-send -u normal "Screenshoot Failed" "Unable to save screenshoot"
+    notify-send -u normal "Screenshot Failed" "Unable to save screenshot"
 fi

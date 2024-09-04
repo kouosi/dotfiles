@@ -9,6 +9,7 @@ riverctl map normal Super B spawn "firefox --private-window"
 riverctl map normal Super N spawn "riverctl focus-output next"
 riverctl map normal Super O spawn "wofi -Sdrun -L16"
 riverctl map normal Super S spawn "riverctl send-to-output next"
+riverctl map normal Super+Shift Equal spawn "$XDG_CONFIG_HOME/river/zoom"
 riverctl map normal Super+Control W spawn "swaylock"
 # riverctl map normal Super+Control+Shift Y spawn "systemctl hibernate"
 riverctl map normal Super+Shift W spawn "systemctl suspend"
@@ -154,8 +155,8 @@ riverctl border-width 1
 # focus follow cursor
 riverctl focus-follows-cursor always
 
-# hide corsor when timeout
-riverctl hide-cursor timeout 30000 # in milisecond
+# hide cursor when timeout
+riverctl hide-cursor timeout 30000 # in millisecond
 
 
 # #########################################################
@@ -170,6 +171,7 @@ riverctl keyboard-layout gb
 
 # Enable natural scroll
 riverctl input pointer-1267-91-Elan_Touchpad natural-scroll enabled
+riverctl input pointer-1267-91-Elan_Touchpad disable-while-typing disabled
 
 # Enable tap to click
 riverctl input pointer-1267-91-Elan_Touchpad tap enabled
@@ -184,8 +186,10 @@ riverctl spawn "mako" &
 # riverctl spawn "killall pipewire ; pipewire" &
 riverctl spawn "wlsunset -t 4500 -T 5000" &
 riverctl spawn "foot -s" &
-riverctl spawn "swayidle -w timeout 600 'notify-send \"Trying to lock\"' timout 660 'swaylock'" &
+riverctl spawn "swayidle -w timeout 600 'notify-send \"Trying to lock\"' timeout 660 'swaylock'" &
 riverctl rule-add -app-id firefox ssd
+riverctl rule-add ssd
+
 # Battery (dirty way)
 notif_status=0
 while true
