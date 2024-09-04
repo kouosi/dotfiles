@@ -7,25 +7,21 @@
 
 #window {
     background: #333333;
-    border: #33bbbb solid 2px;
-    font-family: Ubuntu Nerd Font;
+    border: #33aaaa solid 2px;
+    font-family: JetBrainsMonoNerdFont;
     font-size: 1rem;
 }
 
-#outer-box { 
+#outer-box {
     padding: 8px;
 }
 
 #input {
     background-color: #111111;
-    border: #33bbbb solid 2px;
+    border: #33aaaa solid 2px;
     color: white;
-    margin: 4px;
+    margin-bottom: 4px;
     padding: 2px 8px;
-}
-
-#scroll {
-    margin: 4px;
 }
 
 #inner-box {
@@ -38,6 +34,7 @@
 
 #entry:selected {
     background: #33aaaa;
+    color: white;
 }
 
 #entry {
@@ -45,5 +42,10 @@
     border-radius: 2px;
     margin: 2px 0px;
     padding: 4px;
+    color: #bbbbbb;
 }
 
+expander list {
+    background-color: #333333;
+    padding: 4px;
+}
