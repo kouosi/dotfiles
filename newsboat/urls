@@ -1,3 +1,11 @@
+--- Blogs ---
+https://eli.thegreenplace.net/feeds/all.atom.xml
+https://www.phoronix.com/rss.php
+
+--- Git Repos ---
+https://github.com/ziglang/zig/releases.atom
+https://codeberg.org/kouosi.rss
+
 --- Youtube ---
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2avWDLN1EI3r1RZ_dlSxCw
 https://www.youtube.com/feeds/videos.xml?channel_id=UC4QZ_LsYcvcq7qOsOhpAX4A
@@ -10,5 +18,3 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCJ0-OtVpF0wOKEqT2Z1HEtA
 https://www.youtube.com/feeds/videos.xml?channel_id=UCONH73CdRXUjlh3-DdLGCPw
 https://www.youtube.com/feeds/videos.xml?channel_id=UCQG40havu4kNpB4pxUDQhYQ
 https://www.youtube.com/feeds/videos.xml?channel_id=UCrqM0Ym_NbK1fqeQG2VIohg
-https://github.com/ziglang/zig/releases.atom
-https://codeberg.org/kouosi.rss
