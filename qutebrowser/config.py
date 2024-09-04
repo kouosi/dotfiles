@@ -1,22 +1,60 @@
 config.load_autoconfig(False) # DO not load autoconfig.yml
 # aliases
-c.aliases = {'w': 'session-save', 'q': 'close', 'qa': 'quit', 'wq': 'quit --save', 'wqa': 'quit --save', 'gl': 'open -t http://127.0.0.1:4000'}
+c.aliases = {
+    'w': 'session-save',
+    'q': 'close',
+    'qa': 'quit',
+    'wq': 'quit --save',
+    'wqa': 'quit --save',
+    'gl': 'open -t http://127.0.0.1:4000'
+}
 
 # General
 c.auto_save.interval = 150
 c.auto_save.session = True
-c.session.default_name = "inogen"
+c.session.default_name = "session"
 c.backend = 'webengine' # webengine (chromium), webkit
-c.bindings.key_mappings = {'<Ctrl-[>': '<Escape>', '<Ctrl-6>': '<Ctrl-^>', '<Ctrl-M>': '<Return>', '<Ctrl-J>': '<Return>', '<Ctrl-I>': '<Tab>', '<Shift-Return>': '<Return>', '<Enter>': '<Return>', '<Shift-Enter>': '<Return>', '<Ctrl-Enter>': '<Ctrl-Return>'}
 c.colors.webpage.preferred_color_scheme = 'dark' # dark, light, auto
 c.completion.height = '40%'
+c.bindings.key_mappings = {
+    '<Ctrl-[>': '<Escape>',
+    '<Ctrl-6>': '<Ctrl-^>',
+    '<Ctrl-M>': '<Return>',
+    '<Ctrl-J>': '<Return>',
+    '<Ctrl-I>': '<Tab>',
+    '<Shift-Return>': '<Return>',
+    '<Enter>': '<Return>',
+    '<Shift-Enter>': '<Return>',
+    '<Ctrl-Enter>': '<Ctrl-Return>'
+}
 
 # Ads blocking
-c.content.blocking.adblock.lists = ["https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances-cookies.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances-others.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badlists.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-2020.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-2021.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-2022.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-2023.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-mobile.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/legacy.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/quick-fixes.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/resource-abuse.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/ubol-filters.txt", "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/unbreak.txt", "https://easylist.to/easylist/easylist.txt", "https://easylist.to/easylist/easyprivacy.txt"]
 c.content.blocking.enabled = True
 c.content.blocking.hosts.block_subdomains = True
-c.content.blocking.hosts.lists = ['https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts']
 c.content.blocking.method = 'both' # auto, hosts, adblock, both
+c.content.blocking.hosts.lists = [
+    'https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts'
+]
+c.content.blocking.adblock.lists = [
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances-cookies.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances-others.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badlists.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-2020.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-2021.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-2022.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-2023.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-mobile.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/legacy.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/quick-fixes.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/resource-abuse.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/ubol-filters.txt",
+    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/unbreak.txt",
+    "https://easylist.to/easylist/easylist.txt", "https://easylist.to/easylist/easyprivacy.txt"
+]
 
 # Permission
 c.content.autoplay = False
