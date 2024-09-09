@@ -2,6 +2,7 @@ CompileFlags:
   Add:
     - '-Wall'
     - '-Wextra'
+    - '-Weverything'
     - '-Wpedantic'
     - '-Wformat=2'
     - '-Wnested-externs'
@@ -12,3 +13,4 @@ CompileFlags:
     - '-Wold-style-definition'
     - '-Wredundant-decls'
     - '-Wmissing-include-dirs'
+    # - '-xc'
