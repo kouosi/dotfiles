@@ -3,33 +3,35 @@ nvim/plugin/
 nvim/lazy-lock.json
 
 # Browsers
+chromium/
+netsurf/
 qutebrowser/bookmarks/
 qutebrowser/quickmarks
-chromium/
 sqlitebrowser/
-netsurf/
 
 # GUIs
+GIMP/
 QtProject/
 inkscape/
-libreoffice/
 keepassxc/
-GIMP/
+libreoffice/
 teams-for-linux/
+transmission/
 
 # TUIs
+htop/
 irssi/
 neofetch/
 procps/
-htop/
 
 # Others
 autostart/
 cava/shaders/
-tmux/plugins
-ncmpcpp/error.log
 dconf/
 gtk-3.0/bookmarks
-pulse/
+kde.org
 mimeapps.list
 mpd/playlists
+ncmpcpp/error.log
+pulse/
+tmux/plugins
