@@ -1,0 +1,4 @@
+style: "auto"   # style name or JSON path (default "auto")
+mouse: true    # mouse wheel support (TUI-mode only)
+pager: true     # use pager to display markdown
+width: 80       # word-wrap at width
