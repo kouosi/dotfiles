@@ -80,7 +80,7 @@ riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 # #########################################################
 for i in $(seq 1 9)
 do
-    tags=$((1 << ($i - 1)));
+    tags=$((1 << ($i - 1)))
 
     # Super+[1-9] to focus tag [0-8]
     riverctl map normal Super $i set-focused-tags $tags
@@ -210,4 +210,3 @@ do
     fi
     sleep 8
 done
-
