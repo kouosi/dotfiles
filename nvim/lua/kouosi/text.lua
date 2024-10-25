@@ -23,3 +23,17 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 
 vim.opt.spelllang = 'en_gb'
 vim.opt.spell = true
+
+-- Local Lsp config
+local lsp = require('lspconfig')
+lsp.clangd.setup({
+    cmd = {'clangd', '--background-index', '--pch-storage=memory'},
+    filetypes = {'c'},
+    languages = {'c'}
+})
+
+lsp.zls.setup({
+    cmd = {'zls'},
+    filetypes = {'zig'},
+    languages = {'zig'}
+})
