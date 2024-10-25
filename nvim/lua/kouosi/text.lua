@@ -23,6 +23,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 
 vim.opt.spelllang = 'en_gb'
 vim.opt.spell = true
+vim.cmd("map <Plug> <Plug>Markdown_FollowLink")
 
 -- Local Lsp config
 local lsp = require('lspconfig')
