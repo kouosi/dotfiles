@@ -17,7 +17,7 @@ local config = function()
 
     require('mason').setup({})
     require('mason-lspconfig').setup({
-        ensure_installed = {'clangd', 'marksman'},
+        ensure_installed = {'marksman'},
         handlers = {
             lsp_zero.default_setup,
             lua_ls = function()
