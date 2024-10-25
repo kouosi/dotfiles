@@ -21,7 +21,7 @@ vim.opt.ruler       = false
 
 -- Looks & Behavior
 vim.opt.autochdir   = false
-vim.opt.colorcolumn = "80,120"
+vim.opt.colorcolumn = "80,100,120"
 vim.opt.cursorline  = true
 vim.opt.encoding    = "utf-8"
 vim.opt.mouse       = ""
