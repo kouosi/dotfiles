@@ -23,4 +23,3 @@ vim.opt.undodir = os.getenv("XDG_STATE_HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.updatetime = 50
 vim.opt.wrap = false
-
