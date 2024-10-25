@@ -1,0 +1,200 @@
+#########################################################
+### Variables
+#########################################################
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term footclient
+set $menu wofi -Sdrun -L16
+
+#########################################################
+### Seat Management
+#########################################################
+seat seat0 xcursor_theme Adwaita
+
+#########################################################
+### Autostart
+#########################################################
+exec_always autotiling -w 1 3 5 7 9
+exec_always wlsunset -t 4500 -T 5000
+exec mako
+exec foot -s
+exec pipewire
+exec wireplumber
+exec brightnessctl set  20%
+
+#########################################################
+### Output configuration
+#########################################################
+# output HDMI-A-1 resolution 1920x1080 position 1920,0
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# output * bg $XDG_CONFIG_HOME/ASSETS/wallpapers/185.png fill
+
+#########################################################
+### Idle configuration
+#########################################################
+exec swayidle -w \
+     timeout 300 'swaylock -f -c 000000' \
+     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+     before-sleep 'swaylock -f -c 000000'
+
+#########################################################
+### Input configuration
+#########################################################
+# Touchpad
+input "1267:91:Elan_Touchpad" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
+
+input "type:touchpad" {
+    natural_scroll enabled
+    tap enabled
+}
+
+# Keyboard
+input "1:1:AT_Translated_Set_2_keyboard" {
+    repeat_delay 400
+    repeat_rate 50
+    xkb_layout gb
+}
+
+#########################################################
+### General Key bindings
+#########################################################
+# Applications
+bindsym $mod+o exec $menu
+bindsym $mod+Shift+Return exec $term
+bindsym $mod+Shift+b exec "firefox --private-window"
+# Basic controls
+bindsym $mod+Shift+equal exec "$XDG_CONFIG_HOME/river/zoom"
+bindsym $mod+Shift+y exec "$XDG_CONFIG_HOME/river/random-wallpaper"
+bindsym $mod+Shift+s exec "$XDG_CONFIG_HOME/river/screenshoot"
+bindsym $mod+Shift+w exec "loginctl suspend"
+bindsym $mod+Shift+c kill
+floating_modifier $mod normal
+bindsym $mod+Shift+r reload
+bindsym $mod+Ctrl+Q exec swaynag -t warning -m 'Do you really want to exit sway?' -B 'Yes, exit sway' 'swaymsg exit'
+# Media controls
+bindsym XF86AudioRaiseVolume exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+bindsym XF86AudioLowerVolume exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+bindsym XF86AudioMute exec "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+bindsym XF86AudioMicMute exec "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+bindsym XF86AudioPlay exec "playerctl play-pause"
+bindsym XF86AudioNext exec "playerctl next"
+bindsym XF86AudioPrev exec "playerctl previous"
+bindsym XF86MonBrightnessUp exec "brightnessctl set +5%"
+bindsym XF86MonBrightnessDown exec "brightnessctl set 5%-"
+
+#########################################################
+# Moving around:
+#########################################################
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+#########################################################
+### Workspaces Management
+#########################################################
+# Switch to workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+# Cycle workspace
+bindsym $mod+Ctrl+h workspace prev
+bindsym $mod+Ctrl+l workspace next
+
+#########################################################
+### Layout
+#########################################################
+# horizontal and vertical splits
+bindsym $mod+b splith
+bindsym $mod+v splitv
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+# Move focus to the parent container
+bindsym $mod+a focus parent
+# Scratchpad:
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+#########################################################
+### Resizing window
+#########################################################
+# Resize mode
+mode "resize" {
+    bindsym $left resize shrink width 1-0px
+    bindsym $down resize grow height 100px
+    bindsym $up resize shrink height 100px
+    bindsym $right resize grow width 100px
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Resize directly
+# bindsym $mod+Alt+Shift+h resize shrink width 100
+# bindsym $mod+Alt+Shift+j resize grow height 100
+# bindsym $mod+Alt+Shift+k resize shrink height 100
+# bindsym $mod+Alt+Shift+l resize grow width 100
+
+# Others
+client.focused #008888 #008888 #ffffff
+font pango:JetBrainsMono Nerd Font 11
+titlebar_padding 4 2
+
+#########################################################
+### Status Bar:
+#########################################################
+bar {
+    position bottom
+    status_command sway-status
+    colors {
+        statusline #ffffff
+        background #222222
+        focused_workspace #008888 #008888 #ffffff
+        inactive_workspace #555555 #555555 #bbbbbb
+        urgent_workspace #ff2200 #ff2200 #ffffff
+    }
+}
