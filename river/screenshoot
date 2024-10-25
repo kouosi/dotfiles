@@ -1,13 +1,18 @@
 #!/bin/sh
 
 DIR="$(xdg-user-dir PICTURES)/Screenshot"
-FILE=$(date +'%Y%e%d-%s.png')
+FULL_FILE=$(date +'%Y%e%d-%s.png')
+SHORT_FILE=$(date +'%s.png')
 
 mkdir -p "$DIR"
-grim -g "$(slurp)" -l 3 - | tee "$DIR/$FILE" | wl-copy
+GEOMETRY=$(slurp) || exit 1
 
-if [ -f "$DIR/$FILE" ]; then
-    notify-send -i "$DIR/$FILE" -u normal "Screenshot Saved" "$FILE"
+NAME="$(wofi --dmenu -p "Enter name for screenshot" -l 0)_$SHORT_FILE" || NAME="$FULL_FILE"
+grim -g "$GEOMETRY" -l 3 - | tee "$DIR/$NAME" | wl-copy
+
+if [ -s "$DIR/$NAME" ]; then
+    notify-send -i "$DIR/$NAME" -u normal "Screenshot Saved" "$NAME"
 else
     notify-send -u normal "Screenshot Failed" "Unable to save screenshot"
+    exit 1
 fi
