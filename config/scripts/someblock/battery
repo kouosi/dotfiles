@@ -1,0 +1,32 @@
+#!/bin/bash
+
+batlevel=$(cat /sys/class/power_supply/BAT0/capacity)
+batstatus=$(cat /sys/class/power_supply/BAT0/status)
+
+case $batstatus in
+    "Discharging")
+        if [[ $batlevel -gt 80 ]]; then
+            printf " "
+        elif [[ $batlevel -gt 60 ]]; then
+            printf " "
+        elif [[ $batlevel -gt 40 ]]; then
+            printf " "
+        elif [[ $batlevel -gt 20 ]]; then
+            printf " "
+        elif [[ $batlevel -ge 10 ]]; then
+            printf " "
+        else
+            notify-send  -u critical "Battry Low" "Your battery is in critical condition please charge"
+            printf " "
+        fi
+        printf "%s%s" $batlevel %
+    ;;
+    "Charging")
+        if [[ $batlevel -lt 100 ]]; then
+            printf "%s%s%s" " " "$batlevel" %
+        else
+            printf " "
+        fi
+    ;;
+esac
+

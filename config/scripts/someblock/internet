@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null; then
+    printf "%s %s"   $(awk -O '/^\s*w/ {print int($3 * 100 / 70) "%"}' /proc/net/wireless)
+elif grep -xq 'up' /sys/class/net/e*/operstate 2>/dev/null; then
+    printf "%s "  
+elif grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null; then
+	grep -xq '0x1003' /sys/class/net/w*/flags && printf "📡 " || printf " "
+fi
+

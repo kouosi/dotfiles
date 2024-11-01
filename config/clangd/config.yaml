@@ -1,0 +1,13 @@
+CompileFlags:
+  Add:
+    - '-Weverything'
+    - '-Wformat=2'
+    - '-Wimplicit-fallthrough=5'
+    - '-Wstrict-aliasing=3'
+    - '-Wstrict-overflow=5'
+    - '-Wno-unused-parameter'
+    - '-Wno-declaration-after-statement'
+    - '-Wno-unsafe-buffer-usage'
+    - '-std=gnu11'
+    - '-Werror'
+    - '-xc'

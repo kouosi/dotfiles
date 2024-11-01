@@ -1,0 +1,29 @@
+#!/bin/sh
+
+DIR="$HOME/.cache/"
+pLIST="$HOME/.config/scripts/music-list"
+
+play () {
+    play_youtube $(cat $pLIST | bemenu -l10 -i -C | awk '{print $1}' | tr -d "\n")
+}
+
+play_random () {
+    play_youtube $(shuf -n1 $pLIST)
+}
+# play youtube song
+play_youtube () {
+    mpv --no-video $1
+}
+# filter arguments
+case $1 in
+    "-r") # random
+        play_random
+        ;;
+    *)
+        play       
+        ;;
+esac
+
+# Exit code
+exit 0
+

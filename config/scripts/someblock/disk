@@ -1,0 +1,5 @@
+#!/bin/sh
+
+printf " $(df -h / | awk '/[0-9]/ {print $3 "/" $2}') | "
+printf " $(df -h /home | awk '/[0-9]/ {print $3 "/" $2}')"
+
