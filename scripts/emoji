@@ -1,5 +1,0 @@
-#!/bin/sh
-cat $HOME/.config/scripts/emoji-list | bemenu -l10 -i -C | awk '{print $1}' | tr -d "\n" | wl-copy
-# If you want to automatically type
-# wtype $(wl-paste)
-

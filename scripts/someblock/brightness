@@ -1,4 +1,0 @@
-#!/bin/sh
-#
-printf " %s%s" $(($(brightnessctl g)*100/$(brightnessctl m))) %
-

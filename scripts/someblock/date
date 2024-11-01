@@ -1,5 +1,0 @@
-#!/bin/sh
-
-printf "%s %s"   $(date -d "-3 hours -15 minutes" +"%R (%a)")
-# printf "%s %s"   $(date -d "-3 hours -15 minutes" +%R-:%a:-%d/%m)
-

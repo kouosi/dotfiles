@@ -1,9 +1,0 @@
-show=drun
-lines=16
-allow_images=true
-image_size=16
-prompt=Search...
-matching=fuzzy
-insensitive=true
-term=foot
-hide_scroll=true
