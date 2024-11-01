@@ -1,52 +1,15 @@
-# Text Editors & IDEs
-nvim/lazy-lock.json
-nvim/plugin/
+# Neovim stuff
+config/nvim/lazy-lock.json
+config/nvim/plugin/
 
-# Web Browsers and sqlitebrowser
-chromium/
-netsurf/
-qutebrowser/bookmarks/
-qutebrowser/quickmarks
-sqlitebrowser/
-
-# Design & Media Applications
-blender/
-GIMP/
-inkscape/
-
-# System & File Management GUIs
-caja/
-QtProject/
-QtProject.conf
-glib-2.0/
-session/
-
-# Office & Productivity
-libreoffice/
-teams-for-linux/
-
-# Utilities & Miscellaneous GUIs
-keepassxc/
-transmission/
-
-# Terminal User Interfaces (TUIs)
-htop/
-irssi/
-neofetch/
-procps/
-
-# Startup & Configuration Files
-autostart/
-dconf/
-gtk-3.0/bookmarks
-mimeapps.list
-kde.org
+# qutebrowser
+config/qutebrowser/bookmarks/
+config/qutebrowser/quickmarks
 
 # Audio & Media
-cava/shaders/
-mpd/playlists
-ncmpcpp/error.log
-pulse/
+config/cava/shaders/
+config/mpd/playlists
+config/ncmpcpp/error.log
 
-# Other Configurations
-tmux/plugins
+# tmux
+config/tmux/plugins
