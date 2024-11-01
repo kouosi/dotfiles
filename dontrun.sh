@@ -23,8 +23,6 @@ mkdir -p ~/Pictures/Mpv/
 touch $XDG_CONFIG_HOME/ncmpcpp/error.log
 touch $XDG_CONFIG_HOME/mpd/playlists
 
-# link bash files
-ln ~/.config/bash/bashrc ~/.bashrc
-ln ~/.config/bash/bash_profile ~/.bash_profile
-ln -s ~/.config/vim ~/.vim
-
+stow config/ -t $XDG_CONFIG_HOME
+stow bash/ -t $HOME
+stow vim/ -t $HOME/.vim/
