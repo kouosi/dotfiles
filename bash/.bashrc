@@ -19,7 +19,7 @@ export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
 
 # Colors for bash
-. $XDG_CONFIG_HOME/bash/bash_color
+. /bash_color
 
 # Bash History control
 export HISTCONTROL=ignorespace:ignoredups:erasedups
