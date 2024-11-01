@@ -1,0 +1,29 @@
+#!/bin/sh
+
+DIR="$(xdg-user-dir PICTURES)/Screenshot"
+FULL_FILE=$(date +'%Y%e%d-%s.png')
+SHORT_FILE=$(date +'%s.png')
+
+mkdir -p "$DIR"
+GEOMETRY=$(slurp) || exit 1
+
+# First, take the screenshot and store it temporarily
+TEMP_FILE="/tmp/screenshot_$SHORT_FILE"
+grim -g "$GEOMETRY" -l 3 - > "$TEMP_FILE" || exit 1
+
+# Now, prompt for the name
+NAME="$(wofi --dmenu -p "Enter name for screenshot" -l 0)_$SHORT_FILE" || NAME="$FULL_FILE"
+
+# Move the temporary screenshot to the final location
+mv "$TEMP_FILE" "$DIR/$NAME" || exit 1
+
+# Copy to clipboard
+wl-copy < "$DIR/$NAME"
+
+# Send notification if the screenshot was saved successfully
+if [ -s "$DIR/$NAME" ]; then
+    notify-send -i "$DIR/$NAME" -u normal "Screenshot Saved" "$NAME"
+else
+    notify-send -u normal "Screenshot Failed" "Unable to save screenshot"
+    exit 1
+fi

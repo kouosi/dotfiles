@@ -1,0 +1,138 @@
+#!/bin/sh
+
+# colors
+color0="#44ff44"
+color1="#ff3333"
+color2="#f24411"
+color3="#f2bb11"
+color4="#8bd30e"
+color5="#44f2dd"
+
+# CPU
+get_cpu() {
+    cpu_info=$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5); printf("%.1f%%", usage)}')
+    echo "<span foreground='$color3'>  $cpu_info</span>"
+}
+
+# Memory
+get_mem() {
+    echo "  $(free -h | awk '/Mem:/ {print $3 "/" $2}')"
+}
+
+# Uptime
+get_uptime() {
+    echo "<span foreground='$color4'>  $(awk '{d=int($1/86400); h=int(($1%86400)/3600); m=int(($1%3600)/60); if (d > 0) printf("%dd ", d); if (h > 0) printf("%dh ", h); if (m > 0 || (d == 0 && h == 0)) printf("%dm", m)}' /proc/uptime)</span>"
+}
+
+# Battery
+get_battery() {
+    battery_info="$(cat /sys/class/power_supply/BAT*/capacity)"
+    battery_status="$(cat /sys/class/power_supply/BAT*/status)"
+    if [ "$battery_status" = "Charging" ]; then
+        if [ "$battery_info" -ge 80 ]; then
+            notify-send -t 5000 -u normal "Battery Full" "Please remove charger" -i foot -w
+        fi
+        battery="<span foreground='$color5'> $battery_info%</span>"
+    elif [ "$battery_status" = "Discharging" ]; then
+        if [ "$battery_info" -ge 80 ]; then
+            battery_icon="<span foreground='$color5'> "
+        elif [ "$battery_info" -ge 60 ]; then
+            battery_icon="<span foreground='$color4'> "
+        elif [ "$battery_info" -ge 40 ]; then
+            battery_icon="<span foreground='$color3'> "
+        elif [ "$battery_info" -ge 20 ]; then
+            battery_icon="<span foreground='$color2'> "
+        else
+            notify-send -u critical -t 5000 "Battery Low" "Please plug to power supply" -i foot -w
+            battery_icon="<span foreground='$color1'> "
+        fi
+        battery="$battery_icon  $battery_info%</span>"
+    else
+        battery="$battery_status $battery_info%"
+    fi
+    echo "$battery"
+}
+
+# Date and time
+get_date() {
+    echo "  $(date '+%a %b-%d')"
+}
+
+get_time() {
+    echo "  $(date +'%H:%M')($(TZ="Asia/Tokyo" date +"%H:%M"))"
+}
+
+# Brightness
+get_brightness() {
+    brt_info="$(($(brightnessctl get) * 100 / $(brightnessctl max)))"
+    brt_icon="$( [ "$brt_info" -ge 80 ] && echo ' ' || { [ "$brt_info" -ge 40 ] && echo ' ' || echo ' '; } )"
+    echo "<span foreground='yellow'>$brt_icon</span> $brt_info%"
+}
+
+# Weather
+CACHE_TIMEOUT=600
+CACHE_FILE="/tmp/weather_cache"
+get_weather() {
+    if [ ! -f "$CACHE_FILE" ] || [ "$(($(date +%s) - $(stat -c %Y "$CACHE_FILE")))" -ge "$CACHE_TIMEOUT" ]; then
+        weather_info=$(curl -s wttr.in/?format="%C+%t" 2>/dev/null)
+        if [ -n "$weather_info" ]; then echo "$weather_info" > "$CACHE_FILE"; fi
+    else weather_info=$(cat "$CACHE_FILE"); fi
+    condition=$(echo $weather_info | cut -d'+' -f1)
+    temperature=$(echo $weather_info | cut -d'+' -f2)
+    case "$condition" in
+        *Cloud*) weather_icon="'white'> " ;;
+        *Rain*)  weather_icon="'blue'> " ;;
+        *Snow*)  weather_icon="'white'> " ;;
+        *)       weather_icon="'yellow'> " ;;
+    esac
+    echo "<span foreground="$weather_icon"</span> $temperature"
+}
+
+# Wi-Fi
+get_wifi() {
+    wifi_name=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d':' -f2)
+    if [ -z "$wifi_name" ]; then
+        echo "Disconnected"
+        return
+    else
+        wifi_status="$(cat /sys/class/net/w*/operstate 2>/dev/null)"
+        if [ $wifi_status = 'up' ] ; then
+            wifi_icon="$(awk '/^\s*w/ { print int($3 * 100 / 70) "% " }' /proc/net/wireless)"
+            wifi_strength="$(awk '/^\s*w/ { print int($3 * 100 / 70) }' /proc/net/wireless)"
+
+            # Choose icon based on strength
+            if [ "$wifi_strength" -ge 40 ]; then
+                wifi_icon=" "
+            else
+                wifi_icon=" "
+            fi
+            wifi="$wifi_icon  ($wifi_name) $wifi_strength%"
+        else
+            wifi_icon="  "
+            wifi="$wifi_icon $wifi_strength%"
+        fi
+    fi
+    echo "$wifi"
+}
+
+# Audio
+get_volume() {
+    volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2 * 100}')
+    mute_status=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o "MUTED")
+    hp_status=$(amixer -c 0 get Headphone | grep -A 1 'Playback' | tail -n 1 | awk '{print $NF}')
+
+    if [ "$mute_status" = "MUTED" ]; then
+        echo "<span foreground='gray'>  mute</span>"
+    else
+        vol_icon=$(echo "$hp_status" | awk '{print ($1 == "[on]") ? " " : "  "}')
+        color="$( [ "$volume" -ge 60 ] && echo 'red' || { [ "$volume" -ge 30 ] && echo 'yellow' || echo 'green'; } )"
+        echo "<span foreground='$color'>$vol_icon $volume%</span>"
+    fi
+}
+
+
+# Display
+while true; do
+    echo "$(get_mem) |$(get_cpu) | $(get_time) | $(get_uptime) | $(get_wifi) | $(get_volume) | $(get_brightness) | $(get_battery) | $(get_date) "
+    sleep 0.25
+done
