@@ -5,7 +5,7 @@
 set -o vi # vim mode
 
 # PATH For local binary
-export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.local/bin #:$HOME/.local/share/zvm/bin/
 
 # Default apps
 export BROWSER=firefox
@@ -56,7 +56,7 @@ export WINEPREFIX="$XDG_DATA_HOME"/wine
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps # Remap caps lock key
 # export XKB_DEFAULT_OPTIONS=ctrl:nocaps,ctrl:swapcaps # Remap caps lock key
 export _JAVA_AWT_WM_NONREPARENTING=1 # Java awt wayland hack
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+# export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 
 # Config files
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
@@ -67,8 +67,10 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 # start alias for wm
 alias start-dwl='dwl -s somebar'
 alias start-gnome='XDG_SESSION_TYPE=wayland dbus-run-session gnome-session'
-alias start-kde='XDG_SESSION_TYPE=wayland dbus-run-session startplasma-wayland'
+alias start-kde='XDG_SESSION_TYPE=x11 dbus-run-session startplasma-wayland'
+alias start-kde='dbus-run-session startplasma-x11'
 alias start-river='river -log-level error 2>&1 | tee $XDG_STATE_HOME/river.log'
+alias sway='dbus-run-session sway'
 
 # cd alias
 alias ..='cd ..;pwd'
@@ -121,7 +123,7 @@ get_git_branch() {
 
 # Our PS1 prompt
 if [ "$(tput colors)" -ge 8 ]; then
-    PS1="${COLOR_BRED}[${COLOR_BBLUE}\u${COLOR_BYELLOW}@${COLOR_BCYAN}\h${COLOR_BRED}-[${COLOR_BGREEN}\w${COLOR_BRED}]\$(get_git_branch) \$ ${COLOR_RESET}"
+    PS1="${COLOR_BRED}[${COLOR_BBLUE}\u${COLOR_BYELLOW}@${COLOR_BCYAN}\h${COLOR_BRED}]-[${COLOR_BGREEN}\w${COLOR_BRED}]\$(get_git_branch) \$ ${COLOR_RESET}"
 else
     PS1="${COLOR_BGREEN}\w${COLOR_BRED} \$ ${COLOR_RESET}"
 fi
@@ -130,3 +132,14 @@ fi
 # [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
 #     . /usr/share/bash-completion/bash_completion
 [[ -f ~/.local/bin/_zig.bash ]] && . ~/.local/bin/_zig.bash
+
+ZVM_PATH=$XDG_DATA_HOME/zvm
+ZVM_INSTALL=$XDG_DATA_HOME/zvm
+
+# pnpm
+export PNPM_HOME="/home/kouosi/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
