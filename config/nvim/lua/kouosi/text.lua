@@ -28,9 +28,22 @@ vim.cmd("map <Plug> <Plug>Markdown_FollowLink")
 -- Local Lsp config
 local lsp = require('lspconfig')
 lsp.clangd.setup({
-    cmd = {'clangd', '--background-index', '--pch-storage=memory'},
-    filetypes = {'c'},
-    languages = {'c'}
+    cmd = {
+        'clangd',
+        '--background-index',
+        '--pch-storage=memory',
+        '--clang-tidy',
+        '-j=2',
+        '--clang-tidy',
+        '--clang-tidy-checks=*',
+        '--all-scopes-completion',
+        '--cross-file-rename',
+        '--completion-style=detailed',
+        '--header-insertion-decorators',
+        '--header-insertion=iwyu',
+    },
+    filetypes = {'c', 'cpp', 'arduino'},
+    -- languages = {'c', 'c++', 'ino'}
 })
 
 lsp.zls.setup({
