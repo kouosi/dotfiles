@@ -1,4 +1,5 @@
 . .bashrc
-if [ "$(tty)" == "/dev/tty1" ]; then
-    start-river
+if [ "$(tty)" == "/dev/tty2" ]; then
+    sway
+    # start-river
 fi
