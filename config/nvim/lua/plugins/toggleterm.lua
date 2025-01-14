@@ -2,7 +2,7 @@ local config = function()
     local toggleterm = require("toggleterm")
     toggleterm.setup {
         size = 10,
-        open_mapping = "<c-s>",
+        open_mapping = "<c-a>",
         border = 'double',
         direction =  'tab',
     }
