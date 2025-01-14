@@ -43,7 +43,7 @@ get_battery() {
         elif [ "$battery_info" -ge 20 ]; then
             battery_icon="<span foreground='$color2'> "
         else
-            notify-send -u critical -t 5000 "Battery Low" "Please plug to power supply" -i foot -w
+            notify-send -u critical -t 5000 "Battery Low ($battery_info%)" "Please plug to power supply" -i foot -w
             battery_icon="<span foreground='$color1'> "
         fi
         battery="$battery_icon  $battery_info%</span>"
