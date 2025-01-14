@@ -97,7 +97,7 @@ alias rm='rm -iv'
 alias _='sudo'
 alias v='nvim'
 alias ytmpv='mpv --ytdl-format="bestvideo[height<=1080][vcodec!=vp9]+bestaudio/best" --cache=yes'
-alias servehugo='hugo server -D --disableFastRender --noHTTPCache'
+alias servehugo='hugo server -D --disableFastRender --noHTTPCache --tlsAuto'
 alias livereload='livereload --host localhost -p 1919'
 
 # some hacks
