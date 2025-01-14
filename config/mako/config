@@ -23,14 +23,12 @@ max-visible=9
 
 # Borders
 border-size=2
-border-radius=0
+border-radius=2
 
 [urgency=low]
 border-color=#22ffff
 
 [urgency=normal]
-border-color=#0040c0
-
+border-color=#008888
 [urgency=critical]
 border-color=#e02020
-
