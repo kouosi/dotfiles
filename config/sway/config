@@ -12,7 +12,7 @@ set $menu wofi -Sdrun -L16
 #########################################################
 ### Seat Management
 #########################################################
-seat seat0 xcursor_theme Adwaita
+seat seat0 xcursor_theme Breeze_Obsidian 24
 
 #########################################################
 ### Autostart
@@ -23,6 +23,7 @@ exec_always mako
 exec_always foot -s
 exec pipewire
 exec wireplumber
+exec lxqt-policykit-agent
 exec_always brightnessctl set  20%
 
 #########################################################
@@ -36,9 +37,9 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 ### Idle configuration
 #########################################################
 exec swayidle -w \
-     timeout 300 'swaylock -f -c 000000' \
-     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-     before-sleep 'swaylock -f -c 000000'
+     timeout 300 'swaylock -f' \
+     timeout 360 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+     before-sleep 'swaylock -f'
 
 #########################################################
 ### Input configuration
@@ -181,16 +182,16 @@ bindsym $mod+r mode "resize"
 
 # Others
 client.focused #008888 #008888 #ffffff
-# font pango:JetBrainsMono Nerd Font 11
-font pango:JetBrainsMono Nerd Font 10
-# titlebar_padding 4 2
-titlebar_padding 2 1
+font pango:JetBrainsMono Nerd Font 9
+titlebar_padding 5 1
 
 #########################################################
 ### Status Bar:
 #########################################################
 bar {
+    height 20
     position bottom
+    font pango:JetBrainsMono Nerd Font Italic 9
     status_command sway-status
     colors {
         statusline #ffffff
