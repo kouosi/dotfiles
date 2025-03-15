@@ -1,7 +1,0 @@
-#!/bin/sh
-if pidof swaybg > /dev/zero ; then
-    killall swaybg
-fi
-
-swaybg -m fill -i $(find $XDG_CONFIG_HOME/ASSETS/wallpapers/ -type f | shuf -n1)
-

@@ -1,2 +1,3 @@
 #!/bin/sh
+
 grim -l 3 - | imv -f -

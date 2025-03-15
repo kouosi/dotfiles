@@ -1,0 +1,26 @@
+#!/bin/sh
+
+if [ $1 = "--kill" ]; then
+    killall wf-recorder
+    exit
+fi
+
+DIR="$(xdg-user-dir PICTURES)/Videos"
+FILE=$(date +'%Y%e%d-%s.mkv')
+SHORT_FILE=$(date +'%s.mkv')
+
+mkdir -p "$DIR"
+GEOMETRY=$(slurp) || exit 1
+
+TEMP_FILE="/tmp/video_$SHORT_FILE"
+wf-recorder -g "$GEOMETRY" -f $TEMP_FILE || exit 1
+
+NAME="$(wofi --dmenu -p "Enter name for video" -l 0)_$SHORT_FILE" || NAME="$FILE"
+mv "$TEMP_FILE" "$DIR/$NAME" || exit 1
+
+if [ -s "$DIR/$NAME" ]; then
+    notify-send -i "$DIR/$NAME" -u normal "Video Saved" "$NAME"
+else
+    notify-send -u normal "Recording Failed" "Unable to record video"
+    exit 1
+fi
