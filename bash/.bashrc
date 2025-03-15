@@ -5,10 +5,10 @@
 set -o vi # vim mode
 
 # PATH For local binary
-export PATH=$PATH:$HOME/.local/bin #:$HOME/.local/share/zvm/bin/
+export PATH=$PATH:$HOME/.local/bin
 
 # Default apps
-export BROWSER=firefox
+export BROWSER=librewolf
 export EDITOR=nvim
 export TERMINAL=footclient
 
@@ -57,6 +57,16 @@ export XKB_DEFAULT_OPTIONS=ctrl:nocaps # Remap caps lock key
 # export XKB_DEFAULT_OPTIONS=ctrl:nocaps,ctrl:swapcaps # Remap caps lock key
 export _JAVA_AWT_WM_NONREPARENTING=1 # Java awt wayland hack
 # export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+export QT_QPA_PLATFORMTHEME=qt6ct
+
+# Zig version manager
+export ZVM_PATH=$XDG_DATA_HOME/zvm
+export ZVM_INSTALL=$ZVM_PATH/bin/
+export PATH=$PATH:$ZVM_INSTALL
+
+# Go lang
+export GOPATH=$XDG_DATA_HOME/go
+export GOMODCACHE=$XDG_CACHE_HOME/go/mod
 
 # Config files
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
@@ -131,13 +141,12 @@ fi
 # Use bash-completion, if available
 # [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
 #     . /usr/share/bash-completion/bash_completion
+
+# Use zig bash bash_completion script if available
 [[ -f ~/.local/bin/_zig.bash ]] && . ~/.local/bin/_zig.bash
 
-ZVM_PATH=$XDG_DATA_HOME/zvm
-ZVM_INSTALL=$XDG_DATA_HOME/zvm
-
 # pnpm
-export PNPM_HOME="/home/kouosi/.local/share/pnpm"
+export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
