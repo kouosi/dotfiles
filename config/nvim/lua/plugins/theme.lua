@@ -10,17 +10,17 @@
 -- end
 
 -- Config for gruvbox
--- local config = function()
---     local theme = require("gruvbox")
---     theme.setup {
---         terminal_colors = true,
---         contrast = "soft",
---         dim_inactive = true,
---         transparent_mode = true,
---     }
---     theme.load("gruvbox")
---     -- vim.cmd("colorscheme gruvbox")
--- end
+local config = function()
+    local theme = require("gruvbox")
+    theme.setup {
+        terminal_colors = true,
+        contrast = "soft",
+        dim_inactive = true,
+        transparent_mode = true,
+    }
+    theme.load("gruvbox")
+    -- vim.cmd("colorscheme gruvbox")
+end
 
 -- Config for everforest
 -- local config = function()
@@ -34,21 +34,21 @@
 -- end
 
 -- Config for shusia
-local config = function()
-  vim.cmd([[
-    let g:sonokai_style = 'shusia'
-    let g:sonokai_better_performance = 1
-    let g:sonokai_transparent_background = 1
-    colorscheme sonokai
-    let g:lightline = {'colorscheme' : 'sonokai'}
-  ]])
-end
+-- local config = function()
+--   vim.cmd([[
+--     let g:sonokai_style = 'shusia'
+--     let g:sonokai_better_performance = 1
+--     let g:sonokai_transparent_background = 1
+--     colorscheme sonokai
+--     let g:lightline = {'colorscheme' : 'sonokai'}
+--   ]])
+-- end
 
 local M = {
     -- "rebelot/kanagawa.nvim",
-    -- "ellisonleao/gruvbox.nvim",
+    "ellisonleao/gruvbox.nvim",
     -- "neanias/everforest-nvim",
-    "sainnhe/sonokai",
+    -- "sainnhe/sonokai",
     config = config,
     lazy   = false,
     priority = 1000

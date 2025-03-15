@@ -51,3 +51,33 @@ lsp.zls.setup({
     filetypes = {'zig'},
     languages = {'zig'}
 })
+
+-- relative numbering when in normal mode.
+vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "*",
+    callback = function()
+        vim.opt_local.conceallevel = 0
+        vim.opt_local.colorcolumn = ""
+        vim.opt_local.relativenumber = true
+    end
+})
+
+-- Prefer Neovim terminal insert mode to normal mode.
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "term://*",
+    command = "startinsert"
+})
+
+require('lspconfig').typos_lsp.setup({
+    -- Logging level of the language server. Logs appear in :LspLog. Defaults to error.
+    cmd_env = { RUST_LOG = "error" },
+    init_options = {
+        -- Custom config. Used together with a config file found in the workspace or its parents,
+        -- taking precedence for settings declared in both.
+        -- Equivalent to the typos `--config` cli argument.
+        config = '~/.config/typos.toml',
+        -- How typos are rendered in the editor, can be one of an Error, Warning, Info or Hint.
+        -- Defaults to error.
+        diagnosticSeverity = "Warning"
+    }
+})

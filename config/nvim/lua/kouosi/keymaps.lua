@@ -23,7 +23,10 @@ vim.keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>", options)
 vim.keymap.set("i", "jj", "<Esc>")
 
 -- Disable Arrow keys
-vim.api.nvim_set_keymap('n', '<Up>', '<Nop>', options)
-vim.api.nvim_set_keymap('n', '<Down>', '<Nop>', options)
-vim.api.nvim_set_keymap('n', '<Left>', '<Nop>', options)
-vim.api.nvim_set_keymap('n', '<Right>', '<Nop>', options)
+vim.keymap.set('n', '<Up>', '<Nop>', options)
+vim.keymap.set('n', '<Down>', '<Nop>', options)
+vim.keymap.set('n', '<Left>', '<Nop>', options)
+vim.keymap.set('n', '<Right>', '<Nop>', options)
+
+-- Make escape work in the Neovim terminal.
+vim.keymap.set("t", "<C-Esc>", "<C-\\><C-n>", options)
