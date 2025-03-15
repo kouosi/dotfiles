@@ -17,6 +17,7 @@ mkdir -p $LOCAL_BIN
 
 # create files
 mkdir -p $XDG_STATE_HOME/bash
+mkdir -p $XDG_CONFIG_HOME/.assets
 touch $XDG_STATE_HOME/bash/history
 touch $XDG_DATA_HOME/gnupg
 touch $XDG_CONFIG_HOME/docker
@@ -29,6 +30,7 @@ touch $XDG_CONFIG_HOME/mpd/playlists
 
 # install all
 stow config/ -t $XDG_CONFIG_HOME
+stow .assets/ -t $XDG_CONFIG_HOME/.assets
 stow bash/ -t $HOME
 # stow vim/ -t $HOME/.vim/
 stow lbin/ -t $LOCAL_BIN

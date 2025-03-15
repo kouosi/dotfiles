@@ -7,6 +7,8 @@ set $down j
 set $up k
 set $right l
 set $term footclient
+set $browser librewolf
+set $pbrowser librewolf --private-window
 set $menu wofi -Sdrun -L16
 
 #########################################################
@@ -25,13 +27,14 @@ exec pipewire
 exec wireplumber
 exec lxqt-policykit-agent
 exec_always brightnessctl set  20%
+exec $browser
 
 #########################################################
 ### Output configuration
 #########################################################
 # output HDMI-A-1 resolution 1920x1080 position 1920,0
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-# output * bg $XDG_CONFIG_HOME/ASSETS/wallpapers/185.png fill
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg $XDG_CONFIG_HOME/.assets/wallpapers/Anime/anime_51.jpg fill
 
 #########################################################
 ### Idle configuration
@@ -70,16 +73,19 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 # Applications
 bindsym $mod+o exec $menu
 bindsym $mod+Shift+Return exec $term
-bindsym $mod+Shift+b exec "firefox --private-window"
+bindsym $mod+Ctrl+b exec $browser
+bindsym $mod+Shift+b exec $pbrowser
 # Basic controls
-bindsym $mod+Shift+equal exec "$XDG_CONFIG_HOME/river/zoom"
-bindsym $mod+Shift+y exec "$XDG_CONFIG_HOME/river/random-wallpaper"
-bindsym $mod+Shift+s exec "$XDG_CONFIG_HOME/river/screenshoot"
+bindsym $mod+Shift+equal exec "zoom-wm"
+bindsym $mod+Shift+y exec "random-wallpaper"
+bindsym $mod+Shift+s exec "screenshot"
+bindsym $mod+Ctrl+s exec "record-video"
+bindsym $mod+Ctrl+Escape exec "record-video --kill"
 bindsym $mod+Shift+w exec "loginctl suspend"
 bindsym $mod+Shift+c kill
 floating_modifier $mod normal
 bindsym $mod+Shift+r reload
-bindsym $mod+Ctrl+Q exec swaynag -t warning -m 'Do you really want to exit sway?' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Ctrl+Q exec swaynag -t warning -m 'Exit sway anyway?' -B 'Yes, exit sway' 'swaymsg exit'
 # Media controls
 bindsym XF86AudioRaiseVolume exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
 bindsym XF86AudioLowerVolume exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
