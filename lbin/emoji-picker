@@ -1,0 +1,9 @@
+#!/bin/sh
+
+EMOJI_FILE="$XDG_CONFIG_HOME/.assets/datas/emoji.list"
+
+SELECTED_EMOJI=$(cat "$EMOJI_FILE" | wofi -W 800 --dmenu --prompt "Pick an emoji" --insensitive)
+
+[ -z "$SELECTED_EMOJI" ] && exit
+EMOJI=$(echo "$selected" | awk -F'|' '{print $1}' | xargs)
+echo -n "$EMOJI" | wl-copy

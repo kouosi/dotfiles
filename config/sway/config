@@ -34,7 +34,7 @@ exec $browser
 #########################################################
 # output HDMI-A-1 resolution 1920x1080 position 1920,0
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg $XDG_CONFIG_HOME/.assets/wallpapers/Anime/anime_51.jpg fill
+output * bg $XDG_CONFIG_HOME/.assets/wallpapers/Anime/anime_51.png fill
 
 #########################################################
 ### Idle configuration
@@ -82,6 +82,7 @@ bindsym $mod+Shift+s exec "screenshot"
 bindsym $mod+Ctrl+s exec "record-video"
 bindsym $mod+Ctrl+Escape exec "record-video --kill"
 bindsym $mod+Shift+w exec "loginctl suspend"
+bindsym $mod+Period exec "emoji-picker"
 bindsym $mod+Shift+c kill
 floating_modifier $mod normal
 bindsym $mod+Shift+r reload
