@@ -1,0 +1,25 @@
+#!/bin/bash
+
+CURRENT_DIR=$(pwd)
+NOTE_DIR=$HOME/Repos/NOTES/
+EDITOR=nvim
+FILE=$NOTE_DIR/$1.md
+
+open_editor() {
+    cd $NOTE_DIR
+    $EDITOR $1
+}
+
+if [[ -z "$1" ]]; then
+    open_editor
+elif [[ "$1" == "-l" ]]; then
+    ls -1 $NOTE_DIR
+elif [[ "$1" == "-a" ]] && [[ ! -z "$2" ]]; then
+    open_editor $NOTE_DIR/$2.md
+elif [[ -f "$FILE" ]]; then
+    echo "$1.md exists."
+    open_editor $NOTE_DIR/$1.md
+else
+    open_editor $FILE
+fi
+
