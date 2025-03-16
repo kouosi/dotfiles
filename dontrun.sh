@@ -24,7 +24,7 @@ touch $XDG_CONFIG_HOME/docker
 touch $XDG_DATA_HOME/wget-hsts
 mkdir -p $XDG_CONFIG_HOME/gdb
 touch $XDG_CONFIG_HOME/gdb/init
-mkdir -p ~/Pictures/Mpv/
+mkdir -p ~/Media/Pictures/Mpv/
 touch $XDG_CONFIG_HOME/ncmpcpp/error.log
 touch $XDG_CONFIG_HOME/mpd/playlists
 
