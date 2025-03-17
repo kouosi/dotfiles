@@ -1,9 +1,9 @@
 #!/bin/sh
 
-WALLPAPER_DIR="$XDG_CONFIG_HOME/.assets/wallpapers/"
+WALLPAPER_DIR="$XDG_CONFIG_HOME/.assets/Wallpapers/"
 
 if pidof swaybg > /dev/zero ; then
     killall swaybg
 fi
 
-swaybg -m fill -i $(find $WALLPAPER_DIR -type f | shuf -n1)
+swaybg -m fill -i $(find $WALLPAPER_DIR -type f | shuf -n1) ||

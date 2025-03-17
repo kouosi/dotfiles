@@ -1,22 +1,28 @@
 #!/bin/sh
 
-DIR="$(xdg-user-dir PICTURES)/Screenshot"
+DIR="$(xdg-user-dir PICTURES)/Screenshot/"
+ICON_DIR="$XDG_CONFIG_HOME/.assets/Icons/others/"
 FULL_FILE=$(date +'%Y%e%d-%s.png')
 SHORT_FILE=$(date +'%s.png')
 
+notify_and_exit () {
+    notify-send -i "$ICON_DIR/error.png" -u normal "Screenshot Failed" "Unable to save screenshot"
+    exit 1
+}
+
 mkdir -p "$DIR"
-GEOMETRY=$(slurp) || exit 1
+GEOMETRY=$(slurp) || notify_and_exit
 
 TEMP_FILE="/tmp/screenshot_$SHORT_FILE"
-grim -g "$GEOMETRY" -l 3 - > "$TEMP_FILE" || exit 1
+grim -g "$GEOMETRY" -l 3 - > "$TEMP_FILE" || notify_and_exit
 
 NAME="$(wofi --dmenu -p "Enter name for screenshot" -l 0)_$SHORT_FILE" || NAME="$FULL_FILE"
-mv "$TEMP_FILE" "$DIR/$NAME" || exit 1
+mv "$TEMP_FILE" "$DIR/$NAME" || notify_and_exit
 wl-copy < "$DIR/$NAME"
 
 if [ -s "$DIR/$NAME" ]; then
     notify-send -i "$DIR/$NAME" -u normal "Screenshot Saved" "$NAME"
+    exit 0
 else
-    notify-send -u normal "Screenshot Failed" "Unable to save screenshot"
-    exit 1
+    notify_and_exit
 fi

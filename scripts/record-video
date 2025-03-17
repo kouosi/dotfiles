@@ -1,26 +1,33 @@
 #!/bin/sh
 
+DIR="$(xdg-user-dir Videos)/Recording"
+ICON_DIR="$XDG_CONFIG_HOME/.assets/Icons/others/"
+FILE=$(date +'%Y%e%d-%s.mkv')
+SHORT_FILE=$(date +'%s.mkv')
+
 if [ $1 = "--kill" ]; then
     killall wf-recorder
     exit
 fi
 
-DIR="$(xdg-user-dir PICTURES)/Videos"
-FILE=$(date +'%Y%e%d-%s.mkv')
-SHORT_FILE=$(date +'%s.mkv')
+notify_and_exit () {
+    notify-send -i "$ICON_DIR/error.png" -u normal "Recording Failed" "Unable to record video"
+    exit 1
+}
+
 
 mkdir -p "$DIR"
-GEOMETRY=$(slurp) || exit 1
+GEOMETRY=$(slurp) || notify_and_exit
 
 TEMP_FILE="/tmp/video_$SHORT_FILE"
-wf-recorder -g "$GEOMETRY" -f $TEMP_FILE || exit 1
+wf-recorder -g "$GEOMETRY" -f $TEMP_FILE || notify_and_exit
 
 NAME="$(wofi --dmenu -p "Enter name for video" -l 0)_$SHORT_FILE" || NAME="$FILE"
-mv "$TEMP_FILE" "$DIR/$NAME" || exit 1
+mv "$TEMP_FILE" "$DIR/$NAME" || notify_and_exit
 
 if [ -s "$DIR/$NAME" ]; then
-    notify-send -i "$DIR/$NAME" -u normal "Video Saved" "$NAME"
+    notify-send -i "$ICON_DIR/video.png" -u normal "Video Saved" "$NAME"
+    exit 0
 else
-    notify-send -u normal "Recording Failed" "Unable to record video"
-    exit 1
+    notify_and_exit
 fi
