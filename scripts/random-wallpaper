@@ -1,9 +1,25 @@
 #!/bin/sh
 
 WALLPAPER_DIR="$XDG_CONFIG_HOME/.assets/Wallpapers/"
+ICON_DIR="$XDG_CONFIG_HOME/.assets/Icons/others/"
+PIC_URL="https://picsum.photos/1920/1080"
+REMOTE_FILE_NAME="/tmp/$(date '+%s.jpg')"
+WALLPAPER=/tmp/current_wallpaper.jpg
 
-if pidof swaybg > /dev/zero ; then
+notify_and_exit () {
+    notify-send -i "$ICON_DIR/error.png" -u normal "Failed" "Unable to get Wallpapers from internet"
+    exit 1
+}
+
+if [ $1 = "--remote" ]; then
+    wget -q "$PIC_URL" -O "$REMOTE_FILE_NAME" || notify_and_exit
+    cp -f $REMOTE_FILE_NAME $WALLPAPER
+else
+    WALLPAPER=$(find $WALLPAPER_DIR -type f | shuf -n1)
+fi
+
+if pidof swaybg > /dev/null ; then
     killall swaybg
 fi
 
-swaybg -m fill -i $(find $WALLPAPER_DIR -type f | shuf -n1) ||
+swaybg -m fill -i $WALLPAPER
