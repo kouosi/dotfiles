@@ -77,11 +77,12 @@ bindsym $mod+Ctrl+b exec $browser
 bindsym $mod+Shift+b exec $pbrowser
 # Basic controls
 bindsym $mod+Shift+equal exec "zoom-wm"
-bindsym $mod+Shift+y exec "random-wallpaper"
+bindsym $mod+Shift+w exec "random-wallpaper"
+bindsym $mod+Ctrl+w exec "random-wallpaper --remote"
 bindsym $mod+Shift+s exec "screenshot"
 bindsym $mod+Ctrl+s exec "record-video"
 bindsym $mod+Ctrl+Escape exec "record-video --kill"
-bindsym $mod+Shift+w exec "loginctl suspend"
+bindsym $mod+Shift+y exec "loginctl suspend"
 bindsym $mod+Period exec "emoji-picker"
 bindsym $mod+Shift+c kill
 floating_modifier $mod normal
