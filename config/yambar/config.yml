@@ -197,4 +197,3 @@ bar:
                       - string:
                           { text:  , foreground: 00ff00ff, font: *awesome }
                 - string: { text: " {capacity}% " }
-

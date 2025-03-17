@@ -13,7 +13,6 @@
 	conflictStyle = diff3
 [magit]
 	hideCampaign = true
-
 [http]
 	postBuffer = 157286400
 [commit]

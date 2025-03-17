@@ -145,5 +145,3 @@ config.bind('jj', 'mode-leave', mode='register')
 
 # Bindings for yesno mode
 config.bind('jj', 'mode-leave', mode='yesno')
-
-
