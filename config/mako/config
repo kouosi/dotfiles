@@ -6,7 +6,7 @@ on-button-left=invoke-default-action
 on-button-middle=dismiss
 on-button-right=dismiss
 on-touch=dismiss
-on-notify=exec mpv ~/.config/ASSETS/musics/notif.mp3
+# on-notify=exec mpv rickroll.mp3
 
 # Styles
 font="monospace 9"
