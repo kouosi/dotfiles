@@ -11,6 +11,7 @@ export PATH=$PATH:$HOME/.local/bin
 export BROWSER=librewolf
 export EDITOR=nvim
 export TERMINAL=footclient
+export MANPAGER='nvim +Man!'
 
 # XDG base dirs
 export XDG_CACHE_HOME=$HOME/.cache
