@@ -3,19 +3,22 @@
 # MAPPINGS ################################################
 # #########################################################
 # MICE
+BROWSER="librewolf"
+MENU="wofi -Sdrun -L16"
+
 riverctl map normal Mod4 BRACKETLEFT spawn "river-shifttags --shifts -1"
 riverctl map normal Mod4 BRACKETRIGHT spawn "river-shifttags"
-riverctl map normal Super B spawn "firefox --private-window"
+riverctl map normal Super+Control B spawn "$BROWSER"
 riverctl map normal Super N spawn "riverctl focus-output next"
 riverctl map normal Super O spawn "wofi -Sdrun -L16"
 riverctl map normal Super S spawn "riverctl send-to-output next"
-riverctl map normal Super+Shift Equal spawn "$XDG_CONFIG_HOME/river/zoom"
+riverctl map normal Super+Shift Equal spawn "zoom-wm"
 riverctl map normal Super+Control W spawn "swaylock"
-# riverctl map normal Super+Control+Shift Y spawn "systemctl hibernate"
-riverctl map normal Super+Shift W spawn "systemctl suspend"
-riverctl map normal Super+Shift B spawn "qutebrowser"
-riverctl map normal Super+Shift Y spawn "$XDG_CONFIG_HOME/river/random-wallpaper"
-riverctl map normal Super+Shift S spawn "$XDG_CONFIG_HOME/river/screenshoot"
+riverctl map normal Super+Control+Shift Y spawn "systemctl suspend"
+riverctl map normal Super+Shift B spawn "$BROWSER --private-window"
+riverctl map normal Super+Shift W spawn "random-wallpaper"
+riverctl map normal Super+Control W spawn "random-wallpaper --remote"
+riverctl map normal Super+Shift S spawn "screenshot"
 riverctl map normal Super+Shift Return spawn "footclient"
 riverctl map normal Super+Shift Right spawn "river-shifttags"
 
@@ -60,7 +63,7 @@ riverctl map normal Super+Alt+Shift L resize horizontal 100
 # Toggle float
 riverctl map normal Super+Shift Space toggle-float
 # Toggle fullscreen
-riverctl map normal Super E toggle-fullscreen
+riverctl map normal Super F toggle-fullscreen
 # Super+{Up,Right,Down,Left} to change layout orientation
 riverctl map normal Super Up send-layout-cmd rivertile "main-location top"
 riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
@@ -112,7 +115,7 @@ riverctl map normal Super+Shift 0 set-view-tags $all_tags
 for mode in normal locked
 do
     # Eject the optical drive (well if you still have one that is)
-    riverctl map $mode None XF86Eject spawn "eject -T"
+    # riverctl map $mode None XF86Eject spawn "eject -T"
 
     # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
     riverctl map $mode None XF86AudioRaiseVolume spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"
@@ -125,7 +128,7 @@ do
     riverctl map $mode None XF86AudioPrev spawn "playerctl previous"
     riverctl map $mode None XF86AudioNext spawn "playerctl next"
 
-     # Control screen backlight brightness with light (https://github.com/haikarainen/light)
+    # Control screen backlight brightness with light (https://github.com/haikarainen/light)
     riverctl map $mode None XF86MonBrightnessUp spawn "brightnessctl set +5%"
     riverctl map $mode None XF86MonBrightnessDown spawn "brightnessctl set 5%-"
 done
@@ -181,7 +184,7 @@ riverctl input pointer-1267-91-Elan_Touchpad tap enabled
 riverctl default-layout rivertile
 rivertile -view-padding 0 -outer-padding 0 &
 riverctl spawn "yambar" &
-riverctl spawn "swaybg -m fill -i $XDG_CONFIG_HOME/ASSETS/wallpaper.jpg" &
+riverctl spawn "random-wallpaper" &
 riverctl spawn "mako" &
 # riverctl spawn "killall pipewire ; pipewire" &
 riverctl spawn "wlsunset -t 4500 -T 5000" &
@@ -189,24 +192,3 @@ riverctl spawn "foot -s" &
 riverctl spawn "swayidle -w timeout 600 'notify-send \"Trying to lock\"' timeout 660 'swaylock'" &
 riverctl rule-add -app-id firefox ssd
 riverctl rule-add ssd
-
-# Battery (dirty way)
-notif_status=0
-while true
-do
-    batlevel=$(cat /sys/class/power_supply/BAT0/capacity)
-    batstatus=$(cat /sys/class/power_supply/BAT0/status)
-
-    if [[ $batstatus == "Discharging" ]]; then
-        if [[ $batlevel -lt 10 ]]; then
-            notify-send -i 5000 -u critical "Battry Low" "Battery Low Hibernating in 10 sec"
-            sleep 10
-            loginctl hibernate
-        elif [[ $batlevel -lt 25 ]]; then
-            notif_status=$(notify-send -i 5000 -p -r $notif_status -u critical "Battry Low" "Battery Low: $batlevel% Please Charge")
-        else
-            notif_status=0
-        fi
-    fi
-    sleep 8
-done
