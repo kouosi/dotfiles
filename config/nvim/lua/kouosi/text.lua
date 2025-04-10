@@ -1,21 +1,3 @@
--- -- Add a new line to the end of the file before saving
--- vim.api.nvim_create_autocmd("BufWritePre", {
---     group = vim.api.nvim_create_augroup('UserOnSave', {}),
---     pattern = "*",
---     callback = function()
---
---         -- Get file type
---         local file_type = vim.bo.filetype
---
---         -- List of file types that should trigger LSP format
---         local lsp_format_types = {''}
---
---         if vim.fn.index(lsp_format_types, file_type) ~= -1 then
---             vim.lsp.buf.format()
---         end
---     end
--- })
-
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = { "*" },
     command = [[%s/\s\+$//e]],
@@ -25,7 +7,7 @@ vim.opt.spelllang = 'en_gb'
 vim.opt.spell = true
 vim.cmd("map <Plug> <Plug>Markdown_FollowLink")
 
--- Local Lsp config
+-- Local Lsp config for clangd
 local lsp = require('lspconfig')
 lsp.clangd.setup({
     cmd = {
@@ -43,41 +25,43 @@ lsp.clangd.setup({
         '--header-insertion=iwyu',
     },
     filetypes = {'c', 'cpp', 'arduino'},
-    -- languages = {'c', 'c++', 'ino'}
 })
 
+-- Local Lsp config for zls
 lsp.zls.setup({
     cmd = {'zls'},
     filetypes = {'zig'},
-    languages = {'zig'}
+    languages = {'zig'},
+    settings = {
+        zls = {
+          -- enable_build_on_save = true,
+          semantic_tokens = "partial",
+        }
+    }
 })
 
--- relative numbering when in normal mode.
-vim.api.nvim_create_autocmd("TermOpen", {
-    pattern = "*",
-    callback = function()
-        vim.opt_local.conceallevel = 0
-        vim.opt_local.colorcolumn = ""
-        vim.opt_local.relativenumber = true
+vim.g.zig_fmt_parse_errors = 0
+vim.g.zig_fmt_autosave = 0
+
+vim.api.nvim_create_autocmd('BufWritePre',{
+    pattern = {"*.zig", "*.zon"},
+    callback = function(ev)
+        vim.lsp.buf.format()
     end
 })
 
--- Prefer Neovim terminal insert mode to normal mode.
-vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = "term://*",
-    command = "startinsert"
-})
+-- Make folders when saving file from mkdir.nvim
+vim.api.nvim_create_augroup('MkdirRun', { clear = true })
+vim.api.nvim_create_autocmd('BufWritePre', {
+    group = 'MkdirRun',
+    callback = function()
+        local dir = vim.fn.expand('<afile>:p:h')
+        if dir:match('^%l+://') then
+            return
+        end
 
-require('lspconfig').typos_lsp.setup({
-    -- Logging level of the language server. Logs appear in :LspLog. Defaults to error.
-    cmd_env = { RUST_LOG = "error" },
-    init_options = {
-        -- Custom config. Used together with a config file found in the workspace or its parents,
-        -- taking precedence for settings declared in both.
-        -- Equivalent to the typos `--config` cli argument.
-        config = '~/.config/typos.toml',
-        -- How typos are rendered in the editor, can be one of an Error, Warning, Info or Hint.
-        -- Defaults to error.
-        diagnosticSeverity = "Warning"
-    }
+        if vim.fn.isdirectory(dir) == 0 then
+            vim.fn.mkdir(dir, 'p')
+        end
+    end
 })
