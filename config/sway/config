@@ -14,7 +14,7 @@ set $menu wofi -Sdrun -L16
 #########################################################
 ### Seat Management
 #########################################################
-seat seat0 xcursor_theme Breeze_Obsidian 24
+seat seat0 xcursor_theme Adwaita 24
 
 #########################################################
 ### Autostart
