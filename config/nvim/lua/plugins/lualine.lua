@@ -1,12 +1,6 @@
 local config  = function()
     local lualine = require("lualine")
-    local theme   = require("lualine.themes.onedark")
-	-- set bg transparency in all modes
-	-- theme.normal.c.bg = nil
-	-- theme.insert.c.bg = nil
-	-- theme.visual.c.bg = nil
-	-- theme.replace.c.bg = nil
-	-- theme.command.c.bg = nil
+    local theme   = require("lualine.themes.gruvbox")
 
     lualine.setup {
         options  = { theme = theme },

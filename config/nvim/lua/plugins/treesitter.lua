@@ -3,9 +3,9 @@ local config = function()
     configs.setup({
         auto_install = true,
         ensure_installed = {
-            "c", "zig", "bash", "lua", "make", "markdown"
+            "c", "zig", "bash", "lua", "make", "markdown",
             "diff", "gitcommit", "gitignore", "git_rebase",
-            "json", "yaml", "xml", "latex", "comment"
+            "json", "yaml", "xml", "latex", "comment",
         },
         highlight = {
             enable = true,
