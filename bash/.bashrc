@@ -132,9 +132,15 @@ get_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
+set_window_title() {
+    local cmd=$(basename $(echo "$BASH_COMMAND" | cut -d' ' -f1))
+    printf "\033]0;%s — %s\007" "$cmd" "$TERM"
+}
+
 # Our PS1 prompt
 if [ "$(tput colors)" -ge 8 ]; then
-    PS1="${COLOR_BRED}[${COLOR_BBLUE}\u${COLOR_BYELLOW}@${COLOR_BCYAN}\h${COLOR_BRED}]-[${COLOR_BGREEN}\w${COLOR_BRED}]\$(get_git_branch) \$ ${COLOR_RESET}"
+    PS1="${COLOR_BRED}[${COLOR_BBLUE}\u${COLOR_BYELLOW}@${COLOR_BCYAN}\h${COLOR_BRED}]-[${COLOR_BGREEN}\w${COLOR_BRED}]\$(get_git_branch) \$ ${COLOR_RESET}\[\033]0;(\w) — $TERM\007"
+    trap 'set_window_title' DEBUG
 else
     PS1="${COLOR_BGREEN}\w${COLOR_BRED} \$ ${COLOR_RESET}"
 fi
