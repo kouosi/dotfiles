@@ -26,7 +26,7 @@ exec_always foot -s
 exec pipewire
 exec wireplumber
 exec lxqt-policykit-agent
-exec_always brightnessctl set  20%
+exec brightnessctl set  20%
 exec $browser
 
 #########################################################
