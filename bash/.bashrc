@@ -153,11 +153,3 @@ fi
 [[ -f ~/.local/bin/_zig.bash ]] && . ~/.local/bin/_zig.bash
 
 [[ -f $XDG_CONFIG_HOME/ls/colors ]] && export LS_COLORS="$(cat $XDG_CONFIG_HOME/ls/colors)"
-
-# pnpm
-export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
