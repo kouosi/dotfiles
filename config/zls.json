@@ -1,8 +1,5 @@
 {
-    "enable_autofix": true,
-    "enable_build_on_save": true,
-    "build_on_save_step": "check",
     "warn_style": true,
     "include_at_in_builtins": true,
-    "dangerous_comptime_experiments_do_not_enable": true
+    "highlight_global_var_declarations": true
 }
