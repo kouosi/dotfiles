@@ -152,6 +152,8 @@ fi
 # Use zig bash bash_completion script if available
 [[ -f ~/.local/bin/_zig.bash ]] && . ~/.local/bin/_zig.bash
 
+[[ -f $XDG_CONFIG_HOME/ls/colors ]] && export LS_COLORS="$(cat $XDG_CONFIG_HOME/ls/colors)"
+
 # pnpm
 export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 case ":$PATH:" in
