@@ -11,7 +11,7 @@ notify_and_exit () {
     exit 1
 }
 
-if [ $1 = "--remote" ]; then
+if [ "$1" = "--remote" ]; then
     wget -q "$PIC_URL" -O "$REMOTE_FILE_NAME" || notify_and_exit
     cp -f $REMOTE_FILE_NAME $WALLPAPER
 else
