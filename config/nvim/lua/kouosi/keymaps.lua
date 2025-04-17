@@ -4,9 +4,6 @@ local options = {
     noremap = true,
     silent = true
 }
--- Nvim tree
-vim.keymap.set("n", "<leader>pv", ":NvimTreeToggle<CR>", options)
-vim.keymap.set("n", "<leader>pf", ":NvimTreeFocus<CR>", options)
 
 -- pane navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h", options)
@@ -17,7 +14,9 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", options)
 -- win management
 vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", options)
 vim.keymap.set("n", "<leader>sh", ":split<CR>", options)
-vim.keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>", options)
+
+-- File explorer
+vim.keymap.set("n", "<leader>fm", ":28Lexplore<CR>", options)
 
 -- Esc key is pain in ash
 vim.keymap.set("i", "jj", "<Esc>")
@@ -28,5 +27,7 @@ vim.keymap.set('n', '<Down>', '<Nop>', options)
 vim.keymap.set('n', '<Left>', '<Nop>', options)
 vim.keymap.set('n', '<Right>', '<Nop>', options)
 
--- Make escape work in the Neovim terminal.
-vim.keymap.set("t", "<C-Esc>", "<C-\\><C-n>", options)
+-- Buffer navigation
+vim.keymap.set('n', '<Tab>', ':bnext <CR>', options)
+vim.keymap.set('n', '<S-Tab>', ':bprevious <CR>', options)
+vim.keymap.set('n', '<leader>d', ':bd! <CR>', options)
