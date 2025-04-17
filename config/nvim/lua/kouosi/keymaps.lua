@@ -18,9 +18,6 @@ vim.keymap.set("n", "<leader>sh", ":split<CR>", options)
 -- File explorer
 vim.keymap.set("n", "<leader>fm", ":28Lexplore<CR>", options)
 
--- Esc key is pain in ash
-vim.keymap.set("i", "jj", "<Esc>")
-
 -- Disable Arrow keys
 vim.keymap.set('n', '<Up>', '<Nop>', options)
 vim.keymap.set('n', '<Down>', '<Nop>', options)
