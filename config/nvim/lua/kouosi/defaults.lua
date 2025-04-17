@@ -34,6 +34,9 @@ vim.opt.timeoutlen  = 400
 -- vim.opt.wrap        = true
 vim.opt.isfname:append("@-@", "{", "}")
 vim.opt.iskeyword:append("-")
+vim.g.netrw_banner = false
+vim.g.netrw_liststyle = 3
+vim.opt.title = true
 
 -- Undoing & Backups
 vim.opt.backup     = false
