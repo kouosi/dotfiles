@@ -1,0 +1,25 @@
+#!/bin/bash
+
+cd ~/Repos
+
+selected=$(find . -maxdepth 2 -type d | sed 's/.\///' | fzf --height 40% --reverse)
+if [[ -z $selected ]]; then
+    exit 0
+fi
+cd $selected
+
+session_name=$(basename $selected)
+
+if ! tmux has-session 2>/dev/null; then
+    tmux new-session -s "$session_name" -c "$HOME/Repos/$selected"
+    exit 0
+fi
+
+if tmux has-session -t "$session_name" 2>/dev/null; then
+    window_index=$(tmux new-window -t "$session_name" -c "$HOME/Repos/$selected" -P -F "#{window_index}")
+    tmux select-window -t "$session_name:$window_index"
+    tmux attach-session -t "$session_name"
+else
+    tmux new-session -d -s "$session_name" -c "$HOME/Repos/$selected"
+    tmux attach-session -t "$session_name"
+fi
