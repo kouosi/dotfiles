@@ -10,6 +10,13 @@ set $term footclient
 set $browser librewolf
 set $pbrowser librewolf --private-window
 set $menu wofi -Sdrun -L16
+# Colors
+set $col_focused #4e9699
+set $col_inactive #665c54
+set $col_unfocused #3c3836
+set $col_text_dark #32302f
+set $col_text_light #d4be98
+set $col_urgent #ea6962
 
 #########################################################
 ### Seat Management
@@ -28,6 +35,7 @@ exec wireplumber
 exec lxqt-policykit-agent
 exec brightnessctl set  20%
 exec $browser
+exec swayidle -w
 
 #########################################################
 ### Output configuration
@@ -37,31 +45,18 @@ exec $browser
 output * bg $XDG_CONFIG_HOME/.assets/Wallpapers/Anime/anime_111.png fill
 
 #########################################################
-### Idle configuration
-#########################################################
-exec swayidle -w \
-     timeout 300 'swaylock -f' \
-     timeout 360 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-     before-sleep 'swaylock -f'
-
-#########################################################
 ### Input configuration
 #########################################################
 # Touchpad
-input "1267:91:Elan_Touchpad" {
+input "type:touchpad" {
     dwt enabled
     tap enabled
     natural_scroll enabled
     middle_emulation enabled
 }
 
-input "type:touchpad" {
-    natural_scroll enabled
-    tap enabled
-}
-
 # Keyboard
-input "1:1:AT_Translated_Set_2_keyboard" {
+input "type:keyboard" {
     repeat_delay 400
     repeat_rate 50
     xkb_layout gb
@@ -188,10 +183,22 @@ bindsym $mod+r mode "resize"
 # bindsym $mod+Alt+Shift+k resize shrink height 100
 # bindsym $mod+Alt+Shift+l resize grow width 100
 
-# Others
-client.focused #008888 #008888 #ffffff
-font pango:JetBrainsMono Nerd Font 9
-titlebar_padding 5 1
+#########################################################
+### Colors
+#########################################################
+# class                 border         background     text            indicator      child_border
+client.focused          $col_focused   $col_focused   $col_text_dark  $col_focused   $col_focused
+client.focused_inactive $col_inactive  $col_inactive  $col_text_light $col_inactive  $col_inactive
+client.unfocused        $col_text_dark $col_unfocused $col_text_light $col_unfocused $col_unfocused
+client.urgent           $col_text_dark $col_urgent    $col_text_dark  $col_urgent    $col_urgent
+
+#########################################################
+### Titlebar
+#########################################################
+titlebar_border_thickness 1
+font pango:CaskaydiaMono Nerd Font 9
+titlebar_padding 5 2
+for_window [app_id="mpv"] border normal
 
 #########################################################
 ### Status Bar:
@@ -199,13 +206,14 @@ titlebar_padding 5 1
 bar {
     height 20
     position bottom
-    font pango:JetBrainsMono Nerd Font Italic 9
+    font pango:CaskaydiaMono Nerd Font 9
     status_command sway-status
     colors {
-        statusline #ffffff
+        statusline $col_text_light
         background #222222
-        focused_workspace #008888 #008888 #ffffff
-        inactive_workspace #555555 #555555 #bbbbbb
-        urgent_workspace #ff2200 #ff2200 #ffffff
+        # selector         border         background     text
+        focused_workspace  $col_focused   $col_focused   $col_text_dark
+        inactive_workspace $col_unfocused $col_unfocused $col_text_light
+        urgent_workspace   $col_urgent    $col_urgent    $col_text_light
     }
 }
