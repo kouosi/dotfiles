@@ -6,8 +6,8 @@
 }
 
 #window {
-    background: #333333;
-    border: #33aaaa solid 2px;
+    background: #1d2021;
+    border: #4e9699 solid 2px;
     font-family: JetBrainsMonoNerdFont;
     font-size: 1rem;
 }
@@ -17,11 +17,11 @@
 }
 
 #input {
-    background-color: #111111;
-    border: #33aaaa solid 2px;
-    color: white;
+    background-color: transparent;
+    border: #4e9699 solid 2px;
+    color: #d4be98;
     margin-bottom: 4px;
-    padding: 2px 8px;
+    padding: 0px 2px 0px 4px;
 }
 
 #inner-box {
@@ -33,19 +33,23 @@
 }
 
 #entry:selected {
-    background: #33aaaa;
-    color: white;
+    background: #4e9699;
+    color: #32302f;
 }
 
 #entry {
-    background-color: #4a4a4a;
+    background: #3c383c;
     border-radius: 2px;
-    margin: 2px 0px;
+    margin: 2px 1px;
     padding: 2px;
-    color: #bbbbbb;
+    color: #d4be98;
+}
+
+#img {
+    margin-left: 4px;
 }
 
 expander list {
-    background-color: #333333;
+    background-color: #1d2021;
     padding: 2px;
 }

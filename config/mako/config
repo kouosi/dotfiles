@@ -4,31 +4,32 @@ max-history=10
 # Bindings
 on-button-left=invoke-default-action
 on-button-middle=dismiss
-on-button-right=dismiss
-on-touch=dismiss
 # on-notify=exec mpv rickroll.mp3
 
 # Styles
 font="monospace 9"
 background-color=#222222ee
-text-color=#eeeeee
+text-color=#d4be98
 width=350
 height=120
 padding=8
-progress-color=#00ffff
+progress-color=#3c7477
 max-icon-size=48
 history=1
 default-timeout=0
-max-visible=9
+max-visible=8
+outer-margin=20,0,10
+anchor=bottom-right
 
 # Borders
 border-size=2
-border-radius=2
+border-radius=0
 
 [urgency=low]
-border-color=#22ffff
+border-color=#689d6a
 
 [urgency=normal]
-border-color=#008888
+border-color=#3c7477
+
 [urgency=critical]
-border-color=#e02020
+border-color=#ea6962
