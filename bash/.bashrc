@@ -59,6 +59,7 @@ export XKB_DEFAULT_OPTIONS=ctrl:nocaps # Remap caps lock key
 export _JAVA_AWT_WM_NONREPARENTING=1 # Java awt wayland hack
 # export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export QT_QPA_PLATFORMTHEME=qt6ct
+export GTK_THEME=Adwaita:dark
 
 # Zig version manager
 export ZVM_PATH=$XDG_DATA_HOME/zvm
@@ -112,9 +113,7 @@ alias servehugo='hugo server -D --disableFastRender --noHTTPCache --tlsAuto'
 alias livereload='livereload --host localhost -p 1919'
 
 # some hacks
-# alias gdb='gdb -n -x "$XDG_CONFIG_HOME/gdb/init"'
-alias imv="imv-x11"
-alias qemu-system-x86_64="qemu-system-x86_64 -display gtk,show-menubar=off"
+alias gdb='gdb -n -x "$XDG_CONFIG_HOME/gdb/init"'
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 
 # Some useful functions
