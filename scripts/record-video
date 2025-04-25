@@ -2,10 +2,10 @@
 
 DIR="$(xdg-user-dir VIDEOS)/Recording"
 ICON_DIR="$XDG_CONFIG_HOME/.assets/Icons/others/"
-FILE=$(date +'%Y%e%d-%s.mkv')
-SHORT_FILE=$(date +'%s.mkv')
+FILE=$(date +'%Y%e%d-%s.mp4')
+SHORT_FILE=$(date +'%s.mp4')
 
-if [ $1 = "--kill" ]; then
+if [ "$1" = "--kill" ]; then
     killall wf-recorder
     exit
 fi
