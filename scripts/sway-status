@@ -1,17 +1,19 @@
 #!/bin/sh
 
 # colors
-color0="#44ff44"
-color1="#ff3333"
-color2="#f24411"
-color3="#f2bb11"
-color4="#8bd30e"
-color5="#44f2dd"
+color_green="#b8bb26"
+color_red="#fb4934"
+color_orange="#fe8019"
+color_yellow="#fabd2f"
+color_blue="#83a598"
+color_aqua="#8ec07c"
+color_fg="#ebdbb2"
+color_gray="#928374"
 
 # CPU
 get_cpu() {
     cpu_info=$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5); printf("%.1f%%", usage)}')
-    echo "<span foreground='$color3'> $cpu_info</span>"
+    echo "<span foreground='$color_orange'> $cpu_info</span>"
 }
 
 # Memory
@@ -21,7 +23,7 @@ get_mem() {
 
 # Uptime
 get_uptime() {
-    echo "<span foreground='$color4'> $(awk '{d=int($1/86400); h=int(($1%86400)/3600); m=int(($1%3600)/60); if (d > 0) printf("%dd ", d); if (h > 0) printf("%dh ", h); if (m > 0 || (d == 0 && h == 0)) printf("%dm", m)}' /proc/uptime)</span>"
+    echo "<span foreground='$color_green'> $(awk '{d=int($1/86400); h=int(($1%86400)/3600); m=int(($1%3600)/60); if (d > 0) printf("%dd ", d); if (h > 0) printf("%dh ", h); if (m > 0 || (d == 0 && h == 0)) printf("%dm", m)}' /proc/uptime)</span>"
 }
 
 # Battery
@@ -32,19 +34,19 @@ get_battery() {
         if [ "$battery_info" -ge 80 ]; then
             notify-send -t 5000 -u normal "Battery Full" "Please remove charger" -i foot -w
         fi
-        battery="<span foreground='$color5'> $battery_info%</span>"
+        battery="<span foreground='$color_green'> $battery_info%</span>"
     elif [ "$battery_status" = "Discharging" ]; then
         if [ "$battery_info" -ge 80 ]; then
-            battery_icon="<span foreground='$color5'> "
+            battery_icon="<span foreground='$color_blue'> "
         elif [ "$battery_info" -ge 60 ]; then
-            battery_icon="<span foreground='$color4'> "
+            battery_icon="<span foreground='$color_aqua'> "
         elif [ "$battery_info" -ge 40 ]; then
-            battery_icon="<span foreground='$color3'> "
+            battery_icon="<span foreground='$color_green'> "
         elif [ "$battery_info" -ge 20 ]; then
-            battery_icon="<span foreground='$color2'> "
+            battery_icon="<span foreground='$color_orange'> "
         else
             notify-send -u critical -t 5000 "Battery Low ($battery_info%)" "Please plug to power supply" -i foot -w
-            battery_icon="<span foreground='$color1'> "
+            battery_icon="<span foreground='$color_red'> "
         fi
         battery="$battery_icon $battery_info%</span>"
     else
@@ -66,7 +68,7 @@ get_time() {
 get_brightness() {
     brt_info="$(($(brightnessctl get) * 100 / $(brightnessctl max)))"
     brt_icon="$( [ "$brt_info" -ge 80 ] && echo ' ' || { [ "$brt_info" -ge 40 ] && echo ' ' || echo ''; } )"
-    echo "<span foreground='yellow'>$brt_icon</span> $brt_info%"
+    echo "<span foreground='$color_yellow'>$brt_icon</span> $brt_info%"
 }
 
 # Weather
@@ -122,10 +124,10 @@ get_volume() {
     hp_status=$(amixer -c 0 get Headphone | grep -A 1 'Playback' | tail -n 1 | awk '{print $NF}')
 
     if [ "$mute_status" = "MUTED" ]; then
-        echo "<span foreground='gray'> mute</span>"
+        echo "<span foreground='$color_gray'> mute</span>"
     else
         vol_icon=$(echo "$hp_status" | awk '{print ($1 == "[on]") ? "" : " "}')
-        color="$( [ "$volume" -ge 60 ] && echo 'red' || { [ "$volume" -ge 30 ] && echo 'yellow' || echo 'green'; } )"
+        color="$( [ "$volume" -ge 60 ] && echo $color_red || { [ "$volume" -ge 30 ] && echo $color_orange || echo $color_blue; } )"
         echo "<span foreground='$color'>$vol_icon $volume%</span>"
     fi
 }
@@ -133,6 +135,7 @@ get_volume() {
 
 # Display
 while true; do
-    echo "$(get_mem) | $(get_cpu) | $(get_time) | $(get_uptime) | $(get_wifi) | $(get_volume) | $(get_brightness) | $(get_battery) | $(get_date) "
+    printf "%s | %s | %s | %s | %s | %s | %s | %s | %s \n" "$(get_mem)" "$(get_cpu)" "$(get_time)" \
+        "$(get_uptime)" "$(get_wifi)" "$(get_volume)" "$(get_brightness)" "$(get_battery)" "$(get_date)"
     sleep 0.25
 done
