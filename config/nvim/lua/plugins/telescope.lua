@@ -27,9 +27,7 @@ local config = function()
             }
         },
     })
-    telescope.load_extension("file_browser")
     local builtin = require('telescope.builtin')
-    vim.keymap.set("n", "<leader>e", ":Telescope file_browser<CR>")
 	vim.keymap.set("n", "<leader>fb",  builtin.buffers, {})
     vim.keymap.set("n", "<leader>fd",  builtin.diagnostics, {})
     vim.keymap.set("n", "<leader>fc", builtin.current_buffer_fuzzy_find , {})
