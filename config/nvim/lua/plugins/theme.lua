@@ -1,14 +1,3 @@
--- Config for kanagawa
--- local config = function()
---     local theme = require("kanagawa")
---     theme.setup{
---         transparent = true,
---         dimInactive = true,
---         terminalColors = true,
---     }
---     theme.load("wave")
--- end
-
 -- Config for gruvbox
 local config = function()
     local theme = require("gruvbox")
@@ -22,7 +11,6 @@ local config = function()
 end
 
 local M = {
-    -- "rebelot/kanagawa.nvim",
     "ellisonleao/gruvbox.nvim",
     config = config,
     lazy   = false,
