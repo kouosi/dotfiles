@@ -16,20 +16,17 @@ lsp.clangd.setup({
         '--pch-storage=memory',
         '--clang-tidy',
         '-j=2',
-        '--clang-tidy',
-        '--clang-tidy-checks=*',
         '--all-scopes-completion',
-        '--cross-file-rename',
         '--completion-style=detailed',
         '--header-insertion-decorators',
-        '--header-insertion=iwyu',
+        '--header-insertion=never', -- iwyu
     },
     filetypes = {'c', 'cpp', 'arduino'},
 })
 
 -- Local Lsp config for zls
 lsp.zls.setup({
-    cmd = {'zls'},
+    cmd = {'zls', '--log-file', 'zls.log'},
     filetypes = {'zig'},
     languages = {'zig'},
     settings = {
