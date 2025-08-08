@@ -1,0 +1,8 @@
+#!/bin/sh
+wlsunset -t 4500 -T 5000 &
+mako &
+foot -s &
+lxqt-policykit-agent &
+brightnessctl set  20% &
+swayidle -w &
+swaybg -o "*" -i$XDG_CONFIG_HOME/.assets/Wallpapers/Forest/forest_19.jpg -m fill
