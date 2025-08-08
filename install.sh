@@ -1,5 +1,6 @@
 #!/bin/bash
 set -xe
+echo $0
 
 # variables
 export XDG_CONFIG_HOME=$HOME/.config/
@@ -20,17 +21,19 @@ mkdir -p $XDG_STATE_HOME/bash
 mkdir -p $XDG_CONFIG_HOME/.assets
 touch $XDG_STATE_HOME/bash/history
 touch $XDG_DATA_HOME/gnupg
-touch $XDG_CONFIG_HOME/docker
 touch $XDG_DATA_HOME/wget-hsts
-mkdir -p $XDG_CONFIG_HOME/gdb
-touch $XDG_CONFIG_HOME/gdb/init
 mkdir -p ~/Media/Pictures/Mpv/
-touch $XDG_CONFIG_HOME/ncmpcpp/error.log
-touch $XDG_CONFIG_HOME/mpd/playlists
 
-# install all
+# install all config
 stow config/ -t $XDG_CONFIG_HOME
 stow .assets/ -t $XDG_CONFIG_HOME/.assets
 stow bash/ -t $HOME
-# stow vim/ -t $HOME/.vim/
 stow scripts/ -t $LOCAL_BIN
+
+if [[ $1 == "--install-vim" ]] then
+    stow vim/ -t $HOME/.vim/
+fi
+
+# Create files after linked
+touch $XDG_CONFIG_HOME/ncmpcpp/error.log
+touch $XDG_CONFIG_HOME/mpd/playlists
