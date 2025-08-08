@@ -12,7 +12,7 @@ vim.opt.rtp:prepend(lazy_path)
 -- Lazy.nvim config options
 local lazy_options = {
     defaults = {
-        lazy = false
+        lazy = true
     },
     install = {
         colorscheme = {"nightfox"}
