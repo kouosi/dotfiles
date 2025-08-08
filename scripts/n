@@ -11,6 +11,13 @@ open_editor() {
 }
 
 if [[ -z "$1" ]]; then
+    cd "$NOTE_DIR" || exit
+    selected=$(n -l | fzf --height 40% --layout=reverse \
+        --border-label="Search Projects" --border=rounded)
+    if [[ -n "$selected" ]]; then
+        open_editor "$selected"
+    fi
+elif [[ "$1" == "-n" ]]; then
     open_editor
 elif [[ "$1" == "-l" ]]; then
     ls -1 $NOTE_DIR
@@ -22,4 +29,3 @@ elif [[ -f "$FILE" ]]; then
 else
     open_editor $FILE
 fi
-
