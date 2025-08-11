@@ -2,7 +2,8 @@
 
 EMOJI_FILE="$XDG_CONFIG_HOME/.assets/Datas/emoji.list"
 
-SELECTED_EMOJI=$(cat "$EMOJI_FILE" | wofi -W 800 --dmenu --prompt "Pick an emoji" --insensitive)
+# SELECTED_EMOJI=$(cat "$EMOJI_FILE" | wofi -W 800 --dmenu --prompt "Pick an emoji" --insensitive)
+SELECTED_EMOJI=$(cat "$EMOJI_FILE" | wmenu -p "Pick an emoji" -i -l 12)
 
 [ -z "$SELECTED_EMOJI" ] && exit
 EMOJI=$(echo "$SELECTED_EMOJI" | awk -F'|' '{print $1}' | xargs)
