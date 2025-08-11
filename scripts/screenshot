@@ -10,13 +10,18 @@ notify_and_exit () {
     exit 1
 }
 
+if [ "$1" == "--edit" ]; then
+    grim -g "$(slurp)" - | swappy -f -
+    exit 0
+fi
+
 mkdir -p "$DIR"
 GEOMETRY=$(slurp) || notify_and_exit
 
 TEMP_FILE="/tmp/screenshot_$SHORT_FILE"
 grim -g "$GEOMETRY" -l 3 - > "$TEMP_FILE" || notify_and_exit
 
-NAME="$(wofi --dmenu -p "Enter name for screenshot" -l 0)_$SHORT_FILE" || NAME="$FULL_FILE"
+NAME="$(echo "$FULL_FILE" | wmenu -p "Enter name for screenshot" -l 1)_$SHORT_FILE" || NAME="$FULL_FILE"
 mv "$TEMP_FILE" "$DIR/$NAME" || notify_and_exit
 wl-copy < "$DIR/$NAME"
 
