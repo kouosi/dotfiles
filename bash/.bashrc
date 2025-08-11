@@ -61,12 +61,16 @@ export _JAVA_AWT_WM_NONREPARENTING=1 # Java awt wayland hack
 export QT_QPA_PLATFORMTHEME=qt6ct
 export GTK_THEME=Adwaita:dark
 
-# Zig version manager
+# Programming Language Hacks
+## Zig
+export ZIG_GLOBAL_CACHE_DIR=~/.local/share/.zig-cache/
+## Zig version manager
 export ZVM_PATH=$XDG_DATA_HOME/zvm
 export ZVM_INSTALL=$ZVM_PATH/bin/
 export PATH=$PATH:$ZVM_INSTALL
-
-# Go lang
+## Rust
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+## Go lang
 export GOPATH=$XDG_DATA_HOME/go
 export GOMODCACHE=$XDG_CACHE_HOME/go/mod
 
@@ -75,14 +79,16 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export ANDROID_USER_HOME="$XDG_DATA_HOME/android/"
+export XDG_MENU_PREFIX=arch-
 
 # start alias for wm
-alias start-dwl='dwl -s somebar'
+alias start-dwl='dwl-status | dwl -s dwl-startup'
 alias start-gnome='XDG_SESSION_TYPE=wayland dbus-run-session gnome-session'
 alias start-kde='XDG_SESSION_TYPE=x11 dbus-run-session startplasma-wayland'
 alias start-kde='dbus-run-session startplasma-x11'
 alias start-river='river -log-level error 2>&1 | tee $XDG_STATE_HOME/river.log'
-alias sway='dbus-run-session sway'
+alias start-sway='dbus-run-session sway'
 
 # cd alias
 alias ..='cd ..;pwd'
@@ -107,14 +113,16 @@ alias rm='rm -iv'
 
 # shortcut commands
 alias _='sudo'
-alias v='nvim'
+alias vim='nvim'
 alias ytmpv='mpv --ytdl-format="bestvideo[height<=1080][vcodec!=vp9]+bestaudio/best" --cache=yes'
 alias servehugo='hugo server -D --disableFastRender --noHTTPCache --tlsAuto'
 alias livereload='livereload --host localhost -p 1919'
 
 # some hacks
-alias gdb='gdb -n -x "$XDG_CONFIG_HOME/gdb/init"'
+# alias gdb='gdb -n -x "$XDG_CONFIG_HOME/gdb/init"'
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
+alias venv='source venv/bin/activate'
+alias adb='HOME="$XDG_DATA_HOME"/android adb'
 
 # Some useful functions
 man() {
@@ -125,6 +133,19 @@ man() {
     LESS_TERMCAP_so=$'\e[45;93m' \
     LESS_TERMCAP_se=$'\e[0m' \
     command man "$@"
+}
+
+dasm() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: dasm <binary> [symbol]"
+        return 1
+    fi
+
+    if [[ -n "$2" ]]; then
+        llvm-objdump --disassemble --demangle --symbol="$2" "$1" | nvim -
+    else
+        llvm-objdump --disassemble --demangle "$1" | nvim -
+    fi
 }
 
 get_git_branch() {
