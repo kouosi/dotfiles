@@ -8,6 +8,7 @@ CompileFlags:
     - '-Wno-unused-parameter'
     - '-Wno-declaration-after-statement'
     - '-Wno-unsafe-buffer-usage'
-    - '-std=gnu17'
+    - '-Wno-pre-c23-compat'
+    - '-std=gnu23'
     - '-Werror'
     - '-xc'
