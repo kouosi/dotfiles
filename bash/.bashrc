@@ -113,7 +113,7 @@ alias rm='rm -iv'
 
 # shortcut commands
 alias _='sudo'
-alias vim='nvim'
+# alias vim='nvim'
 alias ytmpv='mpv --ytdl-format="bestvideo[height<=1080][vcodec!=vp9]+bestaudio/best" --cache=yes'
 alias servehugo='hugo server -D --disableFastRender --noHTTPCache --tlsAuto'
 alias livereload='livereload --host localhost -p 1919'
