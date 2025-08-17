@@ -50,3 +50,6 @@ vim.o.foldcolumn = '1'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
+
+-- plugins:nvim-markdown
+vim.g.vim_markdown_conceal = 1
