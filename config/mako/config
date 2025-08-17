@@ -20,6 +20,7 @@ default-timeout=0
 max-visible=8
 outer-margin=20,0,10
 anchor=bottom-right
+layer=overlay
 
 # Borders
 border-size=2
