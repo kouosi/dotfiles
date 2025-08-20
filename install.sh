@@ -1,4 +1,13 @@
 #!/bin/bash
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    echo "Usage: $0 [options]"
+    echo
+    echo "Options:"
+    echo "  -h, --help    Show this help message and exit"
+    exit 0
+fi
+
 set -xe
 echo $0
 
@@ -23,16 +32,13 @@ touch $XDG_STATE_HOME/bash/history
 touch $XDG_DATA_HOME/gnupg
 touch $XDG_DATA_HOME/wget-hsts
 mkdir -p ~/Media/Pictures/Mpv/
+mkdir -p $XDG_DATA_HOME/vim/undo
 
 # install all config
 stow config/ -t $XDG_CONFIG_HOME
 stow .assets/ -t $XDG_CONFIG_HOME/.assets
 stow bash/ -t $HOME
 stow scripts/ -t $LOCAL_BIN
-
-if [[ $1 == "--install-vim" ]] then
-    stow vim/ -t $HOME/.vim/
-fi
 
 # Create files after linked
 touch $XDG_CONFIG_HOME/ncmpcpp/error.log

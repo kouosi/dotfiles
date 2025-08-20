@@ -89,10 +89,10 @@ set wildignore=**.jpg,*.png,*.gif,*.pdf,*.img,*.mp4,*.mpv,*.tar.gz
 inoremap jj <esc>
 
 " Set the background tone.
-set background=light
+set background=dark
 
 " Set the color scheme.
-colorscheme default
+colorscheme retrobox
 
 " Set a custom font you have installed on your computer.
 " Syntax: set guifont=<font_name>\ <font_weight>\ <size>
@@ -133,8 +133,19 @@ set laststatus=2
 
 " }}}
 
+" Disable arrow keys
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
+" Don't create ~/.viminfo file
+set viminfo=
+
+" Enable undofile
+set undofile
+if exists('$XDG_STATE_HOME')
+    set undodir=$XDG_STATE_HOME/vim/undo//
+else
+    set undodir=~/.local/state/vim/undo//
+endif
