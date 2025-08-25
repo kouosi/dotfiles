@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
 CURRENT_DIR=$(pwd)
-NOTE_DIR=$HOME/Repos/NOTES/
+NOTE_DIR=$HOME/Documents/Notes/
 EDITOR=nvim
 FILE=$NOTE_DIR/$1.md
 
@@ -10,21 +10,19 @@ open_editor() {
     $EDITOR $1
 }
 
-if [[ -z "$1" ]]; then
+if [ -z "$1" ]; then
     cd "$NOTE_DIR" || exit
     selected=$(n -l | fzf --height 40% --layout=reverse \
         --border-label="Search Projects" --border=rounded)
-    if [[ -n "$selected" ]]; then
+    if [ -n "$selected" ]; then
         open_editor "$selected"
     fi
-elif [[ "$1" == "-n" ]]; then
+elif [ "$1" = "-n" ]; then
     open_editor
-elif [[ "$1" == "-l" ]]; then
+elif [ "$1" = "-l" ]; then
     ls -1 $NOTE_DIR
-elif [[ "$1" == "-a" ]] && [[ ! -z "$2" ]]; then
-    open_editor $NOTE_DIR/$2.md
-elif [[ -f "$FILE" ]]; then
-    echo "$1.md exists."
+elif [ -f "$FILE" ]; then
+    echo "$1.md exists opening."
     open_editor $NOTE_DIR/$1.md
 else
     open_editor $FILE

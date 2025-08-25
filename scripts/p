@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 cd ~/Repos
 
-selected=$(find * -maxdepth 1 -type d | fzf --height 40% --layout=reverse \
-    --border-label="Search Projects" --border=rounded)
+selected=$(find * -maxdepth 1 -type d ! -path '*/.*' | fzf --height 40% \
+    --layout=reverse --border-label="Search Projects" --border=rounded)
 session_name=$(basename "$selected" | sed 's/[^a-zA-Z0-9]/_/g')
 
 if [ -z "$selected" ]; then

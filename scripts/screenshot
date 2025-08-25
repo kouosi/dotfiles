@@ -10,7 +10,7 @@ notify_and_exit () {
     exit 1
 }
 
-if [ "$1" == "--edit" ]; then
+if [ "$1" = "--edit" ] || [ "$1" = "-e" ]; then
     grim -g "$(slurp)" - | swappy -f -
     exit 0
 fi

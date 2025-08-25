@@ -7,5 +7,5 @@ SELECTED_EMOJI=$(cat "$EMOJI_FILE" | wmenu -p "Pick an emoji" -i -l 12)
 
 [ -z "$SELECTED_EMOJI" ] && exit
 EMOJI=$(echo "$SELECTED_EMOJI" | awk -F'|' '{print $1}' | xargs)
-echo -n "$EMOJI" | wl-copy
+printf "$EMOJI" | wl-copy
 wtype "$EMOJI"
