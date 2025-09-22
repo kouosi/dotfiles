@@ -60,7 +60,7 @@ set showcmd
 set showmode
 
 " Show matching words during a search.
-set showmatch
+"set showmatch
 
 " Use highlighting when doing a search.
 set hlsearch
@@ -149,3 +149,7 @@ if exists('$XDG_STATE_HOME')
 else
     set undodir=~/.local/state/vim/undo//
 endif
+
+" Change cursor shape depending on mode
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
