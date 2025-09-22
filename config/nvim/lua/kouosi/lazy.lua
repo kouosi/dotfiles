@@ -11,17 +11,10 @@ vim.opt.rtp:prepend(lazy_path)
 
 -- Lazy.nvim config options
 local lazy_options = {
-    defaults = {
-        lazy = true
-    },
-    install = {
-        colorscheme = {"nightfox"}
-    },
-    checker = {
-        enabled = true
-    },
-    change_detection = {
-        notify = true -- get a notification when changes are found
+    defaults = { lazy = true },
+    checker  = { enabled = true },
+    install  = {
+        colorscheme = { "gruvbox" }
     },
     performance = {
         rtp = {
@@ -30,7 +23,9 @@ local lazy_options = {
                 "tarPlugin", "tohtml", "tutor", "zipPlugin"
             }
         }
-    }
+    },
+    change_detection = { notify = true }
 }
 
-require("lazy").setup("plugins", options)
+local lazy = require("lazy")
+lazy.setup("plugins", lazy_options)

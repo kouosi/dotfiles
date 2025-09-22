@@ -1,5 +1,6 @@
 local config = function()
-    require("treesitter-context").setup{
+    local ts_ctx = require("treesitter-context")
+    ts_ctx.setup{
         enable = true,
         multiline_threshold = 16,
         zindex = 32

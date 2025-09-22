@@ -1,7 +1,8 @@
 local config = function()
-    require('ufo').setup({
+    local ufo = require("ufo")
+    ufo.setup({
         provider_selector = function(bufnr, filetype, buftype)
-            return {'treesitter', 'indent'}
+            return { "treesitter", "indent" }
         end
     })
 end
@@ -9,7 +10,7 @@ end
 local M = {
     "kevinhwang91/nvim-ufo",
     config       = config,
-    dependencies = {"kevinhwang91/promise-async"},
+    dependencies = { "kevinhwang91/promise-async" },
     lazy         = false
 }
 

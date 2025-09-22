@@ -1,19 +1,19 @@
 -- Config for gruvbox
 local config = function()
-    local theme = require("gruvbox")
-    theme.setup {
-        terminal_colors = true,
-        contrast = "soft",
-        dim_inactive = true,
+    local gruvbox = require("gruvbox")
+    gruvbox.setup {
+        terminal_colors  = true,
+        contrast         = "soft",
+        dim_inactive     = true,
         transparent_mode = true,
     }
-    theme.load("gruvbox")
+    gruvbox.load("gruvbox")
 end
 
 local M = {
     "ellisonleao/gruvbox.nvim",
-    config = config,
-    lazy   = false,
+    config   = config,
+    lazy     = false,
     priority = 1000
 }
 

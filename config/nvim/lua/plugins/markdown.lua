@@ -1,5 +1,5 @@
 local M = {
-    'ixru/nvim-markdown',
+    "ixru/nvim-markdown",
     lazy = false
 }
 

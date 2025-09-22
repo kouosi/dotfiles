@@ -1,14 +1,14 @@
 local config = function()
-    local configs = require("nvim-treesitter.configs")
-    configs.setup({
-        auto_install = true,
+    local ts_configs = require("nvim-treesitter.configs")
+    ts_configs.setup({
+        auto_install     = true,
         ensure_installed = {
             "c", "zig", "bash", "lua", "make", "markdown",
             "diff", "gitcommit", "gitignore", "git_rebase",
-            "json", "yaml", "xml", "latex", "comment",
+            "json", "yaml", "xml", "comment",
         },
         highlight = {
-            enable = true,
+            enable                            = true,
             additional_vim_regex_highlighting = true
         },
         incremental_selection = {
@@ -27,9 +27,9 @@ end
 
 local M = {
     "nvim-treesitter/nvim-treesitter",
-    build        = ":TSUpdate",
-    config       = config,
-    lazy         = false
+    build  = ":TSUpdate",
+    config = config,
+    lazy   = false
 }
 
 return { M }

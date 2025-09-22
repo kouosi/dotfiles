@@ -1,1 +1,1 @@
-require ("kouosi")
+require("kouosi")

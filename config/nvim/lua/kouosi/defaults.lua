@@ -14,29 +14,29 @@ vim.opt.softtabstop = 4
 vim.opt.tabstop     = 4
 
 -- Numbering
-vim.opt.number      = true
-vim.opt.numberwidth = 2
+vim.opt.number         = true
+vim.opt.numberwidth    = 2
 vim.opt.relativenumber = true
-vim.opt.ruler       = false
+vim.opt.ruler          = false
 
 -- Looks & Behavior
-vim.opt.autochdir   = false
-vim.opt.colorcolumn = "80,100,120"
-vim.opt.cursorline  = true
-vim.opt.encoding    = "utf-8"
-vim.opt.mouse       = ""
-vim.opt.scrolloff   = 8
-vim.opt.signcolumn  = "yes"
-vim.opt.splitbelow  = true
-vim.opt.splitright  = true
+vim.opt.autochdir     = false
+vim.opt.colorcolumn   = "80,100,120"
+vim.opt.cursorline    = true
+vim.opt.encoding      = "utf-8"
+vim.opt.mouse         = ""
+vim.opt.scrolloff     = 8
+vim.opt.signcolumn    = "yes"
+vim.opt.splitbelow    = true
+vim.opt.splitright    = true
 vim.opt.termguicolors = true
-vim.opt.timeoutlen  = 400
--- vim.opt.wrap        = true
+vim.opt.timeoutlen    = 400
+vim.opt.wrap          = true
+vim.g.netrw_banner    = false
+vim.g.netrw_liststyle = 3
+vim.opt.title         = true
 vim.opt.isfname:append("@-@", "{", "}")
 vim.opt.iskeyword:append("-")
-vim.g.netrw_banner = false
-vim.g.netrw_liststyle = 3
-vim.opt.title = true
 
 -- Undoing & Backups
 vim.opt.backup     = false
@@ -46,10 +46,10 @@ vim.opt.undofile   = true
 vim.opt.updatetime = 50
 
 -- Fold
-vim.o.foldcolumn = '1'
-vim.o.foldlevel = 99
+vim.o.foldcolumn     = '1'
+vim.o.foldlevel      = 99
 vim.o.foldlevelstart = 99
-vim.o.foldenable = true
+vim.o.foldenable     = true
 
 -- plugins:nvim-markdown
-vim.g.vim_markdown_conceal = 1
+vim.g.vim_markdown_conceal = 0

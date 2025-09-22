@@ -1,6 +1,7 @@
 function _G.get_oil_winbar()
+    local oil   = require("oil")
     local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
-    local dir = require("oil").get_current_dir(bufnr)
+    local dir   = oil.get_current_dir(bufnr)
     if dir then
         return vim.fn.fnamemodify(dir, ":~")
     else
@@ -10,11 +11,11 @@ end
 
 local function parse_output(proc)
     local result = proc:wait()
-    local ret = {}
+    local ret    = {}
     if result.code == 0 then
         for line in vim.gsplit(result.stdout, "\n", { plain = true, trimempty = true }) do
             -- Remove trailing slash
-            line = line:gsub("/$", "")
+            line      = line:gsub("/$", "")
             ret[line] = true
         end
     end
@@ -53,19 +54,18 @@ local git_status = new_git_status()
 -- end
 
 local config = function()
-    require("oil").setup({
+    local oil   = require("oil")
+    oil.setup({
         default_file_explorer = true,
-        columns = { "size", "icon" },
-        delete_to_trash = true,
+        columns           = { "size", "icon" },
+        win_options       = { winbar = "%!v:lua.get_oil_winbar()" },
+        delete_to_trash   = true,
         watch_for_changes = true,
-        win_options = {
-            winbar = "%!v:lua.get_oil_winbar()",
-        },
-        view_options = {
-            show_hidden = false,
+        view_options      = {
             case_insensitive = false,
-            is_hidden_file = function(name, bufnr)
-                local dir = require("oil").get_current_dir(bufnr)
+            show_hidden      = false,
+            is_hidden_file   = function(name, bufnr)
+                local dir        = oil.get_current_dir(bufnr)
                 local is_dotfile = vim.startswith(name, ".") and name ~= ".."
                 -- if no local directory (e.g. for ssh connections), just hide dotfiles
                 if not dir then
@@ -85,10 +85,12 @@ local config = function()
 end
 
 local M = {
-    'stevearc/oil.nvim',
-    config = config,
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    lazy = false,
+    "stevearc/oil.nvim",
+    config       = config,
+    lazy         = false,
+    dependencies = {
+        { "echasnovski/mini.icons", opts = {} }
+    },
 }
 
 return { M }
