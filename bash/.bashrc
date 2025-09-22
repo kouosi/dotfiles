@@ -63,11 +63,7 @@ export GTK_THEME=Adwaita:dark
 
 # Programming Language Hacks
 ## Zig
-export ZIG_GLOBAL_CACHE_DIR=~/.local/share/.zig-cache/
-## Zig version manager
-export ZVM_PATH=$XDG_DATA_HOME/zvm
-export ZVM_INSTALL=$ZVM_PATH/bin/
-export PATH=$PATH:$ZVM_INSTALL
+# export ZIG_GLOBAL_CACHE_DIR=$XDG_DATA_HOME/.zig-cache/
 ## Rust
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 ## Go lang
@@ -85,8 +81,7 @@ export XDG_MENU_PREFIX=arch-
 # start alias for wm
 alias start-dwl='dwl-status | dwl -s dwl-startup'
 alias start-gnome='XDG_SESSION_TYPE=wayland dbus-run-session gnome-session'
-alias start-kde='XDG_SESSION_TYPE=x11 dbus-run-session startplasma-wayland'
-alias start-kde='dbus-run-session startplasma-x11'
+alias start-kde='XDG_SESSION_TYPE=wayland dbus-run-session startplasma-wayland'
 alias start-river='river -log-level error 2>&1 | tee $XDG_STATE_HOME/river.log'
 alias start-sway='dbus-run-session sway'
 
@@ -98,7 +93,7 @@ alias cf='cd $(fzf --walker=dir --height=30% --layout=reverse --walker-root="$HO
 
 # ls alias
 alias ls='ls --color=auto'
-alias l='ls -A'
+alias la='ls -A'
 alias ll='ls -lha'
 
 # Show colors output
@@ -117,6 +112,7 @@ alias _='sudo'
 alias ytmpv='mpv --ytdl-format="bestvideo[height<=1080][vcodec!=vp9]+bestaudio/best" --cache=yes'
 alias servehugo='hugo server -D --disableFastRender --noHTTPCache --tlsAuto'
 alias livereload='livereload --host localhost -p 1919'
+alias zigw='zig build --watch -fincremental --prominent-compile-errors'
 
 # some hacks
 # alias gdb='gdb -n -x "$XDG_CONFIG_HOME/gdb/init"'
