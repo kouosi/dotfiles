@@ -5,78 +5,79 @@
 # MICE
 BROWSER="librewolf"
 MENU="wofi -Sdrun -L16"
+MOD_KEY=Mod4
 
-riverctl map normal Mod4 BRACKETLEFT spawn "river-shifttags --shifts -1"
-riverctl map normal Mod4 BRACKETRIGHT spawn "river-shifttags"
-riverctl map normal Super+Control B spawn "$BROWSER"
-riverctl map normal Super N spawn "riverctl focus-output next"
-riverctl map normal Super O spawn "wofi -Sdrun -L16"
-riverctl map normal Super S spawn "riverctl send-to-output next"
-riverctl map normal Super+Shift Equal spawn "zoom-wm"
-riverctl map normal Super+Control W spawn "swaylock"
-riverctl map normal Super+Control+Shift Y spawn "systemctl suspend"
-riverctl map normal Super+Shift B spawn "$BROWSER --private-window"
-riverctl map normal Super+Shift W spawn "random-wallpaper"
-riverctl map normal Super+Control W spawn "random-wallpaper --remote"
-riverctl map normal Super+Shift S spawn "screenshot"
-riverctl map normal Super+Shift Return spawn "footclient"
-riverctl map normal Super+Shift Right spawn "river-shifttags"
+riverctl map normal $MOD_KEY BRACKETLEFT spawn "river-shifttags --shifts -1"
+riverctl map normal $MOD_KEY BRACKETRIGHT spawn "river-shifttags"
+riverctl map normal $MOD_KEY+Control B spawn "$BROWSER"
+riverctl map normal $MOD_KEY N spawn "riverctl focus-output next"
+riverctl map normal $MOD_KEY O spawn "wofi -Sdrun -L16"
+riverctl map normal $MOD_KEY S spawn "riverctl send-to-output next"
+riverctl map normal $MOD_KEY+Shift Equal spawn "zoom-wm"
+riverctl map normal $MOD_KEY+Control W spawn "swaylock"
+riverctl map normal $MOD_KEY+Control+Shift Y spawn "systemctl suspend"
+riverctl map normal $MOD_KEY+Shift B spawn "$BROWSER --private-window"
+riverctl map normal $MOD_KEY+Shift W spawn "random-wallpaper"
+riverctl map normal $MOD_KEY+Control W spawn "random-wallpaper --remote"
+riverctl map normal $MOD_KEY+Shift S spawn "screenshot"
+riverctl map normal $MOD_KEY+Shift Return spawn "footclient"
+riverctl map normal $MOD_KEY+Shift Right spawn "river-shifttags"
 
 # FUNCTIONS
-riverctl map normal Super+Shift C close
-riverctl map normal Super+Control+Alt Q exit
+riverctl map normal $MOD_KEY+Shift C close
+riverctl map normal $MOD_KEY+Control+Alt Q exit
 # Focus next/previous view in the layout stack
-riverctl map normal Super J focus-view next
-riverctl map normal Super K focus-view previous
+riverctl map normal $MOD_KEY J focus-view next
+riverctl map normal $MOD_KEY K focus-view previous
 # Swap the focused view with the next/previous view in the layout stack
-riverctl map normal Super+Shift J swap next
-riverctl map normal Super+Shift K swap previous
+riverctl map normal $MOD_KEY+Shift J swap next
+riverctl map normal $MOD_KEY+Shift K swap previous
 # Focus the next/previous output
-riverctl map normal Super Period focus-output next
-riverctl map normal Super Comma focus-output previous
+riverctl map normal $MOD_KEY Period focus-output next
+riverctl map normal $MOD_KEY Comma focus-output previous
 # Send the focused view to the next/previous output
-riverctl map normal Super+Shift Period send-to-output next
-riverctl map normal Super+Shift Comma send-to-output previous
+riverctl map normal $MOD_KEY+Shift Period send-to-output next
+riverctl map normal $MOD_KEY+Shift Comma send-to-output previous
 # Bump the focused view to the top of the layout stack
-riverctl map normal Super Return zoom
+riverctl map normal $MOD_KEY Return zoom
 # Increase/Decrease the main ratio of rivertile
-riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
-riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+riverctl map normal $MOD_KEY H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal $MOD_KEY L send-layout-cmd rivertile "main-ratio +0.05"
 # Increment/Decrement the main count of rivertile
-riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
-riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
+riverctl map normal $MOD_KEY+Shift H send-layout-cmd rivertile "main-count +1"
+riverctl map normal $MOD_KEY+Shift L send-layout-cmd rivertile "main-count -1"
 # Move views
-riverctl map normal Super+Alt H move left 100
-riverctl map normal Super+Alt J move down 100
-riverctl map normal Super+Alt K move up 100
-riverctl map normal Super+Alt L move right 100
+riverctl map normal $MOD_KEY+Alt H move left 100
+riverctl map normal $MOD_KEY+Alt J move down 100
+riverctl map normal $MOD_KEY+Alt K move up 100
+riverctl map normal $MOD_KEY+Alt L move right 100
 # Snap views to screen edges
-riverctl map normal Super+Control+Alt H snap left
-riverctl map normal Super+Control+Alt J snap down
-riverctl map normal Super+Control+Alt K snap up
-riverctl map normal Super+Control+Alt L snap right
+riverctl map normal $MOD_KEY+Control+Alt H snap left
+riverctl map normal $MOD_KEY+Control+Alt J snap down
+riverctl map normal $MOD_KEY+Control+Alt K snap up
+riverctl map normal $MOD_KEY+Control+Alt L snap right
 # To resize views
-riverctl map normal Super+Alt+Shift H resize horizontal -100
-riverctl map normal Super+Alt+Shift J resize vertical 100
-riverctl map normal Super+Alt+Shift K resize vertical -100
-riverctl map normal Super+Alt+Shift L resize horizontal 100
+riverctl map normal $MOD_KEY+Alt+Shift H resize horizontal -100
+riverctl map normal $MOD_KEY+Alt+Shift J resize vertical 100
+riverctl map normal $MOD_KEY+Alt+Shift K resize vertical -100
+riverctl map normal $MOD_KEY+Alt+Shift L resize horizontal 100
 # Toggle float
-riverctl map normal Super+Shift Space toggle-float
+riverctl map normal $MOD_KEY+Shift Space toggle-float
 # Toggle fullscreen
-riverctl map normal Super F toggle-fullscreen
-# Super+{Up,Right,Down,Left} to change layout orientation
-riverctl map normal Super Up send-layout-cmd rivertile "main-location top"
-riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
-riverctl map normal Super Down send-layout-cmd rivertile "main-location bottom"
-riverctl map normal Super Left send-layout-cmd rivertile "main-location left"
+riverctl map normal $MOD_KEY F toggle-fullscreen
+# $MOD_KEY+{Up,Right,Down,Left} to change layout orientation
+riverctl map normal $MOD_KEY Up send-layout-cmd rivertile "main-location top"
+riverctl map normal $MOD_KEY Right send-layout-cmd rivertile "main-location right"
+riverctl map normal $MOD_KEY Down send-layout-cmd rivertile "main-location bottom"
+riverctl map normal $MOD_KEY Left send-layout-cmd rivertile "main-location left"
 
 # MOUSE
-# Super + Left Mouse Button to move views
-riverctl map-pointer normal Super BTN_LEFT move-view
-# Super + Right Mouse Button to resize views
-riverctl map-pointer normal Super BTN_RIGHT resize-view
-# Super + Middle Mouse Button to toggle float
-riverctl map-pointer normal Super BTN_MIDDLE toggle-float
+# $MOD_KEY + Left Mouse Button to move views
+riverctl map-pointer normal $MOD_KEY BTN_LEFT move-view
+# $MOD_KEY + Right Mouse Button to resize views
+riverctl map-pointer normal $MOD_KEY BTN_RIGHT resize-view
+# $MOD_KEY + Middle Mouse Button to toggle float
+riverctl map-pointer normal $MOD_KEY BTN_MIDDLE toggle-float
 
 # #########################################################
 # TAGS CONFIGURATION ######################################
@@ -85,31 +86,31 @@ for i in $(seq 1 9)
 do
     tags=$((1 << ($i - 1)))
 
-    # Super+[1-9] to focus tag [0-8]
-    riverctl map normal Super $i set-focused-tags $tags
+    # $MOD_KEY+[1-9] to focus tag [0-8]
+    riverctl map normal $MOD_KEY $i set-focused-tags $tags
 
-    # Super+Shift+[1-9] to tag focused view with tag [0-8]
-    riverctl map normal Super+Shift $i set-view-tags $tags
+    # $MOD_KEY+Shift+[1-9] to tag focused view with tag [0-8]
+    riverctl map normal $MOD_KEY+Shift $i set-view-tags $tags
 
-    # Super+Control+[1-9] to toggle focus of tag [0-8]
-    riverctl map normal Super+Control $i toggle-focused-tags $tags
+    # $MOD_KEY+Control+[1-9] to toggle focus of tag [0-8]
+    riverctl map normal $MOD_KEY+Control $i toggle-focused-tags $tags
 
-    # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
-    riverctl map normal Super+Control+Shift $i toggle-view-tags $tags
+    # $MOD_KEY+Shift+Control+[1-9] to toggle tag [0-8] of focused view
+    riverctl map normal $MOD_KEY+Control+Shift $i toggle-view-tags $tags
 done
 # for work ans scratchpad
 tags=$((1 << 9));
-riverctl map normal Super D set-focused-tags $tags
-riverctl map normal Super+Shift D set-view-tags $tags
-riverctl map normal Super+Control D toggle-focused-tags $tags
+riverctl map normal $MOD_KEY D set-focused-tags $tags
+riverctl map normal $MOD_KEY+Shift D set-view-tags $tags
+riverctl map normal $MOD_KEY+Control D toggle-focused-tags $tags
 tags=$((1 << 10));
-riverctl map normal Super A set-focused-tags $tags
-riverctl map normal Super+Shift A set-view-tags $tags
-riverctl map normal Super+Control A toggle-focused-tags $tags
-# Super+0 to focus all tags & Super+Shift+0 to tag focused view with all tags
+riverctl map normal $MOD_KEY A set-focused-tags $tags
+riverctl map normal $MOD_KEY+Shift A set-view-tags $tags
+riverctl map normal $MOD_KEY+Control A toggle-focused-tags $tags
+# $MOD_KEY+0 to focus all tags & Super+Shift+0 to tag focused view with all tags
 all_tags=$(((1 << 12) - 1))
-riverctl map normal Super 0 set-focused-tags $all_tags
-riverctl map normal Super+Shift 0 set-view-tags $all_tags
+riverctl map normal $MOD_KEY 0 set-focused-tags $all_tags
+riverctl map normal $MOD_KEY+Shift 0 set-view-tags $all_tags
 
 # Media Keys
 for mode in normal locked
