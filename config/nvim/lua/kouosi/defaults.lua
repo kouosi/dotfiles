@@ -37,6 +37,7 @@ vim.g.netrw_liststyle = 3
 vim.opt.title         = true
 vim.opt.isfname:append("@-@", "{", "}")
 vim.opt.iskeyword:append("-")
+vim.opt.shortmess:append "I"
 
 -- Undoing & Backups
 vim.opt.backup     = false
