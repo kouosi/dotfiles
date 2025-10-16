@@ -43,6 +43,13 @@ lspconfig.zls.setup({
     }
 })
 
+-- Lsp config for odin
+lspconfig.ols.setup({
+	init_options = {
+		checker_args = "-strict-style"
+	},
+})
+
 vim.api.nvim_create_autocmd("BufWritePre",{
     pattern = { "*.zig", "*.zon" },
     callback = function(ev)
