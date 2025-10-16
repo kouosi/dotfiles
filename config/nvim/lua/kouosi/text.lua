@@ -57,6 +57,13 @@ vim.api.nvim_create_autocmd("BufWritePre",{
     end
 })
 
+-- Clear jumps when opening neovim
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        vim.cmd("clearjumps")
+    end,
+})
+
 -- Make folders when saving file from mkdir.nvim
 vim.api.nvim_create_augroup("MkdirRun", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
