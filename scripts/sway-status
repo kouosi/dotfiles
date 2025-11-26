@@ -135,7 +135,7 @@ get_volume() {
 
 # Display
 while true; do
-    printf "%s | %s | %s | %s | %s | %s | %s | %s | %s \n" "$(get_mem)" "$(get_cpu)" "$(get_time)" \
+    printf "%s | %s | %s | %s | %s | %s | %s | %s | %s \n" "$(get_mem)" "$(get_time)" \
         "$(get_uptime)" "$(get_wifi)" "$(get_volume)" "$(get_brightness)" "$(get_battery)" "$(get_date)"
     sleep 0.25
 done
