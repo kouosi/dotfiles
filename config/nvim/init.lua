@@ -1,1 +1,5 @@
-require("kouosi")
+require("defaults")
+require("keymaps")
+require("lsp")
+require("others")
+require("plugins")

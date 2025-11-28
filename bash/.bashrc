@@ -8,8 +8,8 @@ set -o vi # vim mode
 export PATH=$PATH:$HOME/.local/bin
 
 # Default apps
-export BROWSER=librewolf
-export EDITOR=nvim
+export BROWSER=firefox
+export EDITOR=helix
 export TERMINAL=footclient
 export MANPAGER='nvim +Man!'
 
@@ -108,7 +108,7 @@ alias rm='rm -iv'
 
 # shortcut commands
 alias _='sudo'
-# alias vim='nvim'
+alias hx='helix'
 alias ytmpv='mpv --ytdl-format="bestvideo[height<=1080][vcodec!=vp9]+bestaudio/best" --cache=yes'
 alias servehugo='hugo server -D --disableFastRender --noHTTPCache --tlsAuto'
 alias livereload='livereload --host localhost -p 1919'
@@ -129,6 +129,44 @@ man() {
     LESS_TERMCAP_so=$'\e[45;93m' \
     LESS_TERMCAP_se=$'\e[0m' \
     command man "$@"
+}
+
+crun() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: crun file.c [gcc options] -- [program arguments]"
+        return 1
+    fi
+    local cfile="$1"
+    shift
+    if [[ ! -f "$cfile" ]]; then
+        echo "Error: '$cfile' not found"
+        return 1
+    fi
+
+    local exe=$(mktemp /tmp/crun_exec_XXXXXX)
+    local gcc_args=()
+    local run_args=()
+    local parsing_gcc=true
+
+    for arg in "$@"; do
+        if $parsing_gcc && [[ "$arg" == "--" ]]; then
+            parsing_gcc=false
+            continue
+        fi
+        if $parsing_gcc; then
+            gcc_args+=("$arg")
+        else
+            run_args+=("$arg")
+        fi
+    done
+    gcc "$cfile" -o "$exe" "${gcc_args[@]}"
+    if [ $? -ne 0 ]; then
+        echo "Compilation failed"
+        rm -f "$exe"
+        return 1
+    fi
+    "$exe" "${run_args[@]}"
+    rm -f "$exe" > /dev/null
 }
 
 dasm() {
@@ -154,8 +192,10 @@ set_window_title() {
 }
 
 # Our PS1 prompt
+PROMPT_COMMAND='LAST_STATUS=$?'
+PROMPT_DIRTRIM=2
 if [ "$(tput colors)" -ge 8 ]; then
-    PS1="${COLOR_BRED}[${COLOR_BBLUE}\u${COLOR_BYELLOW}@${COLOR_BCYAN}\h${COLOR_BRED}]-[${COLOR_BGREEN}\w${COLOR_BRED}]\$(get_git_branch) \$ ${COLOR_RESET}\[\033]0;(\w) — $TERM\007"
+    PS1="${COLOR_BRED}[${COLOR_BBLUE}\u${COLOR_BYELLOW}@${COLOR_BCYAN}\h${COLOR_BRED}]-[${COLOR_BGREEN}\w${COLOR_BRED}]\$(get_git_branch)\$([ \$LAST_STATUS -ne 0 ] && echo \" (\$LAST_STATUS)\") \$ ${COLOR_RESET}\[\033]0;(\w) — $TERM\007"
     trap 'set_window_title' DEBUG
 else
     PS1="${COLOR_BGREEN}\w${COLOR_BRED} \$ ${COLOR_RESET}"

@@ -72,6 +72,7 @@ input "type:keyboard" {
 #########################################################
 # Applications
 bindsym $mod+o exec $menu
+bindsym $mod+Shift+o exec wmenu-run
 bindsym $mod+Shift+Return exec $term
 bindsym $mod+Ctrl+b exec $browser
 bindsym $mod+Shift+b exec $pbrowser
