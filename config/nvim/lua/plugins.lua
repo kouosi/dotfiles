@@ -24,7 +24,7 @@ vim.pack.add({
     "https://github.com/nvim-lua/plenary.nvim", -- telescope dependency
     "https://github.com/kevinhwang91/nvim-ufo",
     "https://github.com/kevinhwang91/promise-async", -- nvim-ufo dependency
-	"https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/hrsh7th/nvim-cmp",
     "https://github.com/hrsh7th/cmp-nvim-lsp", -- cmp dependency
     "https://github.com/hrsh7th/cmp-path", -- cmp dependency
