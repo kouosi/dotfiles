@@ -12,7 +12,7 @@ color_gray="#928374"
 
 # CPU
 get_cpu() {
-    cpu_info=$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5); printf("%.1f%%", usage)}')
+    local cpu_info=$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5); printf("%.1f%%", usage)}')
     echo "<span foreground='$color_orange'> $cpu_info</span>"
 }
 
@@ -28,8 +28,8 @@ get_uptime() {
 
 # Battery
 get_battery() {
-    battery_info="$(cat /sys/class/power_supply/BAT*/capacity)"
-    battery_status="$(cat /sys/class/power_supply/BAT*/status)"
+    local battery_info="$(cat /sys/class/power_supply/BAT*/capacity)"
+    local battery_status="$(cat /sys/class/power_supply/BAT*/status)"
     if [ "$battery_status" = "Charging" ]; then
         if [ "$battery_info" -ge 80 ]; then
             notify-send -t 5000 -u normal "Battery Full" "Please remove charger" -i foot -w
@@ -66,52 +66,33 @@ get_time() {
 
 # Brightness
 get_brightness() {
-    brt_info="$(($(brightnessctl get) * 100 / $(brightnessctl max)))"
-    brt_icon="$( [ "$brt_info" -ge 80 ] && echo ' ' || { [ "$brt_info" -ge 40 ] && echo ' ' || echo ''; } )"
+    local brt_info="$(($(brightnessctl get) * 100 / $(brightnessctl max)))"
+    local brt_icon="$( [ "$brt_info" -ge 80 ] && echo ' ' || { [ "$brt_info" -ge 40 ] && echo ' ' || echo ''; } )"
     echo "<span foreground='$color_yellow'>$brt_icon</span> $brt_info%"
-}
-
-# Weather
-CACHE_TIMEOUT=600
-CACHE_FILE="/tmp/weather_cache"
-get_weather() {
-    if [ ! -f "$CACHE_FILE" ] || [ "$(($(date +%s) - $(stat -c %Y "$CACHE_FILE")))" -ge "$CACHE_TIMEOUT" ]; then
-        weather_info=$(curl -s wttr.in/?format="%C+%t" 2>/dev/null)
-        if [ -n "$weather_info" ]; then echo "$weather_info" > "$CACHE_FILE"; fi
-    else weather_info=$(cat "$CACHE_FILE"); fi
-    condition=$(echo $weather_info | cut -d'+' -f1)
-    temperature=$(echo $weather_info | cut -d'+' -f2)
-    case "$condition" in
-        *Cloud*) weather_icon="'white'> " ;;
-        *Rain*)  weather_icon="'blue'> " ;;
-        *Snow*)  weather_icon="'white'> " ;;
-        *)       weather_icon="'yellow'> " ;;
-    esac
-    echo "<span foreground="$weather_icon"</span> $temperature"
 }
 
 # Wi-Fi
 get_wifi() {
-    wifi_name=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d':' -f2)
+    local wifi_name=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d':' -f2)
     if [ -z "$wifi_name" ]; then
         echo "Disconnected"
         return
     else
-        wifi_status="$(cat /sys/class/net/w*/operstate 2>/dev/null)"
+        local wifi_status="$(cat /sys/class/net/w*/operstate 2>/dev/null)"
         if [ $wifi_status = 'up' ] ; then
-            wifi_icon="$(awk '/^\s*w/ { print int($3 * 100 / 70) "% " }' /proc/net/wireless)"
-            wifi_strength="$(awk '/^\s*w/ { print int($3 * 100 / 70) }' /proc/net/wireless)"
+            local wifi_icon="$(awk '/^\s*w/ { print int($3 * 100 / 70) "% " }' /proc/net/wireless)"
+            local wifi_strength="$(awk '/^\s*w/ { print int($3 * 100 / 70) }' /proc/net/wireless)"
 
             # Choose icon based on strength
             if [ "$wifi_strength" -ge 40 ]; then
-                wifi_icon=" "
+                local wifi_icon=" "
             else
-                wifi_icon=" "
+                local wifi_icon=" "
             fi
-            wifi="$wifi_icon ($wifi_name) $wifi_strength%"
+            local wifi="$wifi_icon ($wifi_name) $wifi_strength%"
         else
-            wifi_icon=" "
-            wifi="$wifi_icon $wifi_strength%"
+            local wifi_icon=" "
+            local wifi="$wifi_icon $wifi_strength%"
         fi
     fi
     echo "$wifi"
@@ -119,9 +100,9 @@ get_wifi() {
 
 # Audio
 get_volume() {
-    volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2 * 100}')
-    mute_status=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o "MUTED")
-    hp_status=$(amixer -c 0 get Headphone | grep -A 1 'Playback' | tail -n 1 | awk '{print $NF}')
+    local volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2 * 100}')
+    local mute_status=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o "MUTED")
+    local hp_status=$(amixer -c 0 get Headphone | grep -A 1 'Playback' | tail -n 1 | awk '{print $NF}')
 
     if [ "$mute_status" = "MUTED" ]; then
         echo "<span foreground='$color_gray'> mute</span>"
@@ -132,10 +113,21 @@ get_volume() {
     fi
 }
 
+get_mic() {
+    local volume=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print $2 * 100}')
+    local mute_status=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -o "MUTED")
+
+    if [ "$mute_status" = "MUTED" ]; then
+        echo "<span foreground='$color_gray'>󰍭</span>"
+    else
+        echo "<span foreground='$color_blue'>󰍬 $volume%</span>"
+    fi
+}
+
 
 # Display
 while true; do
     printf "%s | %s | %s | %s | %s | %s | %s | %s | %s \n" "$(get_mem)" "$(get_time)" \
-        "$(get_uptime)" "$(get_wifi)" "$(get_volume)" "$(get_brightness)" "$(get_battery)" "$(get_date)"
+        "$(get_uptime)" "$(get_wifi)" "$(get_volume)" "$(get_mic)" "$(get_brightness)" "$(get_battery)" "$(get_date)"
     sleep 0.25
 done
