@@ -1,18 +1,17 @@
-[user]
-    email = kouosi@tuta.io
-    name = kouosi
-    signingkey = 489020A2EE7D8B66
+[include]
+    path = ~/.local/share/.git.config
 [alias]
     tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lg = log --graph --pretty=format:'%C(yellow)%h%Creset %C(blue)%an%Creset %Cgreen(%ar)%Creset %s' --abbrev-commit
+    branches = branch -a -v
+    s = status -sb
+    cleanup = branch --merged | grep -v '\\*\\|main\\|develop' | xargs -r git branch -d
 [core]
-    editor = helix
-    compression = 0
+    editor = nvim
 [init]
     defaultBranch = main
 [merge]
     conflictStyle = diff3
-[magit]
-    hideCampaign = true
 [http]
     postBuffer = 157286400
 [commit]

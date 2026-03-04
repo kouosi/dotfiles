@@ -33,6 +33,7 @@ touch $XDG_DATA_HOME/gnupg
 touch $XDG_DATA_HOME/wget-hsts
 mkdir -p ~/Media/Pictures/Mpv/
 mkdir -p $XDG_DATA_HOME/vim/undo
+cp config/git/config.local ~/.local/share/.git.config
 
 # install all config
 stow config/ -t $XDG_CONFIG_HOME
