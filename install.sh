@@ -12,11 +12,11 @@ set -xe
 echo $0
 
 # variables
-export XDG_CONFIG_HOME=$HOME/.config/
-export XDG_CACHE_HOME=$HOME/.cache/
-export XDG_DATA_HOME=$HOME/.local/share/
-export XDG_STATE_HOME=$HOME/.local/state/
-export LOCAL_BIN=$HOME/.local/bin/
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
+export LOCAL_BIN=$HOME/.local/bin
 
 # make xdg dirs
 mkdir -p $XDG_CONFIG_HOME
@@ -33,13 +33,13 @@ touch $XDG_DATA_HOME/gnupg
 touch $XDG_DATA_HOME/wget-hsts
 mkdir -p ~/Media/Pictures/Mpv/
 mkdir -p $XDG_DATA_HOME/vim/undo
-cp config/git/config.local ~/.local/share/.git.config
+cp -iv config/git/config.local ~/.local/share/.git.config || echo "Not replacing git local config"
 
 # install all config
-stow config/ -t $XDG_CONFIG_HOME
+stow config/ -t $XDG_CONFIG_HOME/
 stow .assets/ -t $XDG_CONFIG_HOME/.assets
-stow bash/ -t $HOME
-stow scripts/ -t $LOCAL_BIN
+stow bash/ -t $HOME/
+stow scripts/ -t $LOCAL_BIN/
 
 # Create files after linked
 touch $XDG_CONFIG_HOME/ncmpcpp/error.log
