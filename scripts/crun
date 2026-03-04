@@ -1,0 +1,43 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $(basename "$0") file.c [gcc options] -- [program arguments]"
+    exit 1
+fi
+
+cfile=$1
+shift
+
+if [ ! -f "$cfile" ]; then
+    echo "error: '$cfile' file not found"
+    exit 1
+fi
+
+exe=$(mktemp /tmp/crun_exec_XXXXXX)
+
+gcc_args=""
+run_args=""
+parsing_gcc=yes
+
+for arg in "$@"; do
+    if [ "$parsing_gcc" = yes ] && [ "$arg" = "--" ]; then
+        parsing_gcc=no
+        continue
+    fi
+
+    if [ "$parsing_gcc" = yes ]; then
+        gcc_args="$gcc_args \"$arg\""
+    else
+        run_args="$run_args \"$arg\""
+    fi
+done
+
+eval gcc "\"$cfile\"" -o "\"$exe\"" $gcc_args
+if [ $? -ne 0 ]; then
+    echo "error: compilation failed"
+    rm -f "$exe"
+    exit 1
+fi
+
+eval "\"$exe\"" $run_args
+rm -f "$exe"
