@@ -113,67 +113,6 @@ alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 alias venv='source venv/bin/activate'
 alias adb='HOME="$XDG_DATA_HOME"/android adb'
 
-# Some useful functions
-man() {
-    LESS_TERMCAP_md=$'\e[01;34m' \
-    LESS_TERMCAP_me=$'\e[0m' \
-    LESS_TERMCAP_us=$'\e[04;31m' \
-    LESS_TERMCAP_ue=$'\e[0m' \
-    LESS_TERMCAP_so=$'\e[45;93m' \
-    LESS_TERMCAP_se=$'\e[0m' \
-    command man "$@"
-}
-
-crun() {
-    if [ $# -eq 0 ]; then
-        echo "Usage: crun file.c [gcc options] -- [program arguments]"
-        return 1
-    fi
-    local cfile="$1"
-    shift
-    if [[ ! -f "$cfile" ]]; then
-        echo "Error: '$cfile' not found"
-        return 1
-    fi
-
-    local exe=$(mktemp /tmp/crun_exec_XXXXXX)
-    local gcc_args=()
-    local run_args=()
-    local parsing_gcc=true
-
-    for arg in "$@"; do
-        if $parsing_gcc && [[ "$arg" == "--" ]]; then
-            parsing_gcc=false
-            continue
-        fi
-        if $parsing_gcc; then
-            gcc_args+=("$arg")
-        else
-            run_args+=("$arg")
-        fi
-    done
-    gcc "$cfile" -o "$exe" "${gcc_args[@]}"
-    if [ $? -ne 0 ]; then
-        echo "Compilation failed"
-        rm -f "$exe"
-        return 1
-    fi
-    "$exe" "${run_args[@]}"
-    rm -f "$exe" > /dev/null
-}
-
-dasm() {
-    if [[ -z "$1" ]]; then
-        echo "Usage: dasm <binary> [symbol]"
-        return 1
-    fi
-
-    if [[ -n "$2" ]]; then
-        llvm-objdump --disassemble --demangle --symbol="$2" "$1" | nvim -
-    else
-        llvm-objdump --disassemble --demangle "$1" | nvim -
-    fi
-}
 ### Prompt
 ## Functions
 prompt_get_git_branch() {
