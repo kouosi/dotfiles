@@ -233,6 +233,7 @@ font pango:CaskaydiaMono Nerd Font 9
 titlebar_padding 5 2
 for_window [app_id="mpv"] border normal
 for_window [app_id="qemu"] floating enable
+floating_maximum_size 3840 x 2160
 
 #########################################################
 ### Status Bar:
