@@ -6,6 +6,7 @@
     branches = branch -a -v
     s = status -sb
     cleanup = branch --merged | grep -v '\\*\\|main\\|develop' | xargs -r git branch -d
+	push-all = !git remote | xargs -I{} sh -c \"echo Pushing to {} && git push --all {}\"
 [core]
     editor = nvim
 [init]
