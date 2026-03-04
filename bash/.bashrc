@@ -67,12 +67,13 @@ alias start-sway='dbus-run-session sway'
 alias ..='cd ..;pwd'
 alias ...='cd ../..;pwd'
 alias ....='cd ../../..;pwd'
-alias cf='cd $(fzf --walker=dir --height=30% --layout=reverse --walker-root="$HOME" --border-label="Search dirs" --border=rounded)'
+alias cf='cd $(fzf --walker=dir --height=30% --layout=reverse --walker-root="$HOME" \
+    --border-label="Search dirs" --border=rounded)'
 
 ## ls alias
 alias ls='ls --color=auto'
 alias la='ls -A'
-alias ll='ls -lha'
+alias ll='ls -Alha'
 
 ## Show colors output
 alias diff='diff --color=auto'
@@ -82,11 +83,12 @@ alias pstree='pstree -Cage'
 ## make utils interactive
 alias cp='cp -iv'
 alias mv='mv -iv'
-alias rm='rm -iv'
+alias remove='/bin/rm -iv'
+alias rm='trash-put -iv'
 
 ## shortcut commands
 alias hx='helix'
-alias ytmpv='mpv --ytdl-format="bestvideo[height<=1080][vcodec!=vp9]+bestaudio/best" --cache=yes'
+alias mpv-yt='mpv --ytdl-format="bestvideo[height<=1080][vcodec!=vp9]+bestaudio/best" --cache=yes'
 alias servehugo='hugo server -D --disableFastRender --noHTTPCache --tlsAuto'
 alias livereload='livereload --host localhost -p 1919'
 alias zigw='zig build --watch -fincremental --prominent-compile-errors'
