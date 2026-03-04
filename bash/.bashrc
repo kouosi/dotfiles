@@ -5,7 +5,7 @@ set -o vi
 ### Env vars
 ## Default apps
 export BROWSER=firefox
-export EDITOR=helix
+export EDITOR=nvim
 export TERMINAL=footclient
 export MANPAGER='nvim +Man!'
 
