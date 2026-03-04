@@ -1,18 +1,19 @@
 #!/bin/sh
 
-CURRENT_DIR=$(pwd)
-NOTE_DIR=$HOME/Documents/Notes/
-EDITOR=nvim
-FILE=$NOTE_DIR/$1.md
+CURRENT_DIR="$(pwd)"
+NOTE_DIR="$HOME/Documents/Notes/"
+[ -z "${EDITOR}" ] && EDITOR=nvim
+FILE="$NOTE_DIR/$1.md"
 
 open_editor() {
-    cd $NOTE_DIR
-    $EDITOR $1
+    cd "$NOTE_DIR"
+    $EDITOR "$1"
 }
 
 if [ -z "$1" ]; then
+    [ -d "$NOTE_DIR" ] || echo "Creating dir: $NOTE_DIR"
     cd "$NOTE_DIR" || exit
-    selected=$(n -l | fzf --height 40% --layout=reverse \
+    selected=$(ls -1 "$NOTE_DIR" | fzf --height 40% --layout=reverse \
         --border-label="Search Projects" --border=rounded)
     if [ -n "$selected" ]; then
         open_editor "$selected"
@@ -20,10 +21,10 @@ if [ -z "$1" ]; then
 elif [ "$1" = "-n" ]; then
     open_editor
 elif [ "$1" = "-l" ]; then
-    ls -1 $NOTE_DIR
+    ls -1 "$NOTE_DIR"
 elif [ -f "$FILE" ]; then
     echo "$1.md exists opening."
-    open_editor $NOTE_DIR/$1.md
+    open_editor "$NOTE_DIR/$1.md"
 else
-    open_editor $FILE
+    open_editor "$FILE"
 fi
