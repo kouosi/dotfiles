@@ -15,27 +15,6 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
 
-# Colors
-COLOR_RESET='\[\e[0m\]'
-COLOR_BLACK='\[\e[0;30m\]'
-COLOR_RED='\[\e[0;31m\]'
-COLOR_GREEN='\[\e[0;32m\]'
-COLOR_YELLOW='\[\e[0;33m\]'
-COLOR_BLUE='\[\e[0;34m\]'
-COLOR_PURPLE='\[\e[0;35m\]'
-COLOR_CYAN='\[\e[0;36m\]'
-COLOR_LIGHTGRAY='\[\e[0;37m\]'
-
-# Bold colors
-COLOR_BBLACK='\[\e[1;30m\]'
-COLOR_BRED='\[\e[1;31m\]'
-COLOR_BGREEN='\[\e[1;32m\]'
-COLOR_BYELLOW='\[\e[1;33m\]'
-COLOR_BBLUE='\[\e[1;34m\]'
-COLOR_BPURPLE='\[\e[1;35m\]'
-COLOR_BCYAN='\[\e[1;36m\]'
-COLOR_BLIGHTGRAY='\[\e[1;37m\]'
-
 ## PATH For local binary
 export PATH=$PATH:$HOME/.local/bin:$XDG_DATA_HOME/npm/bin:$HOME/Downloads/ResearchProject/plecs:$HOME/local/share/npm/bin/
 
@@ -179,26 +158,43 @@ dasm() {
         llvm-objdump --disassemble --demangle "$1" | nvim -
     fi
 }
-
-get_git_branch() {
+### Prompt
+## Functions
+prompt_get_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-set_window_title() {
+prompt_set_window_title() {
     local cmd=$(basename $(echo "$BASH_COMMAND" | cut -d' ' -f1))
     printf "\033]0;%s — %s\007" "$cmd" "$TERM"
 }
 
-# Our PS1 prompt
+## Colors & Colors with Bold
+C_BLACK='\[\e[0;30m\]'  CB_BLACK='\[\e[1;30m\]'
+C_RED='\[\e[0;31m\]'    CB_RED='\[\e[1;31m\]'
+C_GREEN='\[\e[0;32m\]'  CB_GREEN='\[\e[1;32m\]'
+C_YELLOW='\[\e[0;33m\]' CB_YELLOW='\[\e[1;33m\]'
+C_BLUE='\[\e[0;34m\]'   CB_BLUE='\[\e[1;34m\]'
+C_PURPLE='\[\e[0;35m\]' CB_PURPLE='\[\e[1;35m\]'
+C_CYAN='\[\e[0;36m\]'   CB_CYAN='\[\e[1;36m\]'
+C_WHITE='\[\e[0;37m\]'  CB_WHITE='\[\e[1;37m\]'
+C_RESET='\[\e[0m\]'
+
 PROMPT_COMMAND='LAST_STATUS=$?'
 PROMPT_DIRTRIM=2
 
 if [ "$(tput colors)" -ge 8 ]; then
-    PS1="${COLOR_BRED}[${COLOR_BBLUE}\u${COLOR_BYELLOW}@${COLOR_BCYAN}\h${COLOR_BRED}]-[${COLOR_BGREEN}\w${COLOR_BRED}]\$(get_git_branch)\$([ \$LAST_STATUS -ne 0 ] && echo \" (\$LAST_STATUS)\") \$ ${COLOR_RESET}\[\033]0;(\w) — $TERM\007"
-    trap 'set_window_title' DEBUG
+    PS1="${CB_RED}[${CB_BLUE}\u${CB_YELLOW}@${CB_CYAN}\h${CB_RED}]-[${CB_GREEN}\w${CB_RED}]"
+    PS1+="\$(prompt_get_git_branch)\$([ \$LAST_STATUS -ne 0 ] && echo \" (\$LAST_STATUS)\") \$ "
+    PS1+="${C_RESET}\[\033]0;(\w) — $TERM\007"
+    trap 'prompt_set_window_title' DEBUG
 else
-    PS1="${COLOR_BGREEN}\w${COLOR_BRED} \$ ${COLOR_RESET}"
+    PS1="[\u@\h]-[\w] \$ "
 fi
+
+## unset colors as we don't want them
+unset -v C_BLACK CB_BLACK C_RED CB_RED C_GREEN CB_GREEN C_YELLOW CB_YELLOW \
+    C_BLUE CB_BLUE C_PURPLE CB_PURPLE C_CYAN CB_CYAN  C_WHITE CB_WHITE C_RESET
 
 ## Use bash-completion, if available
 # [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
