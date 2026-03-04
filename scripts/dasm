@@ -1,0 +1,13 @@
+#!/bin/dash
+
+if [[ -z "$1" ]]; then
+    echo "Usage: dasm <binary> [symbol]"
+    return 1
+fi
+
+if [[ -n "$2" ]]; then
+    llvm-objdump --disassemble --demangle --symbol="$2" "$1" | nvim -
+else
+    llvm-objdump --disassemble --demangle "$1" | nvim -
+fi
+
