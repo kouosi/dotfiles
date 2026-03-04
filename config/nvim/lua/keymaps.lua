@@ -1,28 +1,25 @@
-local opt = { noremap = true, silent = true }
+local M = {}
 
--- pane navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h", opt)
-vim.keymap.set("n", "<C-j>", "<C-w>j", opt)
-vim.keymap.set("n", "<C-k>", "<C-w>k", opt)
-vim.keymap.set("n", "<C-l>", "<C-w>l", opt)
+function M.map(mode, map_as, map_to, desc)
+    vim.keymap.set(mode, map_as, map_to, { noremap = true, silent = true, desc = desc })
+end
 
 -- win management
-vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", opt)
-vim.keymap.set("n", "<leader>sh", ":split<CR>", opt)
-
--- File explorer
-vim.keymap.set("n", "<leader>fm", ":28Lexplore<CR>", opt)
+M.map("n", "<leader>sv", ":vsplit<CR>", "Vertically split window")
+M.map("n", "<leader>sh", ":split<CR>", "Horizontally split window")
 
 -- Disable Arrow keys
-vim.keymap.set("n", "<Up>", "<Nop>", opt)
-vim.keymap.set("n", "<Down>", "<Nop>", opt)
-vim.keymap.set("n", "<Left>", "<Nop>", opt)
-vim.keymap.set("n", "<Right>", "<Nop>", opt)
+M.map("n", "<Up>", "<Nop>")
+M.map("n", "<Down>", "<Nop>")
+M.map("n", "<Left>", "<Nop>")
+M.map("n", "<Right>", "<Nop>")
 
 -- Buffer navigation
-vim.keymap.set("n", "<Tab>", ":bnext <CR>", opt)
-vim.keymap.set("n", "<S-Tab>", ":bprevious <CR>", opt)
-vim.keymap.set("n", "<leader>d", ":bd! <CR>", opt)
+M.map("n", "<Tab>", ":bnext <CR>", "Goto next buffer")
+M.map("n", "<S-Tab>", ":bprevious <CR>", "Goto previous buffer")
+M.map("n", "<leader>bd", ":bd! <CR>", "Close current buffer")
 
 -- Others
-vim.keymap.set("n", "<leader>ld", ":Lazy load cord.nvim <CR>", opt)
+M.map("n", "<leader>e", ":Oil <CR>", "Open Oil")
+
+return M

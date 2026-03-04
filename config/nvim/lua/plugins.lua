@@ -1,3 +1,5 @@
+local km = require("keymaps")
+
 vim.api.nvim_create_autocmd("PackChanged", {
     callback = function (ev)
         local name, kind = ev.data.spec.name, ev.data.kind
@@ -31,7 +33,75 @@ vim.pack.add({
     "https://github.com/hrsh7th/cmp-buffer", -- cmp dependency
     "https://github.com/hrsh7th/cmp-calc", -- cmp dependency
     "https://github.com/nvim-lualine/lualine.nvim",
-    "https://github.com/nvim-tree/nvim-web-devicons",
+    "https://github.com/stevearc/oil.nvim",
+    "https://github.com/benomahony/oil-git.nvim", -- oil dependency
+    "https://github.com/echasnovski/mini.icons", -- lualine & oil dependency
+    "https://github.com/folke/which-key.nvim",
+})
+
+require("which-key").setup({ preset = "helix", })
+
+require('mini.icons').setup()
+require('mini.icons').mock_nvim_web_devicons()
+
+local function parse_output(proc)
+    local result = proc:wait()
+    local ret    = {}
+    if result.code == 0 then
+        for line in vim.gsplit(result.stdout, "\n", { plain = true, trimempty = true}) do
+            ret[line:gsub("/$", "")] = true
+        end
+    end
+    return ret
+end
+
+local function new_git_status()
+    return setmetatable({}, {
+        __index = function(self, key)
+            local ret = {
+                ignored = parse_output(vim.system(
+                    { "git", "ls-files", "--ignored", "--exclude-standard", "--others", "--directory" },
+                    { cwd = key, text = true}
+                )),
+                tracked = parse_output(vim.system(
+                    { "git", "ls-tree", "HEAD", "--name-only" },
+                    { cwd = key, text = true }
+                )),
+            }
+            rawset(self, key, ret)
+            return ret
+        end,
+    })
+end
+
+local git_status = new_git_status()
+
+local refresh = require("oil.actions").refresh
+local orig_refresh = refresh.callback
+refresh.callback = function(...)
+    git_status = new_git_status()
+    orig_refresh(...)
+end
+
+require("oil").setup({
+    columns         = { "size", "icon" },
+    delete_to_trash = true,
+    preview_win     = { disable_preview = true },
+    view_options    = {
+        is_hidden_file = function(name, bufnr)
+            local dir        = require("oil").get_current_dir(bufnr)
+            local is_dotfile = vim.startswith(name, ".") and name ~= ".."
+            if not dir then
+                return is_dotfile
+            end
+            if is_dotfile then
+                return not git_status[dir].tracked[name]
+            else
+                return git_status[dir].ignored[name]
+            end
+        end,
+    },
+    prompt_save_on_select_new_entry = false,
 })
 
 require("Comment").setup()
@@ -57,14 +127,14 @@ require("gitsigns").setup({
         untracked    = { text = "?" },
     },
 })
-vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
-vim.keymap.set("n", "<leader>gt", ":Gitsigns toggle_current_line_blame<CR>", {})
+km.map("n", "<leader>gp", ":Gitsigns preview_hunk <CR>", "Git sign preview hunk")
+km.map("n", "<leader>gt", ":Gitsigns toggle_current_line_blame <CR>","Git sign blame")
 
 local gruvbox = require("gruvbox")
 gruvbox.setup({
-    contrast         = "soft",
+    -- contrast         = "soft",
     dim_inactive     = true,
-    transparent_mode = true,
+    -- transparent_mode = true,
 })
 gruvbox.load()
 
@@ -99,8 +169,8 @@ require("nvim-treesitter.configs").setup({
     incremental_selection = {
         enable  = true,
         keymaps = {
-            scope_incremental = false,
             init_selection    = "<C-b>",
+            scope_incremental = "<C-s>",
             node_incremental  = "<C-n>",
             node_decremental  = "<C-m>",
         },
@@ -130,26 +200,59 @@ require("telescope").setup({
         help_tags  = { theme = "ivy" },
     },
 })
-vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-vim.keymap.set("n", "<leader>fc", builtin.current_buffer_fuzzy_find , {})
-vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
-vim.keymap.set("n", "<leader>ff", builtin.find_files , {})
-vim.keymap.set("n", "<leader>fg", builtin.live_grep , {})
-vim.keymap.set("n", "<leader>fgc", builtin.git_commits, {})
-vim.keymap.set("n", "<leader>fgf", builtin.git_files , {})
-vim.keymap.set("n", "<leader>fgs", builtin.git_status, {})
-vim.keymap.set("n", "<leader>fh", builtin.help_tags , {})
-vim.keymap.set("n", "<leader>fj", builtin.jumplist, {})
-vim.keymap.set("n", "<leader>fk", builtin.keymaps, {})
-vim.keymap.set("n", "<leader>fl", builtin.lsp_definitions, {})
-vim.keymap.set("n", "<leader>fm", builtin.man_pages, {})
-vim.keymap.set("n", "<leader>fn", builtin.spell_suggest, {})
-vim.keymap.set("n", "<leader>fo", builtin.oldfiles, {})
-vim.keymap.set("n", "<leader>fq", builtin.quickfix, {})
-vim.keymap.set("n", "<leader>ft", builtin.treesitter, {})
-vim.keymap.set("n", "<leader>fs", function()
-    builtin.grep_string({ search = vim.fn.input("Search > ") })
-end)
+
+local function get_lsp_root()
+    local root_dir = nil
+    local clients = vim.lsp.get_active_clients()
+    for _, client in ipairs(clients) do
+        if client.config and client.config.root_dir then
+            root_dir = client.config.root_dir
+            break
+        end
+    end
+    if not root_dir then
+        local git_root = vim.fn.systemlist("git rev-parse --show-toplevel 2>/dev/null")[1]
+        if git_root and vim.v.shell_error == 0 then
+            root_dir = git_root
+        end
+    end
+    return root_dir or vim.fn.getcwd()
+end
+
+local function live_grep_from_lsp_root()
+    builtin.live_grep({ cwd = get_lsp_root() })
+end
+
+local function find_files_from_lsp_root()
+    builtin.find_files({ cwd = get_lsp_root() })
+end
+
+km.map("n", "<leader>/", live_grep_from_lsp_root, "Live frep at lsp root")
+km.map("n", "<leader>/b", builtin.current_buffer_fuzzy_find , "TS Fuzzy find current buff")
+km.map("n", "<leader>/c", builtin.live_grep, "Live grep cwd")
+km.map("n", "<leader>b", builtin.buffers, "TS Buffers")
+km.map("n", "<leader>F", builtin.find_files, "Find file at cwd")
+km.map("n", "<leader>f", find_files_from_lsp_root, "Find files at lsp root")
+km.map("n", "<leader>o", builtin.oldfiles, "TS old files")
+km.map("n", "<leader>gc", builtin.git_commits, "TS git commits")
+km.map("n", "<leader>gf", builtin.git_files , "TS git files")
+km.map("n", "<leader>gs", builtin.git_status, "TS git status")
+km.map("n", "<leader>h", builtin.help_tags , "TS help tags")
+km.map("n", "<leader>j", builtin.jumplist, "TS jump list")
+km.map("n", "<leader>k", builtin.keymaps, "TS key maps")
+km.map("n", "<leader>lD", builtin.lsp_type_definitions, "LSP Type definitions List")
+km.map("n", "<leader>lS", builtin.lsp_workspace_symbols, "LSP Workspace symbols List")
+km.map("n", "<leader>ld", builtin.lsp_definitions, "LSP Definitions List")
+km.map("n", "<leader>li", builtin.lsp_implementations, "LSP Implementations List")
+km.map("n", "<leader>lq", builtin.lsp_dynamic_workspace_symbols, "LSP Dynamic workspace symbols List")
+km.map("n", "<leader>lr", builtin.lsp_references, "LSP References Listj")
+km.map("n", "<leader>ls", builtin.lsp_document_symbols, "LSP Document symbols List")
+km.map("n", "<leader>m", builtin.man_pages, "TS Man pages")
+km.map("n", "<leader>q", builtin.quickfix, "TS quick fix")
+km.map("n", "<leader>s", builtin.spell_suggest, "TS spell suggest")
+km.map("n", "<leader>v", builtin.diagnostics, "TS Diagnostics List")
+
+vim.opt.timeoutlen = 320
 
 local ufo = require("ufo")
 ufo.setup({
@@ -157,6 +260,7 @@ ufo.setup({
         return { "treesitter", "indent" }
     end
 })
+
 
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -171,14 +275,35 @@ cmp.setup({
     formatting = {
         fields = { "menu", "abbr", "kind" },
         format = function(entry, item)
+            -- Helper function to truncate a string if it's wider than a given limit
+            local function truncate(str, max_width, ellipsis)
+                ellipsis = ellipsis or "..."
+                local ellipsis_width = vim.fn.strwidth(ellipsis)
+
+                if not str or vim.fn.strwidth(str) <= max_width then
+                    return str
+                end
+
+                local truncated_str = str
+                while vim.fn.strwidth(truncated_str) > max_width - ellipsis_width do
+                    truncated_str = vim.fn.strcharpart(truncated_str, 0, vim.fn.strcharlen(truncated_str) - 1)
+                end
+                return truncated_str .. ellipsis
+            end
+
             local menu_icon = {
                 nvim_lsp = "λ",
                 luasnip  = "⋗",
                 buffer   = "Ω",
                 path     = "🖫",
                 nvim_lua = "Π",
+                calc     = "🖩",
             }
             item.menu = menu_icon[entry.source.name]
+
+            local maxwidth_abbr = 40
+            local ellipsis_char = "..."
+            item.abbr = truncate(item.abbr, maxwidth_abbr, "...")
             return item
         end,
     },
