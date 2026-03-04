@@ -5,6 +5,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     group    = "kouosi",
     pattern  = "*",
     callback = function ()
+        if vim.bo.filetype == "diff" or vim.bo.filetype == "git" then
+            return
+        end
         vim.cmd([[keeppatterns %substitute/\v\s+$//eg]])
     end,
 })
