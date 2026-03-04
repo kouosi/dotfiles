@@ -11,7 +11,7 @@ open_editor() {
 }
 
 if [ -z "$1" ]; then
-    [ -d "$NOTE_DIR" ] || echo "Creating dir: $NOTE_DIR"
+    [ -d "$NOTE_DIR" ] || echo "Creating dir: $NOTE_DIR" && mkdir -p "$NOTE_DIR"
     cd "$NOTE_DIR" || exit
     selected=$(ls -1 "$NOTE_DIR" | fzf --height 40% --layout=reverse \
         --border-label="Search Projects" --border=rounded)
