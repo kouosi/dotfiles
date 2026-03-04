@@ -31,14 +31,14 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec_always autotiling -w 1 3 5 7 9
 exec_always wlsunset -t 4500 -T 5000
 exec_always mako
-exec_always foot -s
+# exec_always foot -s
 # if void_linux
 # exec pipewire
 # exec wireplumber
 # endif
 exec lxqt-policykit-agent
 exec brightnessctl set  20%
-exec $browser
+# exec $browser
 exec swayidle -w
 
 #########################################################
