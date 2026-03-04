@@ -1,19 +1,15 @@
-# Do nothing if bash is not running interactively
-[[ $- != *i* ]] && return
+[[ $- != *i* ]] && return # If not interactive do nothing
 
-# Shell Properties
-set -o vi # vim mode
+set -o vi
 
-# PATH For local binary
-export PATH=$PATH:$HOME/.local/bin
-
-# Default apps
+### Env vars
+## Default apps
 export BROWSER=firefox
 export EDITOR=helix
 export TERMINAL=footclient
 export MANPAGER='nvim +Man!'
 
-# XDG base dirs
+## XDG base DIRs
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
@@ -40,14 +36,17 @@ COLOR_BPURPLE='\[\e[1;35m\]'
 COLOR_BCYAN='\[\e[1;36m\]'
 COLOR_BLIGHTGRAY='\[\e[1;37m\]'
 
-# Bash History control
+## PATH For local binary
+export PATH=$PATH:$HOME/.local/bin:$XDG_DATA_HOME/npm/bin:$HOME/Downloads/ResearchProject/plecs:$HOME/local/share/npm/bin/
+
+## Bash History control
 export HISTCONTROL=ignorespace:ignoredups:erasedups
 export HISTFILE="$XDG_STATE_HOME"/bash/history
 export HISTFILESIZE=800000 # in lines
 export HISTSIZE=8000
 export HISTTIMEFORMAT="%F %T "
 
-# Some hacks
+## Some hacks
 export GPG_TTY=$(tty) # Use current tty as gpg tty
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export LESSHISTFILE=-  # Do not store .lessist file
@@ -61,8 +60,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1 # Java awt wayland hack
 export QT_QPA_PLATFORMTHEME=qt6ct
 export GTK_THEME=Adwaita:dark
 
-# Programming Language Hacks
-## Zig
+## Zig Lang
 # export ZIG_GLOBAL_CACHE_DIR=$XDG_DATA_HOME/.zig-cache/
 ## Rust
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
@@ -78,43 +76,43 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 export ANDROID_USER_HOME="$XDG_DATA_HOME/android/"
 export XDG_MENU_PREFIX=arch-
 
-# start alias for wm
+### Alias
+## wm start alias
 alias start-dwl='dwl-status | dwl -s dwl-startup'
 alias start-gnome='XDG_SESSION_TYPE=wayland dbus-run-session gnome-session'
 alias start-kde='XDG_SESSION_TYPE=wayland dbus-run-session startplasma-wayland'
 alias start-river='river -log-level error 2>&1 | tee $XDG_STATE_HOME/river.log'
 alias start-sway='dbus-run-session sway'
 
-# cd alias
+## cd alias
 alias ..='cd ..;pwd'
 alias ...='cd ../..;pwd'
 alias ....='cd ../../..;pwd'
 alias cf='cd $(fzf --walker=dir --height=30% --layout=reverse --walker-root="$HOME" --border-label="Search dirs" --border=rounded)'
 
-# ls alias
+## ls alias
 alias ls='ls --color=auto'
 alias la='ls -A'
 alias ll='ls -lha'
 
-# Show colors output
+## Show colors output
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
 alias pstree='pstree -Cage'
 
-# make utils interactive
+## make utils interactive
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -iv'
 
-# shortcut commands
-alias _='sudo'
+## shortcut commands
 alias hx='helix'
 alias ytmpv='mpv --ytdl-format="bestvideo[height<=1080][vcodec!=vp9]+bestaudio/best" --cache=yes'
 alias servehugo='hugo server -D --disableFastRender --noHTTPCache --tlsAuto'
 alias livereload='livereload --host localhost -p 1919'
 alias zigw='zig build --watch -fincremental --prominent-compile-errors'
 
-# some hacks
+## Others
 # alias gdb='gdb -n -x "$XDG_CONFIG_HOME/gdb/init"'
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 alias venv='source venv/bin/activate'
@@ -194,6 +192,7 @@ set_window_title() {
 # Our PS1 prompt
 PROMPT_COMMAND='LAST_STATUS=$?'
 PROMPT_DIRTRIM=2
+
 if [ "$(tput colors)" -ge 8 ]; then
     PS1="${COLOR_BRED}[${COLOR_BBLUE}\u${COLOR_BYELLOW}@${COLOR_BCYAN}\h${COLOR_BRED}]-[${COLOR_BGREEN}\w${COLOR_BRED}]\$(get_git_branch)\$([ \$LAST_STATUS -ne 0 ] && echo \" (\$LAST_STATUS)\") \$ ${COLOR_RESET}\[\033]0;(\w) — $TERM\007"
     trap 'set_window_title' DEBUG
@@ -201,11 +200,11 @@ else
     PS1="${COLOR_BGREEN}\w${COLOR_BRED} \$ ${COLOR_RESET}"
 fi
 
-# Use bash-completion, if available
+## Use bash-completion, if available
 # [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
 #     . /usr/share/bash-completion/bash_completion
 
-# Use zig bash bash_completion script if available
+## Use zig bash-completion, if available
 [[ -f ~/.local/bin/_zig.bash ]] && . ~/.local/bin/_zig.bash
 
 [[ -f $XDG_CONFIG_HOME/ls/colors ]] && export LS_COLORS="$(cat $XDG_CONFIG_HOME/ls/colors)"
