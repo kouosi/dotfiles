@@ -31,6 +31,7 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export LESSHISTFILE=-  # Do not store .lessist file
 export MOZ_ENABLE_WAYLAND=1 # Enable wayland support for firefox
 export W3M_DIR="$XDG_STATE_HOME/w3m"
+export PLATFORMIO_CORE_DIR="$XDG_DATA_HOME"/platformio
 export WINEPREFIX="$XDG_DATA_HOME"/wine
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps # Remap caps lock key
 # export XKB_DEFAULT_OPTIONS=ctrl:nocaps,ctrl:swapcaps # Remap caps lock key
@@ -38,21 +39,34 @@ export _JAVA_AWT_WM_NONREPARENTING=1 # Java awt wayland hack
 # export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export QT_QPA_PLATFORMTHEME=qt6ct
 export GTK_THEME=Adwaita:dark
+export PF_INFO="ascii os kernel uptime pkgs shell editor wm"
 
 ## Zig Lang
+export ZVM_PATH=/usr/zvm
+export PATH=$PATH:$ZVM_PATH/bin:$ZVM_PATH/self
 # export ZIG_GLOBAL_CACHE_DIR=$XDG_DATA_HOME/.zig-cache/
+
 ## Rust
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+
 ## Go lang
 export GOPATH=$XDG_DATA_HOME/go
 export GOMODCACHE=$XDG_CACHE_HOME/go/mod
 
-# Config files
+## Python
+export PYTHON_HISTORY=$XDG_STATE_HOME/python_history
+export PYTHONPYCACHEPREFIX=$XDG_CACHE_HOME/python
+export PYTHONUSERBASE=$XDG_DATA_HOME/python
+
+## Others
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
-export ANDROID_USER_HOME="$XDG_DATA_HOME/android/"
+export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
+export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
+export ANDROID_HOME="$XDG_DATA_HOME"/android/sdk
 export XDG_MENU_PREFIX=arch-
 
 ### Alias
@@ -197,6 +211,10 @@ fi
 ## unset colors as we don't want them
 unset -v C_BLACK CB_BLACK C_RED CB_RED C_GREEN CB_GREEN C_YELLOW CB_YELLOW \
     C_BLUE CB_BLUE C_PURPLE CB_PURPLE C_CYAN CB_CYAN  C_WHITE CB_WHITE C_RESET
+
+### Others
+## If LS colors available use them
+[[ -f $XDG_CONFIG_HOME/ls/colors ]] && export LS_COLORS="$(cat $XDG_CONFIG_HOME/ls/colors)"
 
 ## Use bash-completion, if available
 # [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
