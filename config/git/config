@@ -4,7 +4,7 @@
     tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
     lg = log --graph --pretty=format:'%C(yellow)%h%Creset %C(blue)%an%Creset %Cgreen(%ar)%Creset %s' --abbrev-commit
     branches = branch -a -v
-    s = status -sb
+    stat = status -sb
     cleanup = branch --merged | grep -v '\\*\\|main\\|develop' | xargs -r git branch -d
 	push-all = !git remote | xargs -I{} sh -c \"echo Pushing to {} && git push --all {}\"
 [core]
@@ -19,3 +19,5 @@
     gpgsign = true
 [gpg]
     program = gpg
+[credential]
+	helper = store
