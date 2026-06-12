@@ -5,13 +5,13 @@ export TERMINAL=footclient
 export MANPAGER='nvim +Man!'
 
 ## XDG base DIRs
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_DATA_HOME=$HOME/.local/share
-export XDG_STATE_HOME=$HOME/.local/state
+export XDG_CACHE_HOME="$HOME"/.cache
+export XDG_CONFIG_HOME="$HOME"/.config
+export XDG_DATA_HOME="$HOME"/.local/share
+export XDG_STATE_HOME="$HOME"/.local/state
 
 ## PATH For local binary
-export PATH=$PATH:$HOME/.local/bin:$XDG_DATA_HOME/npm/bin
+export PATH=$PATH:"$HOME"/.local/bin:"$XDG_DATA_HOME"/npm/bin
 
 ## Bash History control
 export HISTCONTROL=ignorespace:ignoredups:erasedups
@@ -22,8 +22,8 @@ export HISTTIMEFORMAT="%F %T "
 
 ## Zig Lang
 export ZVM_PATH=/usr/zvm
-export ZIG_GLOBAL_CACHE_DIR=$XDG_DATA_HOME/.zig-cache/
-export PATH=$PATH:$ZVM_PATH/bin:$ZVM_PATH/self
+export ZIG_GLOBAL_CACHE_DIR="$XDG_DATA_HOME"/.zig-cache/
+export PATH=$PATH:"$ZVM_PATH"/bin:"$ZVM_PATH"/self
 
 ## Rust Lang
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
@@ -31,18 +31,18 @@ export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export PATH:$PATH:"$CARGO_HOME"/bin
 
 ## Go Lang
-export GOPATH=$XDG_DATA_HOME/go
-export GOMODCACHE=$XDG_CACHE_HOME/go/mod
+export GOPATH="$XDG_DATA_HOME"/go
+export GOMODCACHE="$XDG_CACHE_HOME"/go/mod
 
 ## Python
-export PYTHON_HISTORY=$XDG_STATE_HOME/python_history
-export PYTHONPYCACHEPREFIX=$XDG_CACHE_HOME/python
-export PYTHONUSERBASE=$XDG_DATA_HOME/python
+export PYTHON_HISTORY="$XDG_STATE_HOME"/python_history
+export PYTHONPYCACHEPREFIX="$XDG_CACHE_HOME"/python
+export PYTHONUSERBASE="$XDG_DATA_HOME"/python
 
 ## Others
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
+export JULIA_DEPOT_PATH="$XDG_DATA_HOME"/julia:"$JULIA_DEPOT_PATH"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
@@ -53,7 +53,7 @@ export GPG_TTY=$(tty) # Use current tty as gpg tty
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export LESSHISTFILE=-  # Do not store .lessist file
 export MOZ_ENABLE_WAYLAND=1
-export W3M_DIR="$XDG_STATE_HOME/w3m"
+export W3M_DIR="$XDG_STATE_HOME"/w3m
 export PLATFORMIO_CORE_DIR="$XDG_DATA_HOME"/platformio
 export WINEPREFIX="$XDG_DATA_HOME"/wine
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps #,ctrl:swapcaps # Remap caps lock key

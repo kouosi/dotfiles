@@ -7,7 +7,7 @@ set -o vi
 alias start-dwl='dwl-status | dwl -s dwl-startup'
 alias start-gnome='XDG_SESSION_TYPE=wayland dbus-run-session gnome-session'
 alias start-kde='XDG_SESSION_TYPE=wayland dbus-run-session startplasma-wayland'
-alias start-river='river -log-level error 2>&1 | tee $XDG_STATE_HOME/river.log'
+alias start-river='river -log-level error 2>&1 | tee "$XDG_STATE_HOME"/river.log'
 alias start-sway='dbus-run-session sway'
 
 ## cd
@@ -43,8 +43,8 @@ alias nmake='make -j$(nproc)'
 alias venv='source venv/bin/activate'
 
 ## Others
-# alias gdb='gdb -n -x "$XDG_CONFIG_HOME/gdb/init"'
-alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
+# alias gdb='gdb -n -x "$XDG_CONFIG_HOME"/gdb/init'
+alias wget='wget --hsts-file="$XDG_DATA_HOME"/wget-hsts'
 alias adb='HOME="$XDG_DATA_HOME"/android adb'
 
 ### Prompt
@@ -65,8 +65,8 @@ __prompt_get_git_branch() {
 }
 
 __prompt_set_window_title() {
-    local cmd=$(basename $(echo "$BASH_COMMAND" | cut -d' ' -f1))
-    printf "\033]0;%s — %s\007" "$cmd" "$TERM"
+    local CMD=$(basename $(echo "$BASH_COMMAND" | cut -d' ' -f1))
+    printf "\033]0;%s — %s\007" "$CMD" "$TERM"
 }
 
 ## Prompt
