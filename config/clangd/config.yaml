@@ -1,14 +1,31 @@
+If:
+  PathMatch: .*\.(c|h)$
 CompileFlags:
   Add:
-    - '-Weverything'
-    - '-Wformat=2'
-    - '-Wimplicit-fallthrough=5'
-    - '-Wstrict-aliasing=3'
-    - '-Wstrict-overflow=5'
-    - '-Wno-unused-parameter'
-    - '-Wno-declaration-after-statement'
-    - '-Wno-unsafe-buffer-usage'
-    - '-Wno-pre-c23-compat'
-    - '-std=gnu23'
-    - '-Werror'
-    - '-xc'
+    - -Weverything
+    - -Werror
+    - -Wformat=2
+    - -Wno-error=unused-parameter
+    - -Wno-error=padded
+    - -Wno-error=pre-c23-compat
+    - -Wno-error=c++-keyword
+    - -Wno-bad-function-cast
+    - -Wno-declaration-after-statement
+    - -Wno-implicit-void-ptr-cast
+    - -Wno-unsafe-buffer-usage
+    - -std=gnu23
+    - -xc
+---
+If:
+  PathMatch: .*\.(cpp|hpp|cc|cxx|hxx)$
+CompileFlags:
+  Add:
+    - -Weverything
+    - -Werror
+    - -Wformat=2
+    - -Wno-error=unused-parameter
+    - -Wno-error=padded
+    - -Wno-unsafe-buffer-usage
+    - -Wno-c++98-compat
+    - -std=gnu++23
+    - -xc++
