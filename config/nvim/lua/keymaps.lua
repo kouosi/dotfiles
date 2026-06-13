@@ -1,7 +1,10 @@
 local M = {}
 
 function M.map(mode, map_as, map_to, desc)
-    vim.keymap.set(mode, map_as, map_to, { noremap = true, silent = true, desc = desc })
+	vim.keymap.set(
+		mode, map_as, map_to,
+		{ noremap = true, silent = true, desc = desc }
+	)
 end
 
 -- win management
