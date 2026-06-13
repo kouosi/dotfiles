@@ -11,7 +11,7 @@ export XDG_DATA_HOME="$HOME"/.local/share
 export XDG_STATE_HOME="$HOME"/.local/state
 
 ## PATH For local binary
-export PATH=$PATH:"$HOME"/.local/bin:"$XDG_DATA_HOME"/npm/bin
+export PATH="$PATH":"$HOME"/.local/bin:"$XDG_DATA_HOME"/npm/bin
 
 ## Bash History control
 export HISTCONTROL=ignorespace:ignoredups:erasedups
@@ -23,12 +23,12 @@ export HISTTIMEFORMAT="%F %T "
 ## Zig Lang
 export ZVM_PATH=/usr/zvm
 export ZIG_GLOBAL_CACHE_DIR="$XDG_DATA_HOME"/.zig-cache/
-export PATH=$PATH:"$ZVM_PATH"/bin:"$ZVM_PATH"/self
+export PATH="$PATH":"$ZVM_PATH"/bin:"$ZVM_PATH"/self
 
 ## Rust Lang
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
-export PATH:$PATH:"$CARGO_HOME"/bin
+export PATH="$PATH":"$CARGO_HOME"/bin
 
 ## Go Lang
 export GOPATH="$XDG_DATA_HOME"/go
