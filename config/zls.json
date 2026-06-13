@@ -1,5 +1,5 @@
 {
     "warn_style": true,
-    "include_at_in_builtins": true,
+    "force_autofix": true,
     "highlight_global_var_declarations": true
 }
