@@ -22,17 +22,20 @@ set number relativenumber
 " Highlight cursor line underneath the cursor horizontally.
 set cursorline
 
+" Highlight vertical line at column
+set colorcolumn=80
+
 " Highlight cursor line underneath the cursor vertically.
 " set cursorcolumn
 
 " Set shift width to 4 spaces.
-set shiftwidth=4
+set shiftwidth=8
 
 " Set tab width to 4 columns.
-set tabstop=4
+set tabstop=8
 
 " Use space characters instead of tabs.
-set expandtab
+" set expandtab
 
 " Do not save backup files.
 set nobackup
@@ -71,13 +74,13 @@ set history=1000
 " Enable auto completion menu after pressing TAB.
 set wildmenu
 
-" Make wildmenu behave like similar to Bash completion.
-set wildmode=list:longest
+" Make wildmenu behave like similar to neovim completion.
+set wildoptions=pum,fuzzy
+set wildmode=full
 
 " There are certain files that we would never want to edit with Vim.
 " Wildmenu will ignore files with these extensions.
 set wildignore=**.jpg,*.png,*.gif,*.pdf,*.img,*.mp4,*.mpv,*.tar.gz
-
 
 " Key mapping in vim
 " map_mode <key> <command>
