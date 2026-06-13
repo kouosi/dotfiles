@@ -6,9 +6,9 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term footclient
-set $browser librewolf
-set $pbrowser librewolf --private-window
+set $term foot
+set $browser firefox
+set $pbrowser firefox --private-window
 set $file_explorer dolphin
 set $menu wofi -Sdrun -L16
 # Colors
