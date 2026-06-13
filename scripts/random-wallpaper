@@ -7,19 +7,19 @@ REMOTE_FILE_NAME="/tmp/$(date '+%s.jpg')"
 WALLPAPER=/tmp/current_wallpaper.jpg
 
 notify_and_exit () {
-    notify-send -i "$ICON_DIR/error.png" -u normal "Failed" "Unable to get Wallpapers from internet"
-    exit 1
+	notify-send -i "$ICON_DIR/error.png" -u normal "Failed" "Unable to get Wallpapers from internet"
+	exit 1
 }
 
 if [ "$1" = "--remote" ]; then
-    wget -q "$PIC_URL" -O "$REMOTE_FILE_NAME" || notify_and_exit
-    cp -f $REMOTE_FILE_NAME $WALLPAPER
+	wget -q "$PIC_URL" -O "$REMOTE_FILE_NAME" || notify_and_exit
+	cp -f $REMOTE_FILE_NAME $WALLPAPER
 else
-    WALLPAPER=$(find $WALLPAPER_DIR -type f | shuf -n1)
+	WALLPAPER=$(find $WALLPAPER_DIR -type f | shuf -n1)
 fi
 
 if pidof swaybg > /dev/null ; then
-    killall swaybg
+	killall swaybg
 fi
 
 swaybg -m fill -i $WALLPAPER

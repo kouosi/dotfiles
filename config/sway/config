@@ -53,18 +53,18 @@ output * bg $XDG_CONFIG_HOME/.assets/Wallpapers/Anime/anime_111.png fill
 #########################################################
 # Touchpad
 input "type:touchpad" {
-    dwt enabled
-    tap enabled
-    drag_lock disable
-    natural_scroll enabled
-    middle_emulation enabled
+	dwt enabled
+	tap enabled
+	drag_lock disable
+	natural_scroll enabled
+	middle_emulation enabled
 }
 
 # Keyboard
 input "type:keyboard" {
-    repeat_delay 400
-    repeat_rate 50
-    xkb_layout gb
+	repeat_delay 400
+	repeat_rate 50
+	xkb_layout gb
 }
 
 #########################################################
@@ -179,17 +179,17 @@ bindsym $mod+minus scratchpad show
 #########################################################
 # Resize mode
 mode "resize" {
-    bindsym $left resize shrink width 100px
-    bindsym $down resize grow height 100px
-    bindsym $up resize shrink height 100px
-    bindsym $right resize grow width 100px
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+	bindsym $left resize shrink width 100px
+	bindsym $down resize grow height 100px
+	bindsym $up resize shrink height 100px
+	bindsym $right resize grow width 100px
+	bindsym Left resize shrink width 10px
+	bindsym Down resize grow height 10px
+	bindsym Up resize shrink height 10px
+	bindsym Right resize grow width 10px
+	# Return to default mode
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
 
@@ -201,29 +201,28 @@ bindsym $mod+r mode "resize"
 
 # Move window mode
 mode "move" {
-    bindsym $left move left 20px
-    bindsym $down move down 20px
-    bindsym $up move up 20px
-    bindsym $right move right 20px
-    bindsym Left move left 50px
-    bindsym Down move down 50px
-    bindsym Up move up 50px
-    bindsym Right move right 50px
-
-    # Return to default mode
-    bindsym Escape mode "default"
-    bindsym Return mode "default"
+	bindsym $left move left 20px
+	bindsym $down move down 20px
+	bindsym $up move up 20px
+	bindsym $right move right 20px
+	bindsym Left move left 50px
+	bindsym Down move down 50px
+	bindsym Up move up 50px
+	bindsym Right move right 50px
+	# Return to default mode
+	bindsym Escape mode "default"
+	bindsym Return mode "default"
 }
 bindsym $mod+m mode "move"
 
 #########################################################
 ### Colors
 #########################################################
-# class                 border         background     text            indicator      child_border
-client.focused          $col_focused   $col_focused   $col_text_dark  $col_focused   $col_focused
-client.focused_inactive $col_inactive  $col_inactive  $col_text_light $col_inactive  $col_inactive
-client.unfocused        $col_text_dark $col_unfocused $col_text_light $col_unfocused $col_unfocused
-client.urgent           $col_text_dark $col_urgent    $col_text_dark  $col_urgent    $col_urgent
+# class			border		background	text		indicator	child_border
+client.focused		$col_focused	$col_focused	$col_text_dark	$col_focused	$col_focused
+client.focused_inactive $col_inactive	$col_inactive	$col_text_light	$col_inactive	$col_inactive
+client.unfocused	$col_text_dark	$col_unfocused	$col_text_light	$col_unfocused	$col_unfocused
+client.urgent		$col_text_dark	$col_urgent	$col_text_dark	$col_urgent	$col_urgent
 
 #########################################################
 ### Titlebar
@@ -239,16 +238,16 @@ floating_maximum_size 3840 x 2160
 ### Status Bar:
 #########################################################
 bar {
-    height 20
-    position bottom
-    font pango:CaskaydiaMono Nerd Font 9
-    status_command sway-status
-    colors {
-        statusline $col_text_light
-        background #222222
-        # selector         border         background     text
-        focused_workspace  $col_focused   $col_focused   $col_text_dark
-        inactive_workspace $col_unfocused $col_unfocused $col_text_light
-        urgent_workspace   $col_urgent    $col_urgent    $col_text_light
-    }
+	height 20
+	position bottom
+	font pango:CaskaydiaMono Nerd Font 9
+	status_command sway-status
+	colors {
+		statusline $col_text_light
+		background #222222
+		# selector		border		background	text
+		focused_workspace	$col_focused	$col_focused	$col_text_dark
+		inactive_workspace	$col_unfocused	$col_unfocused	$col_text_light
+		urgent_workspace	$col_urgent	$col_urgent	$col_text_light
+	}
 }

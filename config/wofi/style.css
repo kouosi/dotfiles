@@ -1,55 +1,55 @@
 * {
-    border-radius: 0px;
-    margin: 0px;
-    outline: none;
-    padding: 0px;
+	border-radius: 0px;
+	margin: 0px;
+	outline: none;
+	padding: 0px;
 }
 
 #window {
-    background: #1d2021;
-    border: #4e9699 solid 2px;
-    font-family: JetBrainsMonoNerdFont;
-    font-size: 1rem;
+	background: #1d2021;
+	border: #4e9699 solid 2px;
+	font-family: JetBrainsMonoNerdFont;
+	font-size: 1rem;
 }
 
 #outer-box {
-    padding: 8px;
+	padding: 8px;
 }
 
 #input {
-    background-color: transparent;
-    border: #4e9699 solid 2px;
-    color: #d4be98;
-    margin-bottom: 4px;
-    padding: 0px 2px 0px 4px;
+	background-color: transparent;
+	border: #4e9699 solid 2px;
+	color: #d4be98;
+	margin-bottom: 4px;
+	padding: 0px 2px 0px 4px;
 }
 
 #inner-box {
-    background: transparent;
+	background: transparent;
 }
 
 #text {
-    padding: 2px;
+	padding: 2px;
 }
 
 #entry:selected {
-    background: #4e9699;
-    color: #32302f;
+	background: #4e9699;
+	color: #32302f;
 }
 
 #entry {
-    background: #3c383c;
-    border-radius: 2px;
-    margin: 2px 1px;
-    padding: 2px;
-    color: #d4be98;
+	background: #3c383c;
+	border-radius: 2px;
+	margin: 2px 1px;
+	padding: 2px;
+	color: #d4be98;
 }
 
 #img {
-    margin-left: 4px;
+	margin-left: 4px;
 }
 
 expander list {
-    background-color: #1d2021;
-    padding: 2px;
+	background-color: #1d2021;
+	padding: 2px;
 }

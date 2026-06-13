@@ -1,133 +1,134 @@
-#!/bin/sh
+#!/bin/bash
 
 # colors
-color_green="#b8bb26"
-color_red="#fb4934"
-color_orange="#fe8019"
-color_yellow="#fabd2f"
-color_blue="#83a598"
-color_aqua="#8ec07c"
-color_fg="#ebdbb2"
-color_gray="#928374"
+C_GREEN="#b8bb26"
+C_RED="#fb4934"
+C_ORANGE="#fe8019"
+C_YELLOW="#fabd2f"
+C_BLUE="#83a598"
+C_AQUA="#8ec07c"
+C_WHITE="#ebdbb2"
+C_GRAY="#928374"
 
 # CPU
 get_cpu() {
-    local cpu_info=$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5); printf("%.1f%%", usage)}')
-    echo "<span foreground='$color_orange'> $cpu_info</span>"
+	local cpu_info=$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5); printf("%.1f%%", usage)}')
+	echo "<span foreground='$C_ORANGE'> $cpu_info</span>"
 }
 
 # Memory
 get_mem() {
-    echo "  $(free -h | awk '/Mem:/ {print $3 "/" $2}')"
+	echo "  $(free -h | awk '/Mem:/ {print $3 "/" $2}')"
 }
 
 # Uptime
 get_uptime() {
-    echo "<span foreground='$color_green'> $(awk '{d=int($1/86400); h=int(($1%86400)/3600); m=int(($1%3600)/60); if (d > 0) printf("%dd ", d); if (h > 0) printf("%dh ", h); if (m > 0 || (d == 0 && h == 0)) printf("%dm", m)}' /proc/uptime)</span>"
+	echo "<span foreground='$C_GREEN'> $(awk '{d=int($1/86400); h=int(($1%86400)/3600); m=int(($1%3600)/60); if (d > 0) printf("%dd ", d); if (h > 0) printf("%dh ", h); if (m > 0 || (d == 0 && h == 0)) printf("%dm", m)}' /proc/uptime)</span>"
 }
 
 # Battery
 get_battery() {
-    local battery_info="$(cat /sys/class/power_supply/BAT*/capacity)"
-    local battery_status="$(cat /sys/class/power_supply/BAT*/status)"
-    if [ "$battery_status" = "Charging" ]; then
-        if [ "$battery_info" -ge 80 ]; then
-            notify-send -t 5000 -u normal "Battery Full" "Please remove charger" -i foot -w
-        fi
-        battery="<span foreground='$color_green'> $battery_info%</span>"
-    elif [ "$battery_status" = "Discharging" ]; then
-        if [ "$battery_info" -ge 80 ]; then
-            battery_icon="<span foreground='$color_blue'> "
-        elif [ "$battery_info" -ge 60 ]; then
-            battery_icon="<span foreground='$color_aqua'> "
-        elif [ "$battery_info" -ge 40 ]; then
-            battery_icon="<span foreground='$color_green'> "
-        elif [ "$battery_info" -ge 20 ]; then
-            battery_icon="<span foreground='$color_orange'> "
-        else
-            notify-send -u critical -t 5000 "Battery Low ($battery_info%)" "Please plug to power supply" -i foot -w
-            battery_icon="<span foreground='$color_red'> "
-        fi
-        battery="$battery_icon $battery_info%</span>"
-    else
-        battery="$battery_status $battery_info%"
-    fi
-    echo "$battery"
+	local battery_info="$(cat /sys/class/power_supply/BAT*/capacity)"
+	local battery_status="$(cat /sys/class/power_supply/BAT*/status)"
+	local battery
+	if [ "$battery_status" = "Charging" ]; then
+		if [ "$battery_info" -ge 80 ]; then
+			notify-send -t 5000 -u normal "Battery Full" "Please remove charger" -i foot -w
+		fi
+		battery="<span foreground='$C_GREEN'> $battery_info%</span>"
+	elif [ "$battery_status" = "Discharging" ]; then
+		local battery_icon
+		if [ "$battery_info" -ge 80 ]; then
+			battery_icon="<span foreground='$C_BLUE'> "
+		elif [ "$battery_info" -ge 60 ]; then
+			battery_icon="<span foreground='$C_AQUA'> "
+		elif [ "$battery_info" -ge 40 ]; then
+			battery_icon="<span foreground='$C_GREEN'> "
+		elif [ "$battery_info" -ge 20 ]; then
+			battery_icon="<span foreground='$C_ORANGE'> "
+		else
+			notify-send -u critical -t 5000 "Battery Low ($battery_info%)" "Please plug to power supply" -i foot -w
+			battery_icon="<span foreground='$C_RED'> "
+		fi
+		battery="$battery_icon $battery_info%</span>"
+	else
+		battery="$battery_status $battery_info%"
+	fi
+	echo "$battery"
 }
 
 # Date and time
 get_date() {
-    echo " $(date '+%a %b-%d')"
+	echo " $(date '+%a %b-%d')"
 }
 
 get_time() {
-    echo " $(date +'%H:%M') ($(TZ="Asia/Tokyo" date +"%H:%M"))"
+	echo " $(date +'%H:%M')"
 }
 
 # Brightness
 get_brightness() {
-    local brt_info="$(($(brightnessctl get) * 100 / $(brightnessctl max)))"
-    local brt_icon="$( [ "$brt_info" -ge 80 ] && echo ' ' || { [ "$brt_info" -ge 40 ] && echo ' ' || echo ''; } )"
-    echo "<span foreground='$color_yellow'>$brt_icon</span> $brt_info%"
+	local brt_info="$(($(brightnessctl get) * 100 / $(brightnessctl max)))"
+	local brt_icon="$( [ "$brt_info" -ge 80 ] && echo ' ' || { [ "$brt_info" -ge 40 ] && echo ' ' || echo ''; } )"
+	echo "<span foreground='$C_YELLOW'>$brt_icon</span> $brt_info%"
 }
 
 # Wi-Fi
 get_wifi() {
-    local wifi_name=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d':' -f2)
-    if [ -z "$wifi_name" ]; then
-        echo "Disconnected"
-        return
-    else
-        local wifi_status="$(cat /sys/class/net/w*/operstate 2>/dev/null)"
-        if [ $wifi_status = 'up' ] ; then
-            local wifi_icon="$(awk '/^\s*w/ { print int($3 * 100 / 70) "% " }' /proc/net/wireless)"
-            local wifi_strength="$(awk '/^\s*w/ { print int($3 * 100 / 70) }' /proc/net/wireless)"
-
-            # Choose icon based on strength
-            if [ "$wifi_strength" -ge 40 ]; then
-                local wifi_icon=" "
-            else
-                local wifi_icon=" "
-            fi
-            local wifi="$wifi_icon ($wifi_name) $wifi_strength%"
-        else
-            local wifi_icon=" "
-            local wifi="$wifi_icon $wifi_strength%"
-        fi
-    fi
-    echo "$wifi"
+	local wifi_name=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d':' -f2)
+	local wifi
+	local wifi_icon
+	local wifi_strength
+	if [ -z "$wifi_name" ]; then
+		echo "Disconnected"
+		return
+	else
+		local wifi_status="$(cat /sys/class/net/w*/operstate 2>/dev/null)"
+		if [ $wifi_status = 'up' ] ; then
+			wifi_strength="$(awk '/^\s*w/ { print int($3 * 100 / 70) }' /proc/net/wireless)"
+			if [ "$wifi_strength" -ge 40 ]; then
+				wifi_icon=" "
+			else
+				wifi_icon=" "
+			fi
+			wifi="$wifi_icon ($wifi_name) $wifi_strength%"
+		else
+			wifi_icon=" "
+			wifi="$wifi_icon $wifi_strength%"
+		fi
+	fi
+	echo "$wifi"
 }
 
 # Audio
 get_volume() {
-    local volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2 * 100}')
-    local mute_status=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o "MUTED")
-    local hp_status=$(amixer -c 0 get Headphone | grep -A 1 'Playback' | tail -n 1 | awk '{print $NF}')
+	local volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2 * 100}')
+	local mute_status=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o "MUTED")
+	local hp_status=$(amixer -c 0 get Headphone | grep -A 1 'Playback' | tail -n 1 | awk '{print $NF}')
 
-    if [ "$mute_status" = "MUTED" ]; then
-        echo "<span foreground='$color_gray'> mute</span>"
-    else
-        vol_icon=$(echo "$hp_status" | awk '{print ($1 == "[on]") ? "" : " "}')
-        color="$( [ "$volume" -ge 60 ] && echo $color_red || { [ "$volume" -ge 30 ] && echo $color_orange || echo $color_blue; } )"
-        echo "<span foreground='$color'>$vol_icon $volume%</span>"
-    fi
+	if [ "$mute_status" = "MUTED" ]; then
+		echo "<span foreground='$C_GRAY'> mute</span>"
+	else
+		local vol_icon=$(echo "$hp_status" | awk '{print ($1 == "[on]") ? "" : " "}')
+		local color="$( [ "$volume" -ge 60 ] && echo $C_RED || { [ "$volume" -ge 30 ] && echo $C_ORANGE || echo $C_BLUE; } )"
+		echo "<span foreground='$color'>$vol_icon $volume%</span>"
+	fi
 }
 
 get_mic() {
-    local volume=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print $2 * 100}')
-    local mute_status=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -o "MUTED")
+	local volume=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print $2 * 100}')
+	local mute_status=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -o "MUTED")
 
-    if [ "$mute_status" = "MUTED" ]; then
-        echo "<span foreground='$color_gray'>󰍭</span>"
-    else
-        echo "<span foreground='$color_blue'>󰍬 $volume%</span>"
-    fi
+	if [ "$mute_status" = "MUTED" ]; then
+		echo "<span foreground='$C_GRAY'>󰍭</span>"
+	else
+		echo "<span foreground='$C_BLUE'>󰍬 $volume%</span>"
+	fi
 }
-
 
 # Display
 while true; do
-    printf "%s | %s | %s | %s | %s | %s | %s | %s | %s \n" "$(get_mem)" "$(get_time)" \
-        "$(get_uptime)" "$(get_wifi)" "$(get_volume)" "$(get_mic)" "$(get_brightness)" "$(get_battery)" "$(get_date)"
-    sleep 0.25
+	printf "%s | %s | %s | %s | %s | %s | %s | %s | %s \n" "$(get_mem)" "$(get_time)" \
+		"$(get_uptime)" "$(get_wifi)" "$(get_volume)" "$(get_mic)" "$(get_brightness)" "$(get_battery)" "$(get_date)"
+	sleep 0.25
 done

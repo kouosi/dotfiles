@@ -5,4 +5,4 @@ foot -s &
 lxqt-policykit-agent &
 brightnessctl set  20% &
 swayidle -w &
-swaybg -o "*" -i$XDG_CONFIG_HOME/.assets/Wallpapers/Forest/forest_19.jpg -m fill
+swaybg -o "*" -i"$XDG_CONFIG_HOME"/.assets/Wallpapers/Forest/forest_19.jpg -m fill

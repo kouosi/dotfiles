@@ -51,7 +51,7 @@ export ANDROID_HOME="$XDG_DATA_HOME"/android/sdk
 ## Some hacks
 export GPG_TTY=$(tty) # Use current tty as gpg tty
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-export LESSHISTFILE=-  # Do not store .lessist file
+export LESSHISTFILE=- # Do not store .lessist file
 export MOZ_ENABLE_WAYLAND=1
 export W3M_DIR="$XDG_STATE_HOME"/w3m
 export PLATFORMIO_CORE_DIR="$XDG_DATA_HOME"/platformio
@@ -70,5 +70,5 @@ export CLANG_FORMAT_STYLE=Chromium
 
 ## Start wm
 if [ "$(tty)" == "/dev/tty1" ]; then
-    start-sway
+	start-sway
 fi

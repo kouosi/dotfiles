@@ -148,9 +148,9 @@ set viminfo=
 " Enable undofile
 set undofile
 if exists('$XDG_STATE_HOME')
-    set undodir=$XDG_STATE_HOME/vim/undo//
+	set undodir=$XDG_STATE_HOME/vim/undo//
 else
-    set undodir=~/.local/state/vim/undo//
+	set undodir=~/.local/state/vim/undo//
 endif
 
 " Change cursor shape depending on mode

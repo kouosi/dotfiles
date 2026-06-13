@@ -6,13 +6,13 @@ FILE=$(date +'%Y%e%d-%s.mp4')
 SHORT_FILE=$(date +'%s.mp4')
 
 if [ "$1" = "--kill" ]; then
-    killall wf-recorder
-    exit
+	killall wf-recorder
+	exit
 fi
 
 notify_and_exit () {
-    notify-send -i "$ICON_DIR/error.png" -u normal "Recording Failed" "Unable to record video"
-    exit 1
+	notify-send -i "$ICON_DIR/error.png" -u normal "Recording Failed" "Unable to record video"
+	exit 1
 }
 
 mkdir -p "$DIR"
@@ -25,8 +25,8 @@ NAME="$(wofi --dmenu -p "Enter name for video" -l 0)_$SHORT_FILE" || NAME="$FILE
 mv "$TEMP_FILE" "$DIR/$NAME" || notify_and_exit
 
 if [ -s "$DIR/$NAME" ]; then
-    notify-send -i "$ICON_DIR/video.png" -u normal "Video Saved" "$NAME"
-    exit 0
+	notify-send -i "$ICON_DIR/video.png" -u normal "Video Saved" "$NAME"
+	exit 0
 else
-    notify_and_exit
+	notify_and_exit
 fi

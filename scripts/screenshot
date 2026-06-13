@@ -6,13 +6,13 @@ FULL_FILE=$(date +'%Y%e%d-%s.png')
 SHORT_FILE=$(date +'%s.png')
 
 notify_and_exit () {
-    notify-send -i "$ICON_DIR/error.png" -u normal "Screenshot Failed" "Unable to save screenshot"
-    exit 1
+	notify-send -i "$ICON_DIR/error.png" -u normal "Screenshot Failed" "Unable to save screenshot"
+	exit 1
 }
 
 if [ "$1" = "--edit" ] || [ "$1" = "-e" ]; then
-    grim -g "$(slurp)" - | swappy -f -
-    exit 0
+	grim -g "$(slurp)" - | swappy -f -
+	exit 0
 fi
 
 mkdir -p "$DIR"
@@ -26,8 +26,8 @@ mv "$TEMP_FILE" "$DIR/$NAME" || notify_and_exit
 wl-copy < "$DIR/$NAME"
 
 if [ -s "$DIR/$NAME" ]; then
-    notify-send -i "$DIR/$NAME" -u normal "Screenshot Saved" "$NAME"
-    exit 0
+	notify-send -i "$DIR/$NAME" -u normal "Screenshot Saved" "$NAME"
+	exit 0
 else
-    notify_and_exit
+	notify_and_exit
 fi
