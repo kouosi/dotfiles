@@ -1,3 +1,5 @@
+set listchars=multispace:·,tab:»\ 
+set list
 " Disable vim bell
 set belloff=all
 
