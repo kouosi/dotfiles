@@ -3,7 +3,7 @@
 PROJECT_DIR="$(xdg-user-dir PROJECTS)"
 cd "$PROJECT_DIR"
 
-SELECTED=$(find * -maxdepth 1 -type d ! -path '*/.*' | fzf --height 40% \
+SELECTED=$(find * -maxdepth 1 -type d ! -path '*/.*' | sort -f | fzf --height 40% \
 	--layout=reverse --border-label="Search Projects" --border=rounded)
 SESSION_NAME=$(basename "$SELECTED" | sed 's/[^a-zA-Z0-9]/_/g')
 
@@ -15,15 +15,15 @@ fi
 cd "$SELECTED"
 
 if ! tmux has-session 2>/dev/null; then
-	tmux new-session -s "$SESSION_NAME" -c "$PROJECT_DIR"/"$SELECTED"
+	tmux new-session -s "$SESSION_NAME" -c "$PROJECT_DIR$SELECTED"
 	exit 0
 fi
 
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-	window_index=$(tmux new-window -t "$SESSION_NAME" -c "$PROJECT_DIR"/"$SELECTED" -P -F "#{window_index}")
+	window_index=$(tmux new-window -t "$SESSION_NAME" -c "$PROJECT_DIR$SELECTED" -P -F "#{window_index}")
 	tmux select-window -t "$SESSION_NAME:$window_index"
 	tmux attach-session -t "$SESSION_NAME"
 else
-	tmux new-session -d -s "$SESSION_NAME" -c "$PROJECT_DIR"/"$SELECTED"
+	tmux new-session -d -s "$SESSION_NAME" -c "$PROJECT_DIR$SELECTED"
 	tmux attach-session -t "$SESSION_NAME"
 fi
