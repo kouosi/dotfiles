@@ -14,7 +14,6 @@ vim.api.nvim_create_autocmd("PackChanged", { callback = pack_changed_callback })
 
 vim.pack.add({
 	"https://github.com/numToStr/Comment.nvim",
-	"https://github.com/lukas-reineke/indent-blankline.nvim",
 	"https://github.com/RRethy/vim-illuminate",
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/ellisonleao/gruvbox.nvim",
@@ -111,9 +110,6 @@ require("oil").setup({
 
 -- Comment
 require("Comment").setup()
-
--- Ibl
-require("ibl").setup()
 
 -- Illuminate
 require("illuminate").configure({
