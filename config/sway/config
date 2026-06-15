@@ -11,6 +11,7 @@ set $browser firefox
 set $pbrowser firefox --private-window
 set $file_explorer dolphin
 set $menu wofi -Sdrun -L16
+set $menu fuzzel
 # Colors
 set $col_focused #4e9699
 set $col_inactive #665c54
