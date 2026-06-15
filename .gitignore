@@ -1,4 +1,5 @@
-# Neovim stuff
+# vim/nvim stuff
+config/vim/.netrwhist
 config/nvim/lazy-lock.json
 config/nvim/plugin/
 
