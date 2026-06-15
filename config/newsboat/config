@@ -1,6 +1,7 @@
 #show-read-feeds no
 auto-reload yes
 cleanup-on-quit yes
+reload-threads 50
 
 browser linkhandler
 macro , open-in-browser
