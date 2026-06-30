@@ -64,6 +64,7 @@ export GTK_THEME=Adwaita:dark
 export PF_INFO="ascii os kernel uptime pkgs shell editor wm"
 export XDG_MENU_PREFIX=arch-
 export CLANG_FORMAT_STYLE=Chromium
+export GDBHISTFILE="$XDG_CONFIG_HOME"/gdb/.gdb_history
 
 ## Source bashrc for interactive
 . ~/.bashrc
