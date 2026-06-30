@@ -1,12 +1,5 @@
 [include]
 	path = ~/.local/share/.git.config
-[alias]
-	tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	lg = log --graph --pretty=format:'%C(yellow)%h%Creset %C(blue)%an%Creset %Cgreen(%ar)%Creset %s' --abbrev-commit
-	branches = branch -a -v
-	stat = status -sb
-	cleanup = branch --merged | grep -v '\\*\\|main\\|develop' | xargs -r git branch -d
-	push-all = !git remote | xargs -I{} sh -c \"echo Pushing to {} && git push --all {}\"
 [core]
 	editor = nvim
 [init]
@@ -21,3 +14,10 @@
 	program = gpg
 [credential]
 	helper = store
+[alias]
+	tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	lg = log --graph --pretty=format:'%C(yellow)%h%Creset %C(blue)%an%Creset %Cgreen(%ar)%Creset %s' --abbrev-commit
+	branches = branch -a -v
+	stat = status -sb
+	cleanup = branch --merged | grep -v '\\*\\|main\\|develop' | xargs -r git branch -d
+	push-all = !git remote | xargs -I{} sh -c \"echo Pushing to {} && git push --all {}\"
