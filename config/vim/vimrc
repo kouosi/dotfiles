@@ -91,7 +91,7 @@ set wildignore=**.jpg,*.png,*.gif,*.pdf,*.img,*.mp4,*.mpv,*.tar.gz
 " vnoremap – Allows you to map keys in visual mode.
 
 " mapping esc key with jj
-inoremap jj <esc>
+" inoremap jj <esc>
 
 " Set the background tone.
 set background=dark
