@@ -315,12 +315,12 @@ cmp.setup({
 require("tree-sitter-manager").setup({
 	auto_install = true,
 	noauto_install = {
-		"c", "lua", "markdown", "markdown_inline", "query", "vim", "vimdoc"
+		"c", "lua", "markdown", "markdown_inline", "query", "vim", "vimdoc",
 	},
 	auto_install = {
 		"zig", "bash", "make",
 		"diff", "gitcommit", "gitignore", "git_rebase",
-		"comment", "json", "yaml", "xml",
+		"comment", "json", "yaml", "xml", "comment",
 	},
 	nohighlight = {},
 })
