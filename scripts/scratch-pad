@@ -1,0 +1,15 @@
+#!/bin/sh
+
+FILE="$(xdg-user-dir DOCUMENTS)/Notes/scratch.md"
+TITLE='[[SCRATCH]]'
+PATTERN="foot.*--title.*$TITLE"
+
+if [ "$1" = "--kill" ]; then
+	pkill -SIGTERM -f "$PATTERN"
+	exit 0
+fi
+
+if pgrep -f "$PATTERN" > /dev/null; then
+	exit 0
+fi
+foot --title "$TITLE" nvim "$FILE" -c "set titlestring=$TITLE"

@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Get community mirror
+zig_community_mirror=$(curl -s "https://ziglang.org/download/community-mirrors.txt")
+
+# Get zig url
+zig_url=$(curl -s "https://ziglang.org/download/index.json" | jq '.master."x86_64-linux".tarball')
+zig_new_version=$(echo "$zig_url" | grep -oP '\d+\.\d+\.\S+(?=\.tar\.xz)')
+zig_current_version=$(zig version || echo "0.0.0")
+
+# Get zls url
+zls_url=$(curl -s "https://releases.zigtools.org/v1/zls/select-version?zig_version=$(echo "$zig_new_version" | tr -d '\n' | jq -sRr @uri)&compatibility=only-runtime" | jq '."x86_64-linux".tarball')
+zls_new_version=$(echo "$zls_url" | grep -oP '\d+\.\d+\.\S+(?=\.tar\.xz)')
+zls_current_version=$(zls --version || echo "0.0.0")
+
+# Check for version
+if [ "$zig_new_version" = "$zig_current_version" ]; then
+	echo "INFO: Latest version of zig is already installed"
+elif [ "$(printf "$zig_current_version\n$zig_new_version" | sort -Vr | head -n1)" = "$zig_new_version" ]; then
+	echo "URL:" "$(echo $zig_url | tr -d '"')"
+else
+	echo "INFO: Nothing to do"
+fi
+
+if [ "$zls_new_version" = "$zls_current_version" ]; then
+	echo "INFO: Latest version of zls is already installed"
+elif [ "$(printf "$zls_current_version\n$zls_new_version" | sort -Vr | head -n1)" = "$zls_new_version" ]; then
+	echo "URL:" "$(echo $zls_url | tr -d '"')"
+else
+	echo "INFO: Nothing to do for zls"
+fi
+
+echo -e "\nCommunity Mirrors:"
+echo "$zig_community_mirror" | tr ' ' '\n'
