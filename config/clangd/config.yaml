@@ -8,6 +8,7 @@ CompileFlags:
     - -Wno-error=unused-parameter
     - -Wno-error=padded
     - -Wno-error=pre-c23-compat
+    - -Wno-error=missing-prototypes
     - -Wno-error=c++-keyword
     - -Wno-bad-function-cast
     - -Wno-declaration-after-statement
