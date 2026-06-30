@@ -1,4 +1,5 @@
 set breakpoint pending on
 set debuginfod enabled off
 set style enabled on
+set history save on
 add-auto-load-safe-path ~/
