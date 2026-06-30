@@ -61,6 +61,11 @@ input "type:touchpad" {
 	middle_emulation enabled
 }
 
+input "type:mouse" {
+	drag_lock disable
+	natural_scroll enabled
+}
+
 # Keyboard
 input "type:keyboard" {
 	repeat_delay 400
@@ -75,8 +80,8 @@ input "type:keyboard" {
 bindsym $mod+o exec $menu
 bindsym $mod+Shift+o exec wmenu-run
 bindsym $mod+Shift+Return exec $term
-bindsym $mod+Ctrl+b exec $browser
-bindsym $mod+Shift+b exec $pbrowser
+bindsym $mod+Shift+b exec $browser
+bindsym $mod+Ctrl+b exec $pbrowser
 bindsym $mod+Shift+e exec $file_explorer
 # Basic controls
 bindsym $mod+Shift+equal exec "zoom-wm"
@@ -86,6 +91,7 @@ bindsym $mod+Shift+s exec "screenshot"
 bindsym $mod+Ctrl+s exec "screenshot -e"
 bindsym $mod+Alt+s exec "record-video"
 bindsym $mod+Alt+Escape exec "record-video --kill"
+bindsym $mod+g exec "scratch-pad"
 bindsym $mod+Shift+y exec "swaylock & sleep 1 && systemctl suspend"
 bindsym $mod+Period exec "emoji-picker"
 bindsym $mod+Shift+c kill
@@ -104,8 +110,13 @@ bindsym Shift+Ctrl+XF86AudioLowerVolume exec "wpctl set-volume @DEFAULT_AUDIO_SO
 bindsym XF86AudioMute exec "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 bindsym XF86AudioMicMute exec "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 bindsym XF86AudioPlay exec "playerctl play-pause"
+bindsym XF86AudioStop exec "playerctl pause"
 bindsym XF86AudioNext exec "playerctl next"
 bindsym XF86AudioPrev exec "playerctl previous"
+bindsym Shift+XF86AudioPlay exec "playerctl position 5-"
+bindsym Shift+XF86AudioStop exec "playerctl position 5+"
+bindsym Shift+XF86AudioNext exec "playerctl position 1-"
+bindsym Shift+XF86AudioPrev exec "playerctl position 1+"
 bindsym XF86MonBrightnessUp exec "brightnessctl set +5%"
 bindsym XF86MonBrightnessDown exec "brightnessctl set 5%-"
 bindsym Shift+XF86MonBrightnessUp exec "brightnessctl set +2%"
