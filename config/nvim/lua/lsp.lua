@@ -16,6 +16,7 @@ local all_lsps = {
 	{ "pyright" },
 	{ "ts_ls" },
 	{ "zls" },
+	{ "racket_langserver" },
 	{ "clangd", {
 		cmd = {
 			"clangd",
