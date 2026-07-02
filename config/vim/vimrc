@@ -1,4 +1,4 @@
-set listchars=multispace:·,tab:»\ 
+set listchars=tab:»\\x20,multispace:·,trail:·,leadmultispace:>···
 set list
 " Disable vim bell
 set belloff=all

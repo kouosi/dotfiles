@@ -37,7 +37,12 @@ vim.g.netrw_liststyle = 3
 vim.g.netrw_banner = false
 vim.opt.signcolumn = "yes"
 vim.opt.winborder = "rounded"
-vim.opt.listchars = { tab = '» ', multispace = '·' }
+vim.opt.listchars = {
+	tab = '» ',
+	multispace = '·',
+	trail = '·',
+	leadmultispace = '>···',
+}
 vim.opt.list = true
 
 -- Text Processing
