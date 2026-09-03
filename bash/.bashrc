@@ -1,6 +1,8 @@
 [[ $- != *i* ]] && return # If not interactive do nothing
 
 set -o vi
+bind 'set show-all-if-ambiguous on'
+bind 'TAB:menu-complete'
 
 ### Alias
 ## start WM
@@ -94,5 +96,7 @@ unset -v C_BLACK CB_BLACK C_RED CB_RED C_GREEN CB_GREEN C_YELLOW CB_YELLOW \
 # [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
 # 	. /usr/share/bash-completion/bash_completion
 
-## Use zig bash-completion, if available
-[[ -f ~/.local/bin/_zig.bash ]] && . ~/.local/bin/_zig.bash
+## Source bash-completion, if available
+for file in ~/.local/bin/_*.bash; do
+	[[ -f "$file" ]] && . "$file"
+done
