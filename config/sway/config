@@ -38,7 +38,7 @@ exec_always mako
 # exec wireplumber
 # endif
 exec lxqt-policykit-agent
-exec brightnessctl set  20%
+# exec brightnessctl set  20%
 # exec $browser
 exec swayidle -w
 
@@ -81,6 +81,7 @@ bindsym $mod+o exec $menu
 bindsym $mod+Shift+o exec wmenu-run
 bindsym $mod+Shift+Return exec $term
 bindsym $mod+Shift+b exec $browser
+bindsym $mod+Shift+t exec "blueman-manager"
 bindsym $mod+Ctrl+b exec $pbrowser
 bindsym $mod+Shift+e exec $file_explorer
 # Basic controls
@@ -89,6 +90,7 @@ bindsym $mod+Shift+w exec "random-wallpaper"
 bindsym $mod+Ctrl+w exec "random-wallpaper --remote"
 bindsym $mod+Shift+s exec "screenshot"
 bindsym $mod+Ctrl+s exec "screenshot -e"
+bindsym $mod+c exec "grim"
 bindsym $mod+Alt+s exec "record-video"
 bindsym $mod+Alt+Escape exec "record-video --kill"
 bindsym $mod+g exec "scratch-pad"
