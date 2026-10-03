@@ -2,3 +2,6 @@
 	email = user@example.com
 	name = Your Name
 	signingkey = EXAMPLE1234
+# [credential]
+# 	helper =
+# 	helper = store --file "${XDG_CONFIG_HOME:-$HOME/.config}/git/credentials-example"
