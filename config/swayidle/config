@@ -1,3 +1,3 @@
-timeout 360 'swaylock -f'
-timeout 420 'wlr-dpms off' resume 'wlr-dpms on'
-timeout 7200 'systemctl hibernate'
+timeout 360 'test -e /tmp/noidle || swaylock -f'
+timeout 420 'test -e /tmp/noidle || wlr-dpms off' resume 'wlr-dpms on'
+timeout 7200 'test -e /tmp/noidle || systemctl hibernate'
