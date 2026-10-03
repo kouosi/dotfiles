@@ -37,7 +37,7 @@ alias rm='trash-put -iv'
 
 ## shortcut commands
 alias mpv-yt='mpv --cache=yes \
-    --ytdl-format="bestvideo[height<=1080][vcodec!=vp9]+bestaudio/best"'
+    --ytdl-format="bestvideo[height<=1080][vcodec!*=av01]+bestaudio/best"'
 alias servehugo='hugo server -D --disableFastRender --noHTTPCache'
 alias livereload='livereload --host localhost -p 1919'
 alias zigw='zig build --watch -fincremental --prominent-compile-errors'
