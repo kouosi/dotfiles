@@ -43,6 +43,21 @@ vim.opt.listchars = {
 	trail = '·',
 	leadmultispace = '>···',
 }
+local function set_lead()
+	local sw = vim.fn.shiftwidth()
+	vim.opt_local.listchars:append({
+		lead = '>',
+		leadmultispace = '>' .. string.rep('·', sw - 1),
+	})
+end
+
+vim.api.nvim_create_autocmd({ 'BufWinEnter', 'FileType' }, {
+	callback = set_lead,
+})
+vim.api.nvim_create_autocmd('OptionSet', {
+	pattern = { 'shiftwidth', 'tabstop' },
+	callback = set_lead,
+})
 vim.opt.list = true
 
 -- Text Processing
