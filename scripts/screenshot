@@ -1,7 +1,7 @@
 #!/bin/sh
 
 DIR="$(xdg-user-dir PICTURES)/Screenshot/"
-ICON_DIR="$XDG_CONFIG_HOME/.assets/Icons/others/"
+ICON_DIR="$XDG_CONFIG_HOME/.assets/icons/others"
 FULL_FILE=$(date +'%Y%e%d-%s.png')
 SHORT_FILE=$(date +'%s.png')
 

@@ -1,4 +1,4 @@
 ignore-empty-password
 show-failed-attempts
 # no-unlock-indicator
-image=$XDG_CONFIG_HOME/.assets/Wallpapers/Forest/forest_009.jpg
+image=$XDG_CONFIG_HOME/.assets/wallpapers/nature/nature_7.jpg

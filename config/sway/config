@@ -47,7 +47,7 @@ exec swayidle -w
 #########################################################
 # output HDMI-A-1 resolution 1920x1080 position 1920,0
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg $XDG_CONFIG_HOME/.assets/Wallpapers/Anime/anime_111.png fill
+output * bg $XDG_CONFIG_HOME/.assets/wallpapers/anime/anime_8.png fill
 
 #########################################################
 ### Input configuration
@@ -95,6 +95,7 @@ bindsym $mod+c exec "grim"
 bindsym $mod+Alt+s exec "record-video"
 bindsym $mod+Alt+Escape exec "record-video --kill"
 bindsym $mod+g exec "scratch-pad"
+bindsym $mod+u exec "wtype continue -k Return"
 bindsym $mod+Shift+y exec "swaylock & sleep 1 && systemctl suspend"
 bindsym $mod+Period exec "emoji-picker"
 bindsym $mod+Shift+c kill
