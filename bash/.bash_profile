@@ -22,7 +22,6 @@ export HISTTIMEFORMAT="%F %T "
 
 ## Zig Lang
 export ZVM_PATH=/usr/zvm
-export ZIG_GLOBAL_CACHE_DIR="$XDG_DATA_HOME"/.zig-cache/
 export PATH="$PATH":"$ZVM_PATH"/bin:"$ZVM_PATH"/self
 
 ## Rust Lang
@@ -55,6 +54,7 @@ export LESSHISTFILE=- # Do not store .lessist file
 export MOZ_ENABLE_WAYLAND=1
 export W3M_DIR="$XDG_STATE_HOME"/w3m
 export PLATFORMIO_CORE_DIR="$XDG_DATA_HOME"/platformio
+export PLATFORMIO_BUILD_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/pio"
 export WINEPREFIX="$XDG_DATA_HOME"/wine
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps #,ctrl:swapcaps # Remap caps lock key
 export _JAVA_AWT_WM_NONREPARENTING=1
