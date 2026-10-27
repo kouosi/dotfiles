@@ -18,6 +18,8 @@ if [ -z "$1" ]; then
 	if [ -n "$selected" ]; then
 		open_editor "$selected"
 	fi
+elif [ "$1" = "--note-path" ]; then
+	echo "$NOTE_DIR"
 elif [ "$1" = "-n" ]; then
 	open_editor
 elif [ "$1" = "-l" ]; then
