@@ -1,11 +1,29 @@
 #!/bin/sh
 
+PREFIX="🦄"
+MAX_DEPTH=1
 FZF_FLAG="--height 40% --layout=reverse --border=rounded"
 PROJECT_DIR="$(xdg-user-dir PROJECTS)"
+
+if [ "$(basename "$0")" = "pw" ]; then
+	PREFIX="👜"
+	MAX_DEPTH=0
+	PROJECT_DIR="$HOME/Work"
+fi
+
+[ "$PROJECT_DIR" = "$HOME" ] && PROJECT_DIR="$HOME/Projects"
 cd "$PROJECT_DIR" || exit 1
 
+tmux_attach() {
+	if [ -n "$TMUX" ]; then
+		tmux switch-client -t "$1"
+	else
+		tmux attach-session -t "$1"
+	fi
+}
+
 if [ "$1" = "a" ]; then
-	SESSIONS=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | grep '^#')
+	SESSIONS=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | grep "^$PREFIX")
 	if [ -z "$SESSIONS" ]; then
 		echo "No tmux sessions found."
 		exit 0
@@ -15,11 +33,11 @@ if [ "$1" = "a" ]; then
 		echo "No session selected."
 		exit 0
 	fi
-	tmux attach-session -t "$SELECTED"
+	tmux_attach "$SELECTED"
 	exit 0
 fi
 
-SELECTED=$(find * -maxdepth 1 -type d ! -path '*/.*' | sort -f | fzf \
+SELECTED=$(find * -maxdepth $MAX_DEPTH -type d ! -path '*/.*' | sort -f | fzf \
 	--border-label="Search Projects" $FZF_FLAG)
 if [ -z "$SELECTED" ]; then
 	echo "Nothing Selected!"
@@ -28,7 +46,7 @@ fi
 cd "$SELECTED"
 FULL_PATH="$(pwd)"
 
-SESSION_NAME="#$(basename "$SELECTED" | sed 's/[^a-zA-Z0-9]/_/g')"
+SESSION_NAME="$PREFIX$(echo "$SELECTED" | sed 's/[^a-zA-Z0-9]/_/g')"
 
 if ! tmux has-session 2>/dev/null; then
 	tmux new-session -s "$SESSION_NAME" -c "$FULL_PATH"
@@ -39,8 +57,8 @@ if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
 	window_index=$(tmux new-window -t "$SESSION_NAME" -c \
 		"$FULL_PATH" -P -F "#{window_index}")
 	tmux select-window -t "$SESSION_NAME:$window_index"
-	tmux attach-session -t "$SESSION_NAME"
+	tmux_attach "$SESSION_NAME"
 else
 	tmux new-session -d -s "$SESSION_NAME" -c "$FULL_PATH"
-	tmux attach-session -t "$SESSION_NAME"
+	tmux_attach "$SESSION_NAME"
 fi

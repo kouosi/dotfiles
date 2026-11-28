@@ -32,14 +32,17 @@ touch "$XDG_STATE_HOME"/bash/history
 touch "$XDG_DATA_HOME"/gnupg
 touch "$XDG_DATA_HOME"/wget-hsts
 mkdir -p ~/Media/Pictures/Mpv/
+mkdir -p ~/Media/Musics/
+mkdir -p ~/Media/Videos/
 mkdir -p "$XDG_DATA_HOME"/vim/undo
-cp -iv config/git/config.local ~/.local/share/.git.config || echo "Not replacing git local config"
+cp -iv config/git/config.local ~/.local/share/.git.config || echo "INFO: Not replacing git local config"
 
 # install all config
 stow config/ -t "$XDG_CONFIG_HOME"/
 stow .assets/ -t "$XDG_CONFIG_HOME"/.assets
 stow bash/ -t "$HOME"/
 stow scripts/ -t "$LOCAL_BIN"/
+ln -sr ./scripts/p "$LOCAL_BIN"/pw
 
 # Create files after linked
 touch "$XDG_CONFIG_HOME"/ncmpcpp/error.log
