@@ -49,6 +49,9 @@ alias venv='source venv/bin/activate'
 alias wget='wget --hsts-file="$XDG_DATA_HOME"/wget-hsts'
 alias adb='HOME="$XDG_DATA_HOME"/android adb'
 
+## Workarounds
+export GPG_TTY=$(tty)
+
 ### Prompt
 ## Colors
 C_BLACK='\[\e[0;30m\]'	CB_BLACK='\[\e[1;30m\]'
