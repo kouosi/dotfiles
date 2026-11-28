@@ -29,6 +29,7 @@ vim.opt.autoread = true
 vim.g.mapleader = " "
 
 -- Appearance
+-- vim.o.background = "light"
 vim.opt.title = true
 vim.opt.cursorline = true
 vim.opt.colorcolumn = "80,100,120"

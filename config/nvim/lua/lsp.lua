@@ -8,6 +8,7 @@ vim.cmd([[
 
 local all_lsps = {
 	{ "gopls" },
+	{ "typos_lsp" },
 	{ "lua_ls" },
 	{ "css" },
 	{ "html" },

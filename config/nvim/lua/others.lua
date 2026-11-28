@@ -37,7 +37,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 local viewers = {
 	{ command = "okular", patterns = { "*.pdf" } },
 	{ command = "imv", patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" } },
-	{ command = "mpv", patterns = { "*.mp4", "*.webm", "*.mkv" } },
+	{ command = "mpv", patterns = { "*.mp4", "*.webm", "*.mkv", "*.mp3", "*.opus" } },
 }
 
 local group = vim.api.nvim_create_augroup("ExternalViewers", { clear = true })
@@ -68,4 +68,9 @@ for _, viewer in ipairs(viewers) do
 	register_viewer(viewer.command, viewer.patterns)
 end
 
-})
+-- vim.api.nvim_create_autocmd("BufEnter", {
+-- 	pattern = { "8os.c" },
+-- 	callback = function()
+-- 		vim.cmd("TSContext disable")
+-- 	end,
+-- })
