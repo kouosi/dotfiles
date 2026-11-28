@@ -244,7 +244,7 @@ client.urgent		$col_text_dark	$col_urgent	$col_text_dark	$col_urgent	$col_urgent
 ### Titlebar
 #########################################################
 titlebar_border_thickness 1
-font pango:CaskaydiaMono Nerd Font 9
+font pango:CommitMono Nerd Font 10
 titlebar_padding 5 2
 for_window [app_id="mpv"] border normal
 for_window [app_id="qemu"] floating enable
@@ -256,7 +256,7 @@ floating_maximum_size 3840 x 2160
 bar {
 	height 20
 	position bottom
-	font pango:CaskaydiaMono Nerd Font 9
+	font pango:CommitMono Nerd Font 10
 	status_command sway-status
 	colors {
 		statusline $col_text_light
